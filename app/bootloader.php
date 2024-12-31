@@ -9,3 +9,4 @@ require_once 'libraries/Database.php';
 
 //load helpers
 require_once 'helpers/URL_helper.php';
+require_once 'helpers/session-helper.php';
