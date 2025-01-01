@@ -9,9 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/dashboard.css">
-    <link rel="stylesheet" href="assets/css/profile.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/navbar.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/dashboard.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/profile.css">
 
 
     <title>Suwa-Connect</title>
@@ -20,7 +20,7 @@
 <body>
 <div class="sidebar">
         <div class="logo">
-            <img src="assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
+            <img src="<?php echo URLROOT;?>public/assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
             <h2>සුව CONNECT</h2>
 
             <button class="toggle-btn" id="toggleSidebar"> 
@@ -182,7 +182,7 @@
     </section>
   </main>
 
-  <script src="assets/js/profile.js"></script>">
+ <script src="<?php echo URLROOT?>public/assets/js/navbar.js"></script>
 </body>
 </html>
 
