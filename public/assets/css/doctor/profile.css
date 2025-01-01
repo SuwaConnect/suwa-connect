@@ -1,0 +1,257 @@
+/* General Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {   
+  background-color: #e6f2ff;
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.main-content{
+      background-color: #e6f2ff;
+      color:#2e2e2e;
+      padding: 20px;
+      margin-left: 250px; /* To make space for the sidebar */
+      padding: 20px;
+      width: calc(100% - 250px); /* Take the remaining width */
+      overflow-y: auto; /* Enable scrolling if content overflows vertically */
+      flex-grow: 1;
+      transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+      margin-bottom: 30px;
+      padding-bottom: 0;
+  
+  }
+  header {   
+   
+    margin-bottom: 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+  }
+  
+  
+  .profile-picture {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .profile-picture .upload-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .profile-picture .placeholder {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  /* Form Styles */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+  .save-password-btn{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    
+  }
+  .form-actions button  {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .form-actions .edit-btn {
+    background-color: #ffc107;
+    color: #333;
+  }
+  
+  .form-actions .save-btn {
+    background-color: #28a745;
+  }
+  
+  .availability-inputs {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  /* Section Styles */
+  section {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+  }
+  
+  section h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  section h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  /* Documents Section */
+  .document-form .form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .document-form .status {
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  
+  .document-form .status.verified {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .document-form .status.pending {
+    background-color: #ffc107;
+    color: #333;
+  }
+  
+  .document-form .status.rejected {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  /* Reviews Section */
+  .review-overview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .review-item {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .review-rating .rating-stars {
+    color: #ffc107;
+  }
+  
+  .review-text {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Notifications Section */
+  .notification-preferences .form-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .notification-preferences input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  /* Activity Log Section */
+  .activity-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  /* Delete Account Section */
+  .delete-account p {
+    margin-bottom: 20px;
+  }
+  
+  .delete-btn {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Empty State */
+  .empty-state {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+    color: #666;
+  }

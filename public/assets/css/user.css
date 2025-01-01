@@ -1,0 +1,175 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e6f2ff;
+}
+
+/* Container to wrap the main content */
+.container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: calc(100vh - 60px); /* Adjusted for the height of the header */
+    box-sizing: border-box;
+    padding-top: 0;
+}
+
+/* Main content area */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    width: 66.67%;
+    box-sizing: border-box;
+}
+
+/* Header Styles */
+h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+#current-date {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Box Container */
+.boxes {
+    display: flex;
+    gap: 20px; /* Increased gap for better spacing */
+}
+
+/* Box Style */
+.box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: all 0.3s ease-in-out;
+}
+
+.box:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}
+
+.box-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.box-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.box-data {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Update Button */
+.update-button {
+    background-color: #0e4ad5;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.update-button:hover {
+    background-color: #0056b3;
+}
+
+/* Address Section */
+.address-section {
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.address-section h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.address-section p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Text separated sections */
+.text-separated {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-separated h3 {
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+}
+
+.text-separated p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Side Box */
+.side-box {
+    background-color: #1e1e1e;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* BMI Calculator Section */
+.bmi-calculator {
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.bmi-calculator h3 {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.dropdown {
+    display: inline-block;
+    background-color: #1e1e1e;
+    color: #fefefe;
+    padding: 5px 10px;
+    border: 1px solid #fff;
+    border-radius: 4px;
+}

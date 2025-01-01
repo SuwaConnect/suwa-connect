@@ -1,0 +1,277 @@
+/* Main content layout */
+body {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  .main-content {
+    background-color: #e6f2ff;
+      color:#2e2e2e;
+      padding: 20px;
+      margin-left: 250px; /* To make space for the sidebar */
+      padding: 20px;
+      width: calc(100% - 250px); /* Take the remaining width */
+      overflow-y: auto; /* Enable scrolling if content overflows vertically */
+      flex-grow: 1;
+      transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+      margin-bottom: 0;
+      padding-bottom: 0;
+  
+  }
+  
+  /* Header */
+  header {
+    margin-bottom: 20px;
+  }
+  
+  h1 {
+    font-size: 2em;
+    text-align: left; /* Align header to the left */
+    margin: 0;
+  }
+  
+  /* Tabs container */
+  .tabs {
+    display: flex;
+    justify-content: flex-start; /* Align tabs to the left */
+    margin-bottom: 20px;
+    gap: 10px; /* Space between tabs */
+  }
+  
+  /* Tabs styling */
+  .tab-link {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent; /* Default no underline */
+    transition: background-color 0.3s ease, border-bottom-color 0.3s ease;
+  }
+  
+  .tab-link.active {
+    border-bottom: 3px solid #0052cc; /* Blue underline for active tab */
+  }
+  
+  .tab-link:hover {
+    background-color: #e9effd; /* Light blue on hover */
+  }
+  
+  /* Schedule button */
+  .schedule-btn {
+    padding: 10px 20px;
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: auto; /* Align button to the right */
+    transition: background-color 0.3s ease;
+  }
+  
+  .schedule-btn:hover {
+    background-color: #0041a3;
+  }
+  
+  /* Appointments container */
+  .appointments {
+    display: flex;
+    gap: 20px; /* Space between appointments and calendar */
+  }
+  
+  /* Appointment card */
+  .appointment-card {
+    width: 95%; /* 50% width minus some margin */
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Hide non-active tab contents */
+  .tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
+  /* Calendar styles */
+  /* Main content layout */
+  /* Content container */
+  .content-container {
+    display: flex; /* Flex layout for appointments and calendar */
+    gap: 20px; /* Space between appointments and calendar */
+  }
+  
+  /* Appointments container */
+  .appointments {
+    flex: 0 0 66.5%; /* Set appointments width to 66.5% */
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Space between appointments */
+  }
+  
+  /* Calendar Container */
+  .calendar-container {
+    flex: 1; /* Take remaining space */
+    border: 1px solid #0052cc; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px;
+    background-color: white; /* Background color */
+  }
+  
+  
+  /* Calendar Header */
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .current-date {
+    font-weight: bold; /* Bold date */
+  }
+  
+  /* Navigation Buttons */
+  .nav-button {
+    background-color: transparent; /* No background */
+    border: none; /* No border */
+    cursor: pointer; /* Pointer cursor */
+    font-size: 1.5em; /* Font size for buttons */
+  }
+  
+  /* Calendar Grid */
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 columns for days */
+    gap: 5px; /* Space between days */
+  }
+  
+  /* Day Name */
+  .day-name {
+    font-weight: bold; /* Bold day names */
+    text-align: center; /* Center align */
+  }
+  
+  /* Calendar Days */
+  .calendar-days {
+    display: contents; /* Use grid's display */
+  }
+  
+  .day {
+    padding: 10px; /* Padding for day cells */
+    text-align: center; /* Center align */
+    cursor: pointer; /* Pointer cursor */
+    border-radius: 5px; /* Rounded corners */
+  }
+  
+  .day:hover {
+    background-color: #e9effd; /* Highlight on hover */
+  }
+  
+  /* Current Day */
+  .current-day {
+    background-color: #0052cc; /* Current day background */
+    color: white; /* Current day text color */
+  }
+  
+  .sidebar.collapsed + .main-content{
+  
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+  }
+  
+  
+  /* Add responsive design for calendar */
+  @media (max-width: 768px) {
+    .appointments {
+        flex-direction: column; /* Stack appointments and calendar vertically */
+    }
+    
+    .appointment-card,
+    .calendar {
+        width: 100%; /* Full width on smaller screens */
+    }
+  
+    .main-content {
+      margin-left: 80px;
+      width: calc(100% - 80px);
+      overflow-y: auto;
+    }
+    
+    .grid-container {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+  }
+  
+  /* Modal container */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;
+    text-align: center;
+  }
+  
+  /* Close button */
+  .close-scan-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close-scan-modal:hover,
+  .close-scan-modal:focus {
+    color: black;
+    text-decoration: none;
+  }
+  
+  .cancel-btn, .change-btn {
+    padding: 5px 10px;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: red;
+    color: white;
+}
+
+.change-btn {
+    background-color: #0052cc;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: darkred;
+}
+
+.change-btn:hover {
+    background-color: #0041a3;
+}

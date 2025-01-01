@@ -1,0 +1,131 @@
+.search-container {
+    display: flex;    
+    margin-top: 20px;    
+    margin-bottom: 20px;
+    }
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 8px;
+    padding: 8px 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+   }
+
+.search-box input {
+    border: none;
+    outline: none;
+    width: 100%;
+    padding: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.search-box i {
+    color: #666;
+    margin-right: 8px;
+}
+
+.create-btn{
+    padding: 10px 20px;
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.export-btn{
+    margin-left: 20px;
+    padding: 10px 20px;
+    color: #0052cc;
+    background-color: white;
+    border: 2px solid #0052cc;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.overview {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.overview-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-right:20px;
+}
+
+.appointments-table {
+    margin: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.filters select, .filters input {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.pagination {
+    text-align: right;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+ #view button, #reschedule button, #cancel button {
+    padding: 10px 20px;
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+.statistics {
+    margin: 20px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+

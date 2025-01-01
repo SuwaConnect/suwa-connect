@@ -1,0 +1,91 @@
+#searchBar {
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+/* Support Overview Section */
+.overview {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.tickets-overview, .summary-categories {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tickets-overview ul, .summary-categories ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tickets-overview ul li, .summary-categories ul li {
+    padding: 5px 0;
+    font-weight: bold;
+}
+
+/* Filters Section */
+.filters {
+    background-color: white;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filters h2 {
+    margin-bottom: 10px;
+}
+
+.filter-group label {
+    display: inline-block;
+    width: 120px;
+    font-weight: bold;
+}
+
+.filter-group select, .filter-group input {
+    margin: 10px 0;
+    padding: 5px;
+    width: 200px;
+}
+
+/* Tickets List Section */
+.tickets-list {
+    margin: 20px;
+}
+
+.tickets-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tickets-list table th, .tickets-list table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.tickets-list table th {
+    background-color: #0052cc;
+    color: white;
+}
+
+.tickets-list table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.tickets-list table td button {
+    
+    border-radius: 5px;
+    background-color: #0052cc;
+    color: white;
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+}

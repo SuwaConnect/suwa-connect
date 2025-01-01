@@ -1,0 +1,80 @@
+/* styles.css */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: #ffffff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    max-width: 700px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #00796b;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #004d40;
+}
+
+.patient-info, .health-details, .records-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #cfd8dc;
+    border-radius: 8px;
+    background: #f7fafa;
+}
+
+.patient-info p, .health-details ul {
+    margin: 10px 0;
+}
+
+.health-details ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.health-details li {
+    margin: 8px 0;
+    font-size: 0.95rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    border: 1px solid #cfd8dc;
+    padding: 10px;
+    font-size: 0.9rem;
+}
+
+table th {
+    background: #00796b;
+    color: #ffffff;
+}
+
+table tbody tr:nth-child(even) {
+    background: #e0f7fa;
+}
+
+table tbody tr:hover {
+    background: #b2df
+}

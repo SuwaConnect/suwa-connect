@@ -1,0 +1,114 @@
+/* General Styling */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+.search-bar input {
+    width: 60%;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.quick-actions {
+    margin-top: 10px;
+}
+
+.quick-actions button {
+    padding: 10px 15px;
+    font-size: 14px;
+    margin: 5px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Overview Section Styling */
+.overview {
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.overview-item {
+    text-align: center;
+}
+
+.overview-item h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.overview-item p {
+    font-size: 14px;
+    color: gray;
+}
+
+/* Revenue Breakdown Section */
+.breakdown {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.breakdown h3 {
+    font-size: 18px;
+}
+
+.breakdown-item {
+    margin: 10px 0;
+}
+
+.breakdown-item h4 {
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Revenue Trends Section */
+.trends {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.trend-chart {
+    height: 300px;
+    background-color: #f0f0f0;
+    margin-bottom: 20px;
+}
+
+.top-services ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.top-services li {
+    margin: 5px 0;
+}
+
+/* Payment Details Section */
+.payment-details {
+    background-color: white;
+    padding: 20px;
+}
+
+.payment-details table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.payment-details table th, .payment-details table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.payment-details table th {
+    background-color: #f2f2f2;
+}
+
+

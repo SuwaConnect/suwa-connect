@@ -1,0 +1,95 @@
+body {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-left:20px;
+    margin-right: 20px;
+    padding:0;
+    background-color: #e6f2ff;
+}
+
+
+.main-content {
+    background-color: #e6f2ff;
+    color:#2e2e2e;
+    padding: 20px;
+    margin-left: 250px; /* To make space for the sidebar */
+    width: calc(100% - 250px); /* Take the remaining width */
+    overflow-y: auto; /* Enable scrolling if content overflows vertically */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+}
+
+
+header {
+    margin-top: 20px;
+    margin-bottom: 20px; 
+}
+
+header h1{
+    font-size: 32px;
+    font-weight: 600;
+}
+
+header p{
+    font-size: 16px;
+   }
+
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+}
+
+.card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.card h3{
+    font-size: 18px;
+    font-weight:500;
+}
+.card .description{
+    font-size: 10px;
+    font-style: italic;
+}
+
+.card p{
+    font-size: 30px;
+    padding: 10px;
+}
+.large-card {
+    grid-column: span 2;
+}
+
+.sidebar.collapsed + .main-content {
+
+        margin-left:80px;
+        width: calc(100% - 80px);
+        overflow-y: auto;
+    }
+
+    
+
+
+@media (max-width: 768px) {
+
+    .main-content {
+        margin-left: 80px;
+        width: calc(100% - 80px);
+        overflow-y: auto;
+    }
+    
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}

@@ -1,0 +1,158 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+}
+
+
+.main-content{
+    background-color: #f9f9f9;
+    color:#2e2e2e;
+    padding: 20px;
+    margin-left: 250px; /* To make space for the sidebar */
+    padding: 20px;
+    width: calc(100% - 250px); /* Take the remaining width */
+    overflow-y: auto; /* Enable scrolling if content overflows vertically */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+    margin-bottom: 0;
+    padding-bottom: 0;
+    width:50%;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #0E4AD5;
+    color: white;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-profile {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.user-details h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.user-details p {
+    margin: 0;
+}
+
+/* Filters */
+.filters {
+    background-color: #fff;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.filters h2 {
+    margin-bottom: 15px;
+}
+
+.filter-options {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #0E4AD5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Reports Table */
+.reports-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.reports-list th, .reports-list td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.reports-list th {
+    background-color: #f4f4f4;
+}
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 400px;
+}
+
+.close-btn {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: black;
+}
+
+.sidebar.collapsed + .main-content {
+
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+
+    .main-content {
+        margin-left: 80px;
+        width: calc(100% - 80px);
+        overflow-y: auto;
+    }
+}

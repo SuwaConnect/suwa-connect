@@ -1,0 +1,83 @@
+header {
+  margin-top: 20px;
+  margin-bottom: 20px; 
+}
+  
+  .account-settings, .notification-preferences, .system-preferences, .privacy-security, .support-help, .logout {
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  input, select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px; 
+  }
+
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .privacy-security .manage-devices li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .privacy-security .manage-devices button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .support-help ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .support-help li {
+    margin-bottom: 10px;
+  }
+  
+  .support-help a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .logout-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .listsettings{
+    margin-left: 50px;
+  }

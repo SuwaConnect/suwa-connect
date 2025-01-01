@@ -1,0 +1,189 @@
+/* Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Global Styles */
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    /* background-color: #f5f5f5; */
+  }
+  
+  /* Header */
+  .header {
+    margin-top: 20px;
+    margin-bottom: 20px; 
+  }
+  
+  /* .page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  } */
+  
+  /* .page-header p {
+    font-size: 1.2rem;
+  } */
+  
+  /* Advertisements Overview */
+  .ads-overview {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .ads-overview table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .ads-overview th,
+  .ads-overview td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .ads-overview button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .edit-ad {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .delete-ad {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  /* Create/Edit Advertisement */
+  .create-ad,
+  .edit-advertisement,
+  .delete-ad-modal,
+  .ad-insights,
+  .ad-notifications {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .create-ad form,
+  .edit-advertisement form {
+    display: grid;
+    grid-gap: 1rem;
+  }
+  
+  .create-ad label,
+  .edit-advertisement label {
+    font-weight: bold;
+  }
+  
+  .create-ad input,
+  .create-ad textarea,
+  .edit-advertisement input,
+  .edit-advertisement textarea {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .create-ad button,
+  .edit-advertisement button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Delete Advertisement Modal */
+  .delete-ad-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .delete-ad-modal > div {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 4px;
+    text-align: center;
+  }
+  
+  .delete-ad-modal button {
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .confirm-delete {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .cancel-delete {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  /* Advertisements Insights */
+  /* .ad-insights {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  } */
+  
+  .ad-insights ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .ad-insights li {
+    margin-bottom: 1rem;
+  }
+  
+  /* Advertisements Notifications */
+  /* .ad-notifications {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  } */
+  
+  .ad-notifications p {
+    margin-bottom: 1rem;
+  }
+  
+  .ad-notifications button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }

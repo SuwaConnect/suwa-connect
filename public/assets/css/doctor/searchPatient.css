@@ -1,0 +1,239 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    
+}
+
+body{
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: auto;
+    
+      
+}
+
+
+
+
+/*  
+.main-content{
+    
+    margin-left: 150px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    width: 100%;
+
+} */
+
+.main-content {
+    background-color: #e6f2ff;
+    color:#2e2e2e;
+    padding: 20px;
+    margin-left: 250px; /* To make space for the sidebar */
+    padding: 20px;
+    width: calc(100% - 250px); /* Take the remaining width */
+    overflow-y: auto; /* Enable scrolling if content overflows vertically */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+}
+
+.searchbar button{
+    background-color: #197de0;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    /* width: 60%; */
+    height: 33px;
+    font-size: 15px;
+    width: 50px;
+    height: 40px;
+    margin-left: 10px;
+    
+}
+
+
+.searchbar{
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: fixed;
+    
+
+}
+
+.searchbar input{
+    width: 350px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #e5e7ea;
+    font-size: 15px;
+    border: none;
+    height: 40px;
+}
+
+.searchbar img{
+    width: 20px;
+    height: 20px;
+    /* position: absolute; */
+    /* top: 30px;
+    left: 30px; */
+    
+}
+
+.patientList{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    margin-top: 30px;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.patient{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #e5e7ea;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
+    width: 90%;
+}
+
+.patient img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.patient-image{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+#patient-details{
+display: flex;
+flex-direction:row;
+width: 90%; 
+font-size: 18px;
+align-items: center;
+
+}
+
+.patient-id{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+.patient-name{
+    width: 30%;
+    display: flex;
+    justify-content: center;
+}
+
+.patient-age{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+}
+
+.request-access-btn{
+    width: 30%;
+    
+    display: flex;
+    justify-content: center;
+    
+}
+
+.request-access-btn button{
+    font-size: 18px;
+    background-color: #197de0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    
+    
+}
+
+.request-access-btn button:hover{
+    background-color: #0f4c75;
+    transition: 0.5s;
+
+}
+
+.visit-profile-btn{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+  
+
+}
+
+
+
+.visit-profile-btn button{
+    font-size: 18px;
+    background-color: #197de0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+
+    
+}
+
+.visit-profile-btn button:hover{
+    background-color: #0f4c75;
+    transition: 0.5s;
+}
+
+
+.searchbarAndProfile{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile{
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    margin-left: 80%;
+    align-items: center;
+    font-size: 18px;
+}
+
+.profile img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.sideBar.collapsed + .main-content{
+
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+}
+

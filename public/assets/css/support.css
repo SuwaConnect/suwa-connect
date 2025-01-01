@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background-color: #fff;
+}
+
+.main-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Aligns FAQ and contact form side by side */
+    gap: 20px; /* Adds spacing between FAQ and contact form */
+    margin-left: 250px; /* To make space for the sidebar */
+    width: calc(100% - 250px); /* Take the remaining width */
+    overflow-y: auto; /* Enable scrolling if content overflows vertically */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+
+h1 {
+    text-align: left;
+    color: #333;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.faq-container {
+    width: 60%; /* Adjust width as needed */
+    margin-bottom: 20px;
+}
+
+.faq-item {
+    margin-bottom: 15px;
+}
+
+.faq-question {
+    width: 100%;
+    padding: 15px;
+    background-color: #0052cc;
+    color: white;
+    text-align: left;
+    border-radius: 5px;
+    font-size: 1.1rem;
+}
+
+.faq-answer {
+    padding: 15px;
+    background-color: #f9f9f9;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.faq-answer p {
+    margin: 0;
+    color: #555;
+}
+
+.contact-form {
+    width: 35%; /* Adjust width as needed */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contact-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #fff;
+}
+
+.contact-form button.submit-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #0052cc;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-form button.submit-button:hover {
+    background-color: #0745a1;
+}
+
+.sidebar.collapsed + .main-container{
+  
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+  }
+  
+  
+  /* Add responsive design for calendar */
+  @media (max-width: 768px) {
+  
+    .main-content {
+      margin-left: 80px;
+      width: calc(100% - 80px);
+      overflow-y: auto;
+    }
+    
+  }

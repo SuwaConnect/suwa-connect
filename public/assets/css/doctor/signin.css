@@ -1,0 +1,164 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+        body {
+            font-family: Poppins, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            position: relative;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            max-width: 800px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .form-container {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .form-container h3{
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-family: Poppins, sans-serif;
+        }
+
+        .form-container .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #0052cc;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            font-family: Poppins, sans-serif;
+            font-style: bold;
+            font-weight: 600;
+        }
+
+        .form-container .btn:hover {
+            background-color: #0041a3;
+        }
+
+        .form-container input {
+            width: calc(100% - 40px); /* Reduced width for the eye icon */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group .toggle-icon {
+            position: absolute;
+            right: 40px;
+            top: 25px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #555;
+        }
+        .form-container .signup-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .form-container .signup-link a {
+            color: #0052cc;
+            text-decoration: underline;
+        }
+
+        .form-container .signup-link a:hover {
+            color: #0041a3;
+        }
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-container img {
+            width:350px;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .logo-container {
+            position: absolute; /* Positions the logo absolutely within the .container */
+            top: 10px; /* Adjust as needed */
+            right: 10px; /* Adjust as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-container img {
+            width: 100px; /* Set a maximum width for the logo */
+            height: auto; /* Maintain aspect ratio */
+        }
+        
+        
+        
+
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+                max-width: 100%;
+                padding: 10px;
+            }
+
+            .form-container
+            {
+                padding: 10px;
+            }
+
+            .image-container {
+                display: none;
+            }
+        
+        }
+            
+        

@@ -47,6 +47,10 @@ class Doctor extends Controller
         $this->view('doctor/searchPatient');
     }
 
+    public function doctorLogIn(){
+        $this->view('doctor/doctorsignin');
+    }
+
 
 
     public function register() {
@@ -135,8 +139,8 @@ class Doctor extends Controller
                 $this->doctorModel->registerNewDoctor($registrationData);
     
                 // Redirect on success
-                echo 'Doctor registered successfully!';
-                //header('Location: ' . URLROOT . 'doctor/addNewRecord');
+                //echo 'Doctor registered successfully!';
+                header('Location: ' . URLROOT . 'doctor/home');
                 exit();
             } else {
                 $data['error'] = "Passwords do not match.";

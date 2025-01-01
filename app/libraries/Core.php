@@ -2,8 +2,8 @@
 
 class Core {
 
-    protected $currentController = 'doctor';
-    protected $currentMethod = 'home';
+    protected $currentController = 'homecontroller';
+    protected $currentMethod = 'index';
     protected $params = [];
 
     public function __construct(){

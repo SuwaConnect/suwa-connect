@@ -1,0 +1,629 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+:root {
+    --primary-color:  #0052cc;
+    --secondary-color: #1E293B;
+    --text-color: #2e2e2e;
+    --light-bg:#f4f6f8;
+    --white: #FFFFFF;
+    --border-radius: 12px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: var(--secondary-color);
+    background-color: var(--light-bg);
+    padding-top: 90px;
+
+}
+
+/* Utility Classes */
+.highlight {
+    color: var(--primary-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 50px;
+    border:none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0041a3;
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--primary-color);
+    padding: 12px 24px;
+    border-radius: 50px;
+    border: 1px solid var(--primary-color);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-secondary:hover {
+    background-color: #f4f6f8;
+}
+
+/* Navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 80px;
+    padding-right: 50px;
+    background-color: var(--white);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    }
+
+.navbar .logo img {
+    width: 100px;
+}
+.nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+
+.nav-links a.active{
+    color: var(--primary-color);
+}
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Hero Section */
+.hero {
+    padding: 80px;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+    line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.hero-text p {
+    color: var(--text-color);
+    margin-bottom: 32px;
+    max-width: 500px;
+}
+
+.stats {
+    display: flex;
+    gap: 48px;
+    margin-top: 48px;
+}
+
+.stat-item h3 {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.stat-item p {
+    color: var(--text-color);
+    margin: 0;
+}
+
+.hero-image {
+    position: relative;
+}
+
+.image-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 50%;
+    transform: translate(48px, 48px);
+}
+
+.hero-image img {
+    position: relative;
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Services Section */
+.services {
+    padding: 80px;
+    text-align: center;
+}
+
+.services h2 {
+    font-size: 32px;
+    margin-bottom: 48px;
+}
+
+.service-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.service-card {
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: var(--border-radius);
+    text-align: left;
+}
+
+.icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--primary-color);
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+/* Special Services */
+.special-services {
+    padding: 80px;
+}
+
+.special-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+}
+
+.special-content img {
+    width: 100%;
+    border-radius: var(--border-radius);
+}
+
+.special-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.special-card {
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: var(--border-radius);
+}
+
+/* Doctors Section */
+.doctors {
+    padding: 80px;
+    text-align: center;
+}
+
+.doctor-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 48px 0;
+}
+
+.doctor-card {
+    background-color: var(--white);
+    padding: 24px;
+    border-radius: var(--border-radius);
+    text-align: left;
+}
+
+.doctor-card img {
+    width: 100%;
+    border-radius: var(--border-radius);
+    margin-bottom: 16px;
+}
+
+.specialty {
+    color: var(--text-color);
+    margin: 8px 0;
+}
+
+.stars {
+    color: #FFD700;
+}
+
+.doctor-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    border: none;
+    cursor: pointer;
+}
+
+.nav-dot.active {
+    background-color: var(--primary-color);
+}
+
+/* FAQ Section Styles */
+.faq {
+    padding: 80px;
+    background-color: var(--white);
+}
+
+.faq h2 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 48px;
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background-color: var(--light-bg);
+    border-radius: var(--border-radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.faq-question {
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+    background-color: #e8edf2;
+}
+
+.faq-question h3 {
+    font-size: 18px;
+    margin: 0;
+    padding-right: 24px;
+}
+
+.faq-toggle {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+    transition: transform 0.3s ease;
+}
+
+.faq-answer {
+    padding: 0 24px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    padding: 0 24px 24px;
+    max-height: 1000px;
+}
+
+.faq-item.active .faq-toggle {
+    transform: rotate(45deg);
+}
+
+.faq-answer p {
+    color: var(--text-color);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* CTA Section */
+.cta {
+    margin: 0 80px;
+    padding: 64px;
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
+    text-align: center;
+    color: var(--white);
+}
+
+.cta h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+
+.cta p {
+    margin-bottom: 32px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Footer */
+footer {
+    background-color: var(--white);
+    padding: 80px 80px 32px;
+    margin-top: 80px;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px;
+    margin-bottom: 48px;
+}
+
+.footer-col h3 {
+    margin-bottom: 24px;
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 16px;
+}
+
+.footer-col ul li a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 32px;
+    border-top: 1px solid #E2E8F0;
+    color: var}
+
+
+/* Doctors & Professionals Page */
+
+/* Doctors and Professionals Styles */
+.doctors-professionals {
+    background-color: var(--white);
+    
+}
+
+/* Hero Section */
+.pro-hero {
+    padding: 80px;
+    background-color: var(--light-bg);
+}
+
+.pro-hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pro-hero-text h1 {
+    font-size: 48px;
+    line-height: 1.2;
+    margin-bottom: 24px;
+}
+
+.pro-subtitle {
+    font-size: 18px;
+    color: var(--text-color);
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+.pro-cta-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.pro-hero-image img {
+    width: 100%;
+   
+}
+
+/* Benefits Section */
+.pro-benefits {
+    padding: 80px;
+    text-align: center;
+}
+
+.pro-benefits h2 {
+    font-size: 32px;
+    margin-bottom: 48px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.benefit-card {
+    background-color: var(--light-bg);
+    padding: 32px;
+    border-radius: var(--border-radius);
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.benefit-card:hover {
+    transform: translateY(-5px);
+}
+
+.benefit-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--primary-color);
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.benefit-card h3 {
+    margin-bottom: 12px;
+    color: var(--secondary-color);
+}
+
+.benefit-card p {
+    color: var(--text-color);
+}
+
+/* Supporting Text */
+.pro-support {
+    padding: 60px 80px;
+    background-color: var(--primary-color);
+    text-align: center;
+}
+
+.support-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.support-content p {
+    font-size: 20px;
+    color: var(--white);
+    line-height: 1.6;
+}
+
+/* Testimonial Section */
+.pro-testimonial {
+    padding: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.testimonial-card {
+    background-color: var(--light-bg);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    max-width: 800px;
+    position: relative;
+    margin-right: 40px;
+}
+
+.quote-icon {
+    font-size: 64px;
+    color: var(--primary-color);
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    opacity: 0.1;
+}
+
+.testimonial-text {
+    font-size: 20px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+    color: var(--text-color);
+    font-style: italic;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.author-image {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-info h4 {
+    margin: 0;
+    color: var(--secondary-color);
+}
+
+.author-info p {
+    margin: 4px 0 0;
+    color: var(--text-color);
+}
+
+/* Final CTA */
+.pro-final-cta {
+    padding: 80px;
+    text-align: center;
+    background-color: var(--light-bg);
+}
+
+.pro-final-cta h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+
+.pro-final-cta p {
+    color: var(--text-color);
+    margin-bottom: 32px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .pro-hero-content {
+        grid-template-columns: 1fr;
+    }
+
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pro-hero, .pro-benefits, .pro-support, .pro-testimonial, .pro-final-cta {
+        padding: 40px 20px;
+    }
+
+    .pro-hero-text h1 {
+        font-size: 36px;
+    }
+
+    .pro-cta-buttons {
+        flex-direction: column;
+    }
+}

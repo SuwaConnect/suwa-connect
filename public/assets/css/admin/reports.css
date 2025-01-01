@@ -1,0 +1,72 @@
+.reports{
+    width: calc(100%-250px);
+    margin: 250px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+header .actions {
+    margin-top: 10px;
+}
+
+header input {
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    width: 300px;
+}
+
+header button {
+    padding: 10px 15px;
+    margin-right: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+section {
+    padding: 20px;
+    background-color: white;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.reports-overview ul, .report-categories .categories, .latest-reports {
+    list-style-type: none;
+    padding: 0;
+}
+
+.filters label {
+    margin-right: 10px;
+}
+
+button#generateCustomReportBtn {
+    margin-top: 10px;
+    background-color: #17a2b8;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f1f1f1;
+}
+
+

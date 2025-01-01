@@ -1,0 +1,237 @@
+/* General Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    background-color: #f4f4f9;   
+    min-height: 100vh; /* Ensure the body takes the full height of the viewport */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.sidebar {
+    width: 250px;    
+    height: 100vh; /* Full viewport height */
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: width 0.3s ease;
+    
+}
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.sidebar .logo img {
+    width: 100px;
+}
+
+.sidebar .logo h2 {
+    padding-left: 15px;
+    font-size: 20px;
+    color: #444;
+}
+
+/* Style for toggle button */
+.toggle-btn {
+    background-color: #ebebeb;
+    border: none;
+    color: #444;
+    border-radius:50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 20px;
+    right: -20px;
+    transition: transform 0.3s ease;
+    z-index: 1001;
+}
+
+.toggle-btn i {
+    transition: transform 0.3s ease;
+}
+
+.toggle-btn:hover {
+    color: #0052cc;
+}
+
+/* Sidebar Menu */
+.sidebar .nav-menu {
+    padding:15px 15px;
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 10px;
+    
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    padding: 10px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+    background-color: #e9effd;
+}
+
+.nav-item.active .nav-link {
+    background-color: #e9effd;
+    color: #0052cc;
+}
+
+.nav-link i {
+    margin-right: 10px;
+}
+
+#logout .nav-link{
+    color: red;
+}
+
+#logout .nav-link:hover{
+    background-color: #f8d7da;
+}
+
+.sidebar-footer {
+    padding: 15px;
+    border-top: 1px solid #eee;
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding-top: 10px;
+  }
+  
+  .profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+  }
+  
+  .profile-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .profile-text {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .user-name {
+    font-weight: 600;
+  }
+/* Collapsed sidebar */
+.sidebar.collapsed {
+    width: 80px;
+}
+
+.sidebar.collapsed .logo h2,
+.sidebar.collapsed .nav-link span,
+.sidebar.collapsed .btn-user,.sidebar.collapsed .profile-text {
+    display: none;
+}
+
+.sidebar.collapsed .logo img{
+    width: 60px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.sidebar.collapsed .nav-link {
+    margin-right: 0;
+    align-items: center;
+    padding-top: 10px;
+
+}
+
+.sidebar.collapsed .nav-link i {
+    margin-right: 0;
+    align-items: center;
+
+}
+
+.sidebar.collapsed .toggle-btn {
+    right: -20px;
+    display: flex;
+}
+
+.sidebar-footer {
+    text-align: center;
+}
+/*Footer Section */
+footer {
+    background-color: #0052cc;;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+
+/* Responsive Design */
+
+    /* Responsive sidebar: smaller screen - collapse sidebar */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px; /* Reduce the width to show only icons */
+        }
+
+    .sidebar .logo img{
+        width: 60px;
+        padding-bottom: 20px;
+        padding-top: 20px;
+    
+    }
+
+    .sidebar .logo h2, .sidebar-footer, .toggle-btn, .sidebar ul li a span {
+        display: none; /* Hide the logo text */
+    }
+
+    .sidebar.collapsed .nav-link {
+        margin-right: 0;
+        align-items: center;
+        padding-top: 20px;
+    
+    }
+    
+    .sidebar.collapsed .nav-link i {
+        margin-right: 0;
+        align-items: center;
+    
+    }
+
+   
+    
+}
+

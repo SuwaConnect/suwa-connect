@@ -1,0 +1,254 @@
+/* Body background */
+body {
+    background-color: #e6f2ff; /* Same as previous background */
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center the body content horizontally */
+    align-items: center; /* Center the body content vertically */
+    height: 100vh; /* Make sure the full height is used */
+}
+
+/* Container for both sections */
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+    max-width: 1200px; /* Restricting max width for overall alignment */
+    padding: 20px;
+    background-color: white; /* The large rectangle background */
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Left side (User Details Form) */
+.form-container {
+    width: 45%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 14px;
+    color: #888;
+}
+
+input, select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box; /* Ensure inputs and selects take full width */
+}
+
+.submit-button {
+    padding: 12px;
+    background-color: #007BFF; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* Ensure the button is full-width */
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Right side (Reports Table) */
+.reports-container {
+    width: 45%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.reports-container .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.reports-container h2 {
+    font-size: 24px;
+}
+
+#add-report-btn {
+      /* Reduced height */
+    background-color: #007BFF; /* Blue color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 30px;
+    padding: 0 16px;
+    margin-top : 25px;
+}
+
+#add-report-btn:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Modal for Adding Report */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    max-width: 500px;
+    position: relative;
+}
+
+.close-btn {
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    color: #007BFF;
+}
+
+.close-btn:hover {
+    color: #0056b3;
+}
+
+/* Form styles in the modal */
+#add-report-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+#add-report-form input, #add-report-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensure all form fields are same width */
+}
+
+#add-report-form .submit-button {
+    background-color: #007BFF; /* Blue color */
+    color: white;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%; /* Full width button */
+}
+
+#add-report-form .submit-button:hover {
+    background-color: #0056b3;
+}
+
+/* Buttons for profile section (moved under reports) */
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.buttons-container button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 48%;
+}
+
+.buttons-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the Dropdown */
+.dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dropdown-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    border-top: none;
+    display: none;
+    background-color: white;
+    box-sizing: border-box;
+    z-index: 10;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Show the dropdown list when the input is focused or has input */
+.dropdown.show .dropdown-list {
+    display: block;
+}
+

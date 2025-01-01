@@ -1,0 +1,66 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333333;
+}
+
+.patient-info {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+}
+
+.patient-info p {
+    margin: 5px 0;
+}
+
+.records-section {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    border: 1px solid #dddddd;
+    padding: 8px 12px;
+    text-align: center;
+}
+
+table th {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.health-details{
+    margin-left: 30px;
+}
