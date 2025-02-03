@@ -218,7 +218,7 @@
         </div>
     </footer>
 
-    <script src ="<?php echo URLROOT;?>public/js/bagya/index.js"></script>
+    <script src ="<?php echo URLROOT;?>public/assets/js/bagya/index.js"></script>
 </body>
 
 </html>

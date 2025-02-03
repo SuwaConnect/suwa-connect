@@ -10,7 +10,7 @@ class searchModel
     }
 
     public function searchPatient($data){
-        $this->db->query('SELECT * FROM patient WHERE name LIKE :searchQuery');
+        $this->db->query('SELECT * FROM patient WHERE firstName LIKE :searchQuery');
         $this->db->bind(':searchQuery', '%' . $data. '%');
         $results = $this->db->resultSet();
         return $results;

@@ -6,14 +6,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/pharmacyhome.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacyhome.css">
     <title>Pharmacies Home - Suwa-Connect</title>
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="logo">
-            <img src="assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
+            <img src="<?php echo URLROOT?>public/assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
         </div>
         <ul class="nav-links">
             <li><a href="#">Home</a></li>
@@ -29,7 +29,7 @@
     <section class="main-section">
         <!-- Left Side - Image -->
         <div class="image-container">
-            <img src="assets/images/pharmacy/pharma.png" alt="Pharmacy Image" style="width: 100%; height: auto; object-fit: cover;">
+            <img src="<?php echo URLROOT?>public/assets/images/pharmacy/pharma.png" alt="Pharmacy Image" style="width: 100%; height: auto; object-fit: cover;">
         </div>
 
         <!-- Right Side - Content -->
