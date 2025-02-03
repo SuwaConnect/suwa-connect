@@ -25,7 +25,7 @@
                 </div>
                 <div class="profile">
                     <img src="<?php echo URLROOT;?>public/images/doctor/images/profile.png" alt="profile icon">
-                    <span>Dr. Manilka Anupama</span>
+                    <span>Dr.<?php echo $_SESSION['user_name']?></span>
                 </div>
             </div>
             <div class="patientList" id="patientList">

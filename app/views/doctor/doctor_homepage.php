@@ -25,7 +25,7 @@
     <div class="main-content">
 
         <header>
-          <h1>Good morning, Dr.Kim!</h1><br>
+          <h1>Good morning, Dr.<?php echo $_SESSION['user_name'];?>!</h1><br>
           <p>Welcome Back! Here's an overview of your platform's latest activities and performance. </p>
       </header>
 

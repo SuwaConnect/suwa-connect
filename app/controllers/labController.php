@@ -25,5 +25,32 @@ public function labProfile(){
     $this->view('labs/labprofile');
 }
 
+public function labReports(){
+    $this->view('labs/labreports');
+}
 
+public function labRevenue(){
+    $this->view('labs/labRevenue');
+}
+
+public function labSchedule(){
+    $this->view('labs/labschedule');
+}
+
+public function labSettings(){
+    $this->view('labs/labsettings');
+}
+
+public function labSupport(){
+    $this->view('labs/labsupport');
+}
+
+public function labTestRequests(){
+    $this->view('labs/labtestRequests');
+}
+
+public function labAppointments(){
+    $this->view('labs/labappointments');
+
+}
 }

@@ -33,12 +33,12 @@
         
         <div class="items">
             <label for="">Set a password</label>
-            <input type="text" placeholder="" name="password">  
+            <input type="password" placeholder="" name="password">  
         </div>
 
         <div class="items">
             <label for="">Confirm password</label>
-            <input type="email" placeholder="" name="confirm_password">  
+            <input type="password" placeholder="" name="confirm_password">  
         </div>
 
         <div class="check-box">
@@ -58,7 +58,7 @@
         </form>
 
         <div class="image">
-            <img src="<?php echo URLROOT;?>public/img/doctor/images/doctor-visit.png" alt="">
+            <img src="<?php echo URLROOT;?>public/images/doctor/images/doctor-visit.png" alt="">
         </div>
 
     </div>

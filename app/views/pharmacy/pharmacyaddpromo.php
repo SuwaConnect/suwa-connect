@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <title>Add/Edit Promotion</title>
-    <link rel="stylesheet" href="assets/css/pharmacyaddpromo.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacyaddpromo.css">
     
 </head>
 <body>
@@ -62,6 +62,6 @@
             </div>
         </main>
     </div>
-    <script src="assets/js/pharmacyaddpromo.js"></script>
+    <script src="<?php echo URLROOT?>public/assets/js/pharmacyaddpromo.js"></script>
 </body>
 </html>

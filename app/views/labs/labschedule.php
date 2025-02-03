@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book an Appointment</title>
-    <link rel="stylesheet" href="assets/css/schedule.css">
+    <link rel="stylesheet" href="<?php echo URLROOT;?>public/assets/css/schedule.css">
 </head>
 <body>
     <div class="main-container">
@@ -35,6 +35,6 @@
         </div>
     </div>
 
-    <script src="assets/js/schedule.js"></script>
+    <script src="<?php echo URLROOT;?>public/assets/js/schedule.js"></script>
 </body>
 </html>
