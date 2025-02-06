@@ -12,42 +12,42 @@
         </div>
         <ul class="nav-menu">
             <li class="nav-item ">
-                <a href="<?php echo URLROOT;?>admincontroller/adminhome" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/home" class="nav-link">
                     <i class="material-icons-round">home</i> <span>Home</span>
                 </a>
             </li>
             <li class="nav-item active">
-                <a href="<?php echo URLROOT;?>admincontroller/adminusermanagement" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/usermanagement" class="nav-link">
                     <i class="material-icons-round">group</i> <span>User Management</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo URLROOT;?>admincontroller/adminappointments" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/appointments" class="nav-link">
                     <i class="material-icons-round">medical_services</i> <span>Appointments</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo URLROOT;?>admincontroller/adminrevenue" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/revenue" class="nav-link">
                     <i class="material-icons-round">paid</i> <span>Revenue</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo URLROOT;?>admincontroller/adminreports" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/reports" class="nav-link">
                     <i class="material-icons-round">trending_up</i> <span>Reports</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo URLROOT;?>admincontroller/adminnotifications" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/notifications" class="nav-link">
                     <i class="material-icons-round">notifications</i> <span>Notifications</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo URLROOT;?>admincontroller/adminsettings" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/settings" class="nav-link">
                     <i class="material-icons-round">settings</i> <span>Settings</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo URLROOT;?>admincontroller/adminsupport" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/support" class="nav-link">
                     <i class="material-icons-round">contact_support</i> <span>Support</span>
                 </a>
             </li>
