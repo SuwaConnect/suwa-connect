@@ -134,6 +134,7 @@ class Doctor extends Controller
                     'slmc_no' => $_SESSION['registration']['slmc_no'],
                     'medical_license_copy' => $newFileName,
                     'password' => password_hash($password, PASSWORD_DEFAULT),
+                    // 'password' => $password,
                     'checkbox' => $checkbox
                 ];
                 
