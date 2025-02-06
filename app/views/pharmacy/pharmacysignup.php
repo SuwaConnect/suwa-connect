@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <title>Signup Interface</title>
-    <link rel="stylesheet" href="assets/css/register.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/register.css">
 </head>
 <body>
 <div class="container">
@@ -95,10 +95,3 @@
 </html>
 
 
-pharmacy_name
-registration_number
-address
-phone_number
-email_address
-username
-password

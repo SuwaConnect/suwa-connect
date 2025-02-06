@@ -8,6 +8,6 @@ define('SITENAME','newFramework');
 
 //DB Params
 define('DB_HOST','localhost');
-define('DB_USER','root');
-define('DB_PASS','');
+define('DB_USER','manilka');
+define('DB_PASS','manilka');
 define('DB_NAME','suwaconnect');

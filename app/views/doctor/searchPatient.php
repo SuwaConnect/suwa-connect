@@ -19,13 +19,14 @@
         <div class="main-content">
             <div class="searchbarAndProfile">
                 <div class="searchbar">
-                    <form action="<?php echo URLROOT;?>searchController/search" method="post">
+                    <form action="<?php echo URLROOT;?>searchController/searchPatient" method="post">
                         <input type="search" placeholder="Search patient..." aria-label="Search" name="search" id="search">
+                        <input type="submit" value="Search" id="search-patient">
                     </form>
                 </div>
                 <div class="profile">
                     <img src="<?php echo URLROOT;?>public/images/doctor/images/profile.png" alt="profile icon">
-                    <span>Dr. Manilka Anupama</span>
+                    <span><?php echo $_SESSION['user_name']?></span>
                 </div>
             </div>
             <div class="patientList" id="patientList">

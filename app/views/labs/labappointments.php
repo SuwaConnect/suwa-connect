@@ -8,9 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/lab/navbar.css">
-    <link rel="stylesheet" href="assets/css/lab/dashboard.css">
-    <link rel="stylesheet" href="assets/css/lab/appointments.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/lab/navbar.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/lab/dashboard.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/lab/appointments.css">
     <title>Suwa-Connect | Appointments</title>
 </head>
 
@@ -218,8 +218,8 @@
         </footer> 
     </div>
 
-    <script src="assets/js/doctor/navbar.js"></script>
-    <script src="assets/js/doctor/appointments.js"></script>
+    <script src="<?php echo URLROOT?>public/assets/js/doctor/navbar.js"></script>
+    <script src="<?php echo URLROOT?>public/assets/js/doctor/appointments.js"></script>
 </body>
 
 </html>

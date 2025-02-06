@@ -130,6 +130,12 @@ input:focus {
     text-decoration: underline;
 }
 
+.error {
+    color: #ff0000;
+    font-size: 0.7em;
+    margin-top: 0.2rem;
+}
+
 @media (max-width: 768px) {
     .form-row {
         flex-direction: column;

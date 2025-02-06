@@ -18,39 +18,32 @@
                 <p>Please enter your details</p>
             </div>
             
-            <!-- Display Errors at the top of the form -->
-            <?php if (isset($data['errors']) && !empty($data['errors'])): ?>
-                <div class="error-messages">
-                    <?php foreach ($data['errors'] as $error): ?>
-                        <p class="error"><?php echo htmlspecialchars($error); ?></p>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-
-            <!-- Login form with CSRF protection -->
-            <form method="POST" action="login/authenticate">
-                <?php if(function_exists('csrf_token')): ?>
-                    <input type="hidden" name="csrf_token" value="">
-                <?php endif; ?>
+    
+            <form method="POST" action="<?php echo URLROOT?>logincontroller/authenticate">
+                
+                   
+                
                 
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required 
+                    <label for="username">email</label>
+                    <input type="text" id="username" name="email" 
                            placeholder="Enter your username"
-                           value="<?=isset($_POST['username']) ? htmlspecialchars($_POST['username']) : ''?>">
+                           value="">
+                     <span class="error"><?php echo $data['errors']['email']?></span>      
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required 
+                    <input type="password" id="password" name="password"  
                            placeholder="Enter your password">
+                           <span class="error"><?php echo $data['errors']['password']?></span>         
                 </div>
-
+                <span class="error"><?php echo $data['errors']['login']?></span> 
                 <button type="submit" class="login-button">Sign In</button>
             </form>
 
             <div class="links">
-                <p class="signup-text">Don't have an account yet? <a href="signup">Sign Up</a></p>
+                <p class="signup-text">Don't have an account yet? <a href="<?php echo URLROOT?>homecontroller/selectActor">Sign Up</a></p>
                 <p class="signup-text"><a href="forgot">Forgot your password?</a></p>
             </div>
         </div>

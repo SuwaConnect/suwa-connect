@@ -8,14 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <title>Pharmacy Promotions</title>
-    <link rel="stylesheet" href="assets/css/pharmacypromotions.css">
-  <link rel="stylesheet" href="assets/css/pharmacynavbar.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacypromotions.css">
+  <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacynavbar.css">
 </head>
 <body>
 <div class="container">
 <div class="sidebar">
             <div class="logo">
-                <img src="assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
+                <img src="<?php echo URLROOT?>public/assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
                 <h2>සුව CONNECT</h2>
                 <button class="toggle-btn" id="toggleSidebar">
                     <i class="material-icons-round">chevron_left</i>
@@ -90,6 +90,6 @@
             </div>
         </main>
     </div>
-    <script src="assets/js/pharmacynavbar.js"></script>
+    <script src="<?php echo URLROOT?>public/assets/js/pharmacynavbar.js"></script>
 </body>
 </html>

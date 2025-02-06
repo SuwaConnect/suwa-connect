@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/pharmacyprofile.css">
-  <link rel="stylesheet" href="assets/css/pharmacynavbar.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacyprofile.css">
+  <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacynavbar.css">
     <title>Pharmacy Registration</title>
 </head>
 
 <body>
 <div class="sidebar">
             <div class="logo">
-                <img src="assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
+                <img src="<?php echo URLROOT?>public/assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
                 <h2>සුව CONNECT</h2>
                 <button class="toggle-btn" id="toggleSidebar">
                     <i class="material-icons-round">chevron_left</i>

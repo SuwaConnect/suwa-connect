@@ -3,6 +3,7 @@
 class Doctor extends Controller
 {
     private $doctorModel;
+    private $userModel;
 
     public function __construct(){
         if (session_status() === PHP_SESSION_NONE) {
@@ -135,9 +136,10 @@ class Doctor extends Controller
                     'password' => password_hash($password, PASSWORD_DEFAULT),
                     'checkbox' => $checkbox
                 ];
-    
+                
+                //$this->userModel->registerNewUser($registrationData);
                 $this->doctorModel->registerNewDoctor($registrationData);
-    
+                
                 // Redirect on success
                 //echo 'Doctor registered successfully!';
                 header('Location: ' . URLROOT . 'doctor/home');
@@ -149,6 +151,8 @@ class Doctor extends Controller
     
         $this->view('doctor/signUp2', $data ?? []);
     }
+
+   
     
     
    

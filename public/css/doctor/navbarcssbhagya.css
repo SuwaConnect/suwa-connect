@@ -106,7 +106,7 @@ body {
 }
 
 .btn-user {
-    width: 100%;
+    width: 95%;
     padding: 10px;
     background-color: #0052cc;
     color: white;
@@ -115,7 +115,10 @@ body {
     font-size: 1.1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-align: center;
+
 }
+
 
 .btn-user:hover {
     background-color: #0041a3;
@@ -151,9 +154,15 @@ body {
 
 }
 
-.sideBar-footer {
-    text-align: center;
+.sidebar-footer{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5%;
 }
+
+
+
+
 
 /* Responsive Design */
 

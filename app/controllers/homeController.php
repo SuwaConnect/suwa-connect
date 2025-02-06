@@ -18,4 +18,9 @@ class HomeController extends Controller
     {
         $this->view('user/login');
     }
+
+    public function selectActor()
+    {
+        $this->view('user/selectActorforSignup');
+    }
 }

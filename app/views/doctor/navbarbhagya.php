@@ -51,9 +51,10 @@
             </a>
         </li>
     </ul>
-    <div class="sidebar-footer">
-        <button class="btn-user">Login as User</button>
-    </div>
+    
+        <div class="sidebar-footer">
+        <a href="<?php echo URLROOT?>/logincontroller/logout" class="btn-user">Log-Out</a>
+        </div>
 
     
 </div>

@@ -30,9 +30,9 @@
         <div class="form-container">
             <h2>Welcome Back!</h2>
             <h3><color>Please enter your details.</h3>
-            <form method="post" action="/doctorsignin">
+            <form method="post" action="<?php echo URLROOT;?>logincontroller/logIn">
     <label for="email">Email Address</label>
-    <input type="email" id="email" name="email" placeholder="Email Address" required>
+    <input type="text" id="email" name="email" placeholder="Email Address" required>
 
     <label for="password">Password</label>
     <div class="input-group">
@@ -40,16 +40,11 @@
         <i class="fas fa-eye toggle-icon" id="togglePassword"></i>
     </div>
 
-    <?php if(isset($_SESSION['error'])): ?>
-        <div class="error"><?=$_SESSION['error']?></div>
-        <?php unset($_SESSION['error']); ?>
-    <?php endif; ?>
+    
 
     <button type="submit" class="btn">Sign In</button>
 </form>
-     <a href="<?php echo URLROOT;?>doct
-     
-     or/register">Don't have an account?</a>
+     <a href="<?php echo URLROOT;?>doctor/register">Don't have an account?</a>
         </div>
         <div class="image-container">
             <img src="<?php echo URLROOT;?>public/assets/images/Bagya/doctor.png" alt="Doctors">

@@ -13,7 +13,7 @@ class searchController extends Controller
 
    
 
-    public function search() {
+    public function searchPatient() {
         // Debug: Log the incoming request
         error_log('Search method called with POST data: ' . print_r($_POST, true));
     
@@ -48,7 +48,36 @@ class searchController extends Controller
         $this->view('doctor/searchPatient', $patients);
     }
 
+    
+
+    public function searchDoctor() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            
+            $searchTerm = trim($_POST['search']);
+            
+            if (empty($searchTerm)) {
+                // If search is empty, redirect back
+                redirect('pages/index');
+            } else {
+                // Get doctors based on search
+                $doctors = $this->searchModel->searchDoctor($searchTerm);
+                
+                $data = [
+                    'doctors' => $doctors,
+                    'search' => $searchTerm
+                ];
+                
+                // Load view with search results
+                $this->view('patient/searchDoctor', $data);
+            }
+        } else {
+            redirect('pages/index');
+        }
+    }
+
 }
 
-
+            
     

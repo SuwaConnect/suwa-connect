@@ -118,3 +118,36 @@ body{
     font-weight: 500;
 
 }
+
+.toggle-buttons{
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 20px;
+    
+   
+}
+
+.toggle-buttons button{
+    width: 30%;
+    height: 50px;
+    background-color: #2f528c;
+    border-radius: 8px;
+    border: none;
+    min-width: 50px;
+    padding: 10px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    margin-right: 10px;
+    font-size: 19px;
+}
+
+.appointment-section {
+    display: none;
+}
+
+.appointment-section.active {
+    display: block;
+}
