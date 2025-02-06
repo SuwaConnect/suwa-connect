@@ -138,7 +138,7 @@ class Doctor extends Controller
                     'checkbox' => $checkbox
                 ];
                 
-                $this->userModel->registerNewUser($registrationData);
+                //$this->userModel->registerNewUser($registrationData);
                 $this->doctorModel->registerNewDoctor($registrationData);
                 
                 // Redirect on success

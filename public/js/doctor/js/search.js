@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('search', searchTerm);
         formData.append('ajax', '1');
     
-        fetch(`${URLROOT}/searchController/search`, {
+        fetch(`${URLROOT}/searchController/searchPatient`, {
             method: 'POST',
             body: formData
         })
@@ -66,10 +66,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             <span id="patientId">${patient.patient_id}</span>
                         </div>
                         <div class="patient-name">
-                            <span id="name">${patient.firstName}</span>
+                            <span id="name">${patient.first_name}</span>
                         </div>
                         <div class="patient-age">
-                            <span id="age">${patient.age}</span><span> years</span>
+                            <span id="age">${patient.gender}</span><span> </span>
                         </div>
                         <div class="request-access-btn">
                             <button data-patient-id="${patient.patient_id}">request access</button>

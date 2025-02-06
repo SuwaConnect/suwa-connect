@@ -37,9 +37,10 @@
 <script>
 
     const URLROOT = 'http://localhost/newFramework';
+
     function approveDoctor(doctorId) {
     if (confirm('Are you sure you want to approve this doctor?')) {
-        console.log('Approving doctor:', doctorId);
+        console.log('Starting approval process for doctor:', doctorId);
         
         fetch(`${URLROOT}/adminController/approvedoctor`, {
             method: 'POST',
@@ -49,28 +50,35 @@
             body: 'doctor_id=' + doctorId
         })
         .then(async response => {
-            // Log the raw response
+            console.log('Response status:', response.status);
+            console.log('Response headers:', [...response.headers.entries()]);
+            
             const text = await response.text();
-            console.log('Raw response:', text);
+            console.log('Raw response text:', text);
+            
+            if (!text) {
+                throw new Error('Empty response from server');
+            }
             
             try {
-                // Try to parse as JSON
                 const data = JSON.parse(text);
+                console.log('Parsed response data:', data);
+                
                 if (data.success) {
+                    alert('Doctor approved successfully!');
                     location.reload();
                 } else {
-                    console.error('Approval failed:', data.error);
-                    alert('Approval failed: ' + (data.error || 'Unknown error'));
+                    throw new Error(data.error || 'Unknown error occurred');
                 }
             } catch (e) {
-                console.error('Failed to parse response as JSON:', e);
-                console.error('Raw response was:', text);
-                alert('Error processing response from server');
+                console.error('JSON Parse error:', e);
+                console.error('Response that failed to parse:', text);
+                throw new Error(`Failed to parse server response: ${e.message}`);
             }
         })
         .catch(error => {
-            console.error('Network error:', error);
-            alert('Network error occurred');
+            console.error('Error in approval process:', error);
+            alert(`Error: ${error.message}`);
         });
     }
 }

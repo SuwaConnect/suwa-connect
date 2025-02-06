@@ -5,66 +5,225 @@ class logInController extends controller{
     private  $loginModel;
 
     public function __construct(){
-        $this->loginModel = $this->model('m_doctor');
+        $this->loginModel = $this->model('logInModel');
     }
 
-    public function logIn() {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $data = [
-                'email' => $_POST['email'],
-                'password' => $_POST['password'],
-                'email_error' => '',
-                'password_error' => ''
-            ];
+    // public function logIn() {
+    //     if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $data = [
+    //             'email' => $_POST['email'],
+    //             'password' => $_POST['password'],
+    //             'email_error' => '',
+    //             'password_error' => ''
+    //         ];
     
-            // Validate inputs
-            if(empty($data['email'])) {
-                $data['email_error'] = 'Please enter email';
-            }
-            if(empty($data['password'])) {
-                $data['password_error'] = 'Please enter password';
-            }
+    //         // Validate inputs
+    //         if(empty($data['email'])) {
+    //             $data['email_error'] = 'Please enter email';
+    //         }
+    //         if(empty($data['password'])) {
+    //             $data['password_error'] = 'Please enter password';
+    //         }
     
-            // Only attempt login if there are no errors
-            if(empty($data['email_error']) && empty($data['password_error'])) {
-                $loggedInUser = $this->loginModel->doctorLogIn($data['email'], $data['password']);
+    //         // Only attempt login if there are no errors
+    //         if(empty($data['email_error']) && empty($data['password_error'])) {
+    //             $loggedInUser = $this->loginModel->doctorLogIn($data['email'], $data['password']);
                 
-                if($loggedInUser) {
-                    // You might want to start a session here
-                    $this->createUserSession($loggedInUser);
-                    header('location: ' . URLROOT . 'doctor/home');
+    //             if($loggedInUser) {
+    //                 // You might want to start a session here
+    //                 $this->createUserSession($loggedInUser);
+
+    //                 if($loggedInUser->role == 'admin'){
+    //                     header('location: ' . URLROOT . '/admin/adminhome');
+    //                 }
+    //                 elseif($loggedInUser->role == 'doctor'){
+    //                     header('location: ' . URLROOT . '/doctor/home');
+    //                 }
+    //                 elseif($loggedInUser->role == 'patient'){
+    //                     header('location: ' . URLROOT . '/patient/dashboard');
+    //                 }
+    //                 elseif($loggedInUser->role == 'pharmacist'){
+    //                     header('location: ' . URLROOT . '/pharmacist/home');
+    //                 }
+    //                 elseif($loggedInUser->role == 'lab'){
+    //                     header('location: ' . URLROOT . '/lab/home');
+    //                 }
+
                     
-                }elseif($this->loginModel->doctorStillnotApproved($data['email'])){
-                    echo 'please wait until your account is approved...';
-                } 
-                
-                else {
-                    echo 'Incorrect email or password';
-                }
-            }
-        } else {
-            $data = [
-                'email' => '',
-                'password' => '',
-                'email_error' => '',
-                'password_error' => ''
-            ];
+    //             }else {
+    //                 if($this->loginModel->doctorStillnotApproved($data['email'])){
+    //                     echo "doctor is still not approved";
+    //                 } 
+
+    //                 if($this->loginModel->labStillnotApproved($data['email'])){
+    //                     echo "lab is still not approved";
+    //                 }
+
+    //                 if($this->loginModel->pharmacyStillnotApproved($data['email'])){
+    //                     echo "pharmacy is still not approved";
+    //                 }
+    //         }
+    //     } else {
+    //         $data = [
+    //             'email' => '',
+    //             'password' => '',
+    //             'email_error' => '',
+    //             'password_error' => ''
+    //         ];
+    //     }
+    // }
+    // $this->view('user/login', $data);
+    // }
+
+
+
+
+
+
+
+
+    // public function index() {
+    //     $data = [
+    //         'email' => '',
+    //         'password' => '',
+    //         'errors' => [
+    //             'email' => '',
+    //             'password' => '',
+    //             'login' => ''
+    //         ]
+    //     ];
+
+    //     $this->view('user/login', $data);
+    // }
+
+    public function authenticate() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('login');
+        }
+
+        // Sanitize and validate input
+        $data = $this->validateLoginInput();
+        
+        if (!empty($data['errors']['email']) || !empty($data['errors']['password'])) {
+            $this->view('user/login', $data);
+            return;
+        }
+
+        // Attempt login
+        $result = $this->loginModel->verifyCredentials($data['email'], $data['password']);
+
+        switch ($result['status']) {
+            case 'approved':
+                $this->createUserSession($result['data']);
+                $this->redirectBasedOnRole($result['data']->role);
+                break;
+            
+            case 'pending':
+                // Store necessary info in session for the status page
+                $_SESSION['temp_status'] = [
+                    'type' => 'pending',
+                    'message' => $result['message'],
+                    'user_type' => $result['type'],
+                    'email' => $data['email']
+                ];
+                redirect(URLROOT . '/login/status');
+                break;
+            
+            case 'rejected':
+                // Store necessary info in session for the status page
+                $_SESSION['temp_status'] = [
+                    'type' => 'rejected',
+                    'message' => $result['message'],
+                    'rejection_reason' => $result['data']->rejection_reason ?? 'No reason provided',
+                    'email' => $data['email']
+                ];
+                redirect(URLROOT . '/login/status');
+                break;
+            
+            case 'invalid':
+                $data['errors']['login'] = $result['message'];
+                $this->view('user/login', $data);
+                break;
+        }
+    }
+
+    public function status() {
+        if (!isset($_SESSION['temp_status'])) {
+            redirect('login');
+        }
+
+        $data = [
+            'status' => $_SESSION['temp_status']
+        ];
+
+        // Clear the temporary session data after displaying
+        unset($_SESSION['temp_status']);
+
+        $this->view('users/account_status', $data);
+    }
+
+    private function redirectBasedOnRole($role) {
+        switch ($role) {
+            case 'admin':
+                header('location: ' . URLROOT . 'admin/adminhome');
+                break;
+            case 'doctor':
+                header('location: ' . URLROOT . 'doctor/home');
+                break;
+            case 'patient':
+                header('location: ' . URLROOT . 'patientcontroller/dashboard');
+                break;
+            case 'pharmacist':
+                header('location: ' . URLROOT . 'pharmacist/home');
+                break;
+            case 'lab':
+                header('location: ' . URLROOT . 'lab/home');
+                break;
+            default:
+                header('location: ' . URLROOT . 'login');
+                break;
         }
     }
 
 
+
+    private function validateLoginInput() {
+        $data = [
+            'email' => trim($_POST['email']),
+            'password' => trim($_POST['password']),
+            'errors' => [
+                'email' => '',
+                'password' => ''
+            ]
+        ];
+
+        if (empty($data['email'])) {
+            $data['errors']['email'] = 'Please enter email';
+        } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $data['errors']['email'] = 'Please enter a valid email';
+        }
+
+        if (empty($data['password'])) {
+            $data['errors']['password'] = 'Please enter password';
+        }
+
+        return $data;
+    }
+
     public function createUserSession($user) {
-        
-        $_SESSION['user_id'] = $user->doctor_id;
+        session_start();
+        $_SESSION['user_id'] = $user->user_id;
         $_SESSION['user_email'] = $user->email;
-        $_SESSION['user_name'] = $user->firstName;
-        header('location: ' . URLROOT . '/doctor/home');
+        $_SESSION['role'] = $user->role;
+        $_SESSION['user_name'] = $user->user_name;
+        
     }
 
     public function logout() {
         unset($_SESSION['user_id']);
         unset($_SESSION['user_email']);
         unset($_SESSION['user_name']);
+        unset($_SESSION['role']);
         session_destroy();
         header('location: ' . URLROOT . '/homecontroller/index');
     }

@@ -7,8 +7,8 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #e6f2ff;
-    display: flex;
+    /* background-color: #e6f2ff; */
+    /* display: flex; */
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -17,20 +17,40 @@ body {
 
 /* Main Container */
 .main-container {
-    width: 70%;
-    max-width: 600px; /* Adjusted for smaller width */
-    padding: 20px;
-    background-color: #fff;
+    /* background-color: #fff; */
+    /* padding: 20px; */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    text-align: left;
+    margin-left: 250px; /* To make space for the sidebar */
+    width: calc(100% - 250px); /* Take the remaining width */
+    overflow-y: auto; /* Enable scrolling if content overflows vertically */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+    margin-bottom: 0;
+    padding-bottom: 0;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
 }
 
 /* Appointment Section */
 .appointment-section {
-    width: 100%;
+    width: 50%;
+    height: 100vh;
+    padding: 20px;
+    padding-top: 40px;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.appointment-list{
+    width: 50%;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    overflow-y: scroll;
+
 }
 
 h1 {
@@ -52,17 +72,17 @@ label {
     font-size: 12px; /* Smaller labels */
 }
 
-input[type="text"], 
+/* input[type="text"], 
 input[type="email"], 
 input[type="date"], 
 input[type="time"], 
 textarea {
     width: 100%;
-    padding: 8px; /* Reduced padding */
+    padding: 8px; 
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 12px; /* Smaller input font */
-}
+    font-size: 12px; 
+} */
 
 textarea {
     resize: none;
@@ -126,3 +146,93 @@ button.submit-button:hover {
     display: block;
 }
 
+.sidebar.collapsed + .main-container{
+  
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+  }
+
+  .appointments{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .appointments-item{
+    display: flex;
+    flex-direction: row;
+    /* gap: 10px; */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: rgb(16, 214, 16);
+  }
+
+  .time{
+    width: 50%;
+    text-align: center;
+
+  }
+
+  .button{
+    width: 50%;
+    text-align: center;
+}
+
+.button button{
+  
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    font-size: 14px; /* Compact button font */
+    cursor: pointer;
+}
+
+.select-date{
+    display: flex;
+    flex-direction: row;
+    height: 30%;
+    
+}
+
+.details{
+    display: flex;
+    text-align: center;
+    flex-direction: column ;
+    height: 50%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.details-item{
+    display: flex;
+    flex-direction: column;
+  
+}
+
+.details-item label{
+    font-weight: bold;
+    font-size: 12px; /* Smaller labels */
+}
+
+.details-item input{
+    
+    padding: 8px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px; 
+}
+
+.details-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+    height: 70%;
+    width: 100%;
+    align-items: center;
+    font-size: 18px;
+    border: 3px solid #797373;
+    border-radius: 5px;
+}
