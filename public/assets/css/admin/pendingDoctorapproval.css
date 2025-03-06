@@ -1,20 +1,17 @@
-
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    list-style: none;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 body {
     display: flex;
-    background-color: #e6f2ff;
+    height: 100vh;
     overflow-x: hidden;
     overflow-y: auto;
 }
+
 
 .main-content {
     background-color: #e6f2ff;
@@ -27,6 +24,7 @@ body {
     flex-grow: 1;
     transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
     height: 100vh;
+    
 }
 
 .sideBar.collapsed + .main-content{
@@ -36,3 +34,41 @@ body {
     overflow-y: auto;
 }
 
+.table{
+    width: 100%;
+    
+}
+
+.table table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+}
+
+.table table th, .table table td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+#approve-btn{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 40%;
+}
+
+#reject-btn{
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 40%;
+
+}

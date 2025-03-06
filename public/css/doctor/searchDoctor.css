@@ -30,7 +30,7 @@ body{
     transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
 }
 
-.searchbar input[type="submit"]{
+.searchbar button{
     background-color: #197de0;
     color: white;
     border: none;
@@ -92,14 +92,13 @@ body{
     display: flex;
     flex-direction: row;
     padding: 5px;
-    /* margin: 10px; */
     border-radius: 5px;
     background-color: #c1c3c6;
     align-items: center;
-    /* justify-content: space-between; */
     cursor: pointer;
     transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
     width: 100%;
+    margin-bottom: 5px;
 }
 
 .patient img{
@@ -122,6 +121,7 @@ width: 90%;
 font-size: 18px;
 align-items: center;
 
+
 }
 
 .patient-id{
@@ -136,7 +136,7 @@ align-items: center;
     justify-content: center;
 }
 
-.patient-age{
+.patient-specialization{
     width: 30%;
     display: flex;
     justify-content: center;
@@ -148,7 +148,7 @@ align-items: center;
 }
 
 .request-access-btn{
-    width: 50%;
+    width: 10%;
     
     display: flex;
     justify-content: center;
@@ -161,7 +161,7 @@ align-items: center;
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 8px;
+    /* padding: 8px; */
     
     
 }
@@ -173,7 +173,7 @@ align-items: center;
 }
 
 .visit-profile-btn{
-    width: 50%;
+    width: 10%;
     display: flex;
     justify-content: center;
   
@@ -231,6 +231,8 @@ align-items: center;
 }
 
 .no-results{
-   color: red;
+   width: 100%;
+    display: flex;
+    justify-content: center;
  
 }

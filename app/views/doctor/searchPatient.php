@@ -17,11 +17,14 @@
 
 
         <div class="main-content">
+            <h2>Find a patient by name or contact number...</h2>
             <div class="searchbarAndProfile">
+                
                 <div class="searchbar">
-                    <form action="<?php echo URLROOT;?>searchController/searchPatient" method="post">
+                
+                    <form >
                         <input type="search" placeholder="Search patient..." aria-label="Search" name="search" id="search">
-                        <input type="submit" value="Search" id="search-patient">
+                        <!-- <input type="submit" value="Search" id="search-patient" onclick="searchPatient()"> -->
                     </form>
                 </div>
                 <div class="profile">
@@ -30,43 +33,18 @@
                 </div>
             </div>
             <div class="patientList" id="patientList">
-                <!-- <div class="patient">
-                    <div class="patient-image">
-                        <img src="public/images/doctor/images/profile.png" alt="patient icon">
-                    </div>
-                    
-                    <div id="patient-details"> -->
 
-                        
-                        <!-- <div class="patient-id"> 
-                            <span id="patientId"></span>
-                        </div>
-                        <div class="patient-name">
-                            <span id="name"></span>
-                        </div>
-                        <div class="patient-age">
-                            <span id="age"></span>
-                        </div>
-                         -->
-                        <!-- <div class="request-access-btn">
-                            <button>Request access</button>
-                        </div>
-                        <div class="visit-profile-btn">
-                            <button >visit profile</button>
-                        </div>  -->
-                        
-                               
-<!--                            
-                    </div> -->
-                        
-                <!-- </div> -->
+            
+           
             </div>
             
 
         </div>
   
              
-        <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
-        <script src="<?php echo URLROOT;?>public/js/doctor/js/search.js"></script>    
-</body>
+        <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js" ></script>
+        <script src="<?php echo URLROOT?>public/js/doctor/js/search.js" ></script>   
+        
+        
+        </body>
 </html>

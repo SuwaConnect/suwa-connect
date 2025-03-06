@@ -1,38 +1,62 @@
 <html>
-    <head></head>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="<?php echo URLROOT;?>public/assets/css/admin/pendingDoctorapproval.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <title>pending doctor Approvals</title>
+
+    </head>
     <body>
+
+    <?php include 'adminNavbar.php'?>
+
+    <div class="main-content">
         
    
-<h2>Pending Doctor Approvals</h2>
-<table>
-    <thead>
+<div class="table">
+            <h2>Pending Doctor Approvals</h2>
+            <?php if (!empty($data)): ?>
+    <table >
         <tr>
             <th>Name</th>
             <th>Email</th>
+            <th>license no:</th>
+            <th>contact no:</th>
             <th>License</th>
             <th>Actions</th>
         </tr>
-    </thead>
-    <tbody>
-        <?php 
-        
-        foreach ($data as $doctor): ?>
-        <tr>
-            <td><?php echo htmlspecialchars($doctor->firstName); ?></td>
-            <td><?php echo htmlspecialchars($doctor->email); ?></td>
-            <td>
-                <a href="../../../uploads/<?php echo ($doctor->medicalLicenseCopyName); ?>" target="_blank">
-                    View License
-                </a>
-            </td>
-            <td>
-                <button onclick="approveDoctor(<?php echo $doctor->doctor_id; ?>)">Approve</button>
-                <button onclick="rejectDoctor(<?php echo $doctor->doctor_id; ?>)">Reject</button>
-            </td>
-        </tr>
+        <?php foreach ($data as $doctor): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($doctor->firstName.' '.$doctor->lastName); ?></td>
+                <td><?php echo htmlspecialchars($doctor->email); ?></td>
+                <td><?php echo htmlspecialchars($doctor->slmc_no); ?></td>
+                <td><?php echo htmlspecialchars($doctor->contact_no); ?></td>
+                <td>
+                    <a href="<?php echo URLROOT.'uploads/'.$doctor->medicalLicenseCopyName;?>" target="_blank">
+                        View License
+                    </a>
+                </td>
+                <td>
+                    <button id="approve-btn" onclick="approveDoctor(<?php echo $doctor->doctor_id; ?>)">Approve</button>
+                    <button id="reject-btn" onclick="rejectDoctor(<?php echo $doctor->doctor_id; ?>)">Reject</button>
+                </td>
+            </tr>
         <?php endforeach; ?>
-    </tbody>
-</table>
+    </table>
+<?php else: ?>
+    <p>No pending doctors to approve</p>
+<?php endif; ?>
+
+
+</div>
+
+</div>
 
 <script>
 
@@ -101,5 +125,6 @@ function rejectDoctor(doctorId) {
     }
 }
 </script>
+<script src="<?php echo URLROOT?>public/assets/js/navbar.js"></script>
 </body>
 </html>

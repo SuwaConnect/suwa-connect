@@ -23,13 +23,13 @@
                 <img src="<?php echo URLROOT;?>public/images/doctor/images/profile.png" alt="">
                 <div class="info-list">
                     <p>Name:</p>
-                    <p>John doe</p>
+                    <p><?php echo $data['patient']->first_name.' '.$data['patient']->last_name;?></p>
 
                     <p>Age:</p>
                     <p>25</p>
 
                     <p>Email</p>
-                    <p>Johndoe@gmail.com</p>
+                    <p><?php echo $data['patient']->email?></p>
 
                     <p>Patient ID:</p>
                     <p>0712345678</p>
@@ -96,15 +96,20 @@
             <div class="buttons">
                 <div class="button-div"><button id="overview-btn">see overview</button></div>
                 <div class="button-div"><button id="info-btn">see general info</button></div>
-                <div class="button-div"><button id="addRecord-btn"  href="addNewRecord.html">add new record</button></div>
-                
-                
+                <div class="button-div"><button id="addRecord-btn" onclick="addHealthRecord(<?php echo $data['patient']->patient_id?>)">add new record</button></div> 
             </div>
         
         </div>
 
     </div>
     <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+
+    <script>
+       
+        function addHealthRecord(patientId) {
+            window.location.href = `<?php echo URLROOT;?>visitrecordcontroller/addHealthRecord/${patientId}`;
+        }
+    </script>
     
 </body>
 </html>

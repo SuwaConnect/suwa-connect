@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Patient</title>
-    <link rel="stylesheet" href="<?php echo URLROOT;?>public/css/doctor/searchPatient.css"> 
+    <link rel="stylesheet" href="<?php echo URLROOT;?>public/css/doctor/searchDoctor.css"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
@@ -37,7 +37,7 @@
             <?php foreach($data['doctors'] as $doctor) : ?>
                 <div class="patient">
                     <div class="patient-image">
-                        <img src="<?php echo URLROOT; ?>public/images/doctor/images/profile.png" alt="doctor icon">
+                        <img src="<?php echo URLROOT; ?>uploads/profile_pictures/doctor/<?php echo $doctor->profile_picture_name?>" alt="doctor icon">
                     </div>
                     <div id="patient-details">
                         <div class="patient-id">
@@ -70,6 +70,6 @@
 </div>
   
              
-        <script src="<?php echo URLROOT?>public/assets/js/navbartwo.js"></script>
+<script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js" ></script>
 </body>
 </html>

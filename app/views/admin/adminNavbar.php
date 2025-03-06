@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item active">
-                <a href="<?php echo URLROOT;?>admincontroller/usermanagement" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/pendingdoctors" class="nav-link">
                     <i class="material-icons-round">group</i> <span>User Management</span>
                 </a>
             </li>
@@ -51,8 +51,13 @@
                     <i class="material-icons-round">contact_support</i> <span>Support</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="<?php echo URLROOT;?>logincontroller/logout" class="nav-link">
+                    <i class="material-icons-round">logout</i> <span>log-out</span>
+                </a>
+            </li>
         </ul>
         <div class="sidebar-footer">
-            <button class="btn-user">Login as User</button>
+            <button class="btn-user">Log in as user</button>
         </div>
     </div>

@@ -35,16 +35,7 @@ body{
     overflow-y: auto;
 }
 
-/* .grid-container{
-    display:grid;
-    grid-template-columns: repeat(4, 200px);
-    grid-template-rows: repeat(8, 1fr);
-    height: auto;
-    row-gap: 20px;
-    border: solid #2e2e2e;
-    padding: 20px;
-    
-} */
+
 
 .search-date{
     display: flex;
@@ -85,23 +76,48 @@ body{
 }
 
 .appointment-card{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    
-    row-gap: 10px;
-    
+    display: flex;
+    flex-direction: row;
     /* margin-top: 20px; */
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    background-color: azure;
+    background-color: rgb(255, 255, 255);
     padding: 5px;
    
 }
 
-.appointment-card div{
+.appointment-data{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(255, 255, 255);
+    width: 80%;
+    padding: 10px;
+    /* justify-content: center;
+    align-items: center; */
+}
+
+.action-buttons{
+    display: flex;
+    width: 20%;
+    flex-direction: column;
     align-items: center;
+    
+}
+
+#confirm-btn{
+    max-width: 200px;
+    height: 60%;
+    background-color: #2138ca;
+    border-radius: 8px;
+    border: none;
+    min-width: 50px;
+    padding: 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    font-size: 15px;
+
 }
 
 .appointment-card button{

@@ -12,48 +12,11 @@
   <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacynavbar.css">
 </head>
 <body>
-<div class="container">
-<div class="sidebar">
-            <div class="logo">
-                <img src="<?php echo URLROOT?>public/assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
-                <h2>සුව CONNECT</h2>
-                <button class="toggle-btn" id="toggleSidebar">
-                    <i class="material-icons-round">chevron_left</i>
-                </button>
-            </div>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="phamacyhome" class="nav-link">
-                        <i class="material-icons-round">home</i> <span>Home</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="pharmacypresmanagement" class="nav-link">
-                        <i class="material-icons-round">assignment</i> <span>Prescription Management</span>
-                    </a>
-                </li>
-                </li>
-                <li class="nav-item">
-                    <a href="pharmacyprescriptionhistory" class="nav-link">
-                        <i class="material-icons-round">dashboard</i> <span>Prescription History</span>
-                    </a>
-                </li>
-                <li class="nav-item active">
-                    <a href="pharmacypromotions" class="nav-link">
-                        <i class="material-icons-round">local_offer</i> <span>Promotions</span>
-                </a>
-                <li class="nav-item">
-                    <a href="pharmacyprofile" class="nav-link">
-                        <i class="material-icons-round">group</i> <span>Profile</span>
-                    </a>
-                </li>
-                <li class="nav-item" id="logout">
-                    <a href="home" class="nav-link">
-                        <i class="material-icons-round">logout</i> <span>Logout</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+
+<?php include 'pharmacyNavbar.php';?>
+<!-- <div class="container"> -->
+<div class="main-content">
+
         
         <main class="content">
             <header>
@@ -90,6 +53,6 @@
             </div>
         </main>
     </div>
-    <script src="<?php echo URLROOT?>public/assets/js/pharmacynavbar.js"></script>
+    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
 </body>
 </html>

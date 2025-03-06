@@ -117,6 +117,7 @@ button{
     font-weight: 600;
     color: white;
 
+
 }
 
 
@@ -129,6 +130,10 @@ button{
     background-color: #fcfcff;
     border-radius: 8px;
     
+}
+
+.profile-card button {
+    margin-bottom: 10px;
 }
 
 .profile-card img{

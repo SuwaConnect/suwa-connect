@@ -8,93 +8,7 @@ class logInController extends controller{
         $this->loginModel = $this->model('logInModel');
     }
 
-    // public function logIn() {
-    //     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $data = [
-    //             'email' => $_POST['email'],
-    //             'password' => $_POST['password'],
-    //             'email_error' => '',
-    //             'password_error' => ''
-    //         ];
-    
-    //         // Validate inputs
-    //         if(empty($data['email'])) {
-    //             $data['email_error'] = 'Please enter email';
-    //         }
-    //         if(empty($data['password'])) {
-    //             $data['password_error'] = 'Please enter password';
-    //         }
-    
-    //         // Only attempt login if there are no errors
-    //         if(empty($data['email_error']) && empty($data['password_error'])) {
-    //             $loggedInUser = $this->loginModel->doctorLogIn($data['email'], $data['password']);
-                
-    //             if($loggedInUser) {
-    //                 // You might want to start a session here
-    //                 $this->createUserSession($loggedInUser);
-
-    //                 if($loggedInUser->role == 'admin'){
-    //                     header('location: ' . URLROOT . '/admin/adminhome');
-    //                 }
-    //                 elseif($loggedInUser->role == 'doctor'){
-    //                     header('location: ' . URLROOT . '/doctor/home');
-    //                 }
-    //                 elseif($loggedInUser->role == 'patient'){
-    //                     header('location: ' . URLROOT . '/patient/dashboard');
-    //                 }
-    //                 elseif($loggedInUser->role == 'pharmacist'){
-    //                     header('location: ' . URLROOT . '/pharmacist/home');
-    //                 }
-    //                 elseif($loggedInUser->role == 'lab'){
-    //                     header('location: ' . URLROOT . '/lab/home');
-    //                 }
-
-                    
-    //             }else {
-    //                 if($this->loginModel->doctorStillnotApproved($data['email'])){
-    //                     echo "doctor is still not approved";
-    //                 } 
-
-    //                 if($this->loginModel->labStillnotApproved($data['email'])){
-    //                     echo "lab is still not approved";
-    //                 }
-
-    //                 if($this->loginModel->pharmacyStillnotApproved($data['email'])){
-    //                     echo "pharmacy is still not approved";
-    //                 }
-    //         }
-    //     } else {
-    //         $data = [
-    //             'email' => '',
-    //             'password' => '',
-    //             'email_error' => '',
-    //             'password_error' => ''
-    //         ];
-    //     }
-    // }
-    // $this->view('user/login', $data);
-    // }
-
-
-
-
-
-
-
-
-    // public function index() {
-    //     $data = [
-    //         'email' => '',
-    //         'password' => '',
-    //         'errors' => [
-    //             'email' => '',
-    //             'password' => '',
-    //             'login' => ''
-    //         ]
-    //     ];
-
-    //     $this->view('user/login', $data);
-    // }
+ 
 
     public function authenticate() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -165,7 +79,7 @@ class logInController extends controller{
     private function redirectBasedOnRole($role) {
         switch ($role) {
             case 'admin':
-                header('location: ' . URLROOT . 'admin/adminhome');
+                header('location: ' . URLROOT . 'adminController/home');
                 break;
             case 'doctor':
                 header('location: ' . URLROOT . 'doctor/home');
@@ -174,10 +88,10 @@ class logInController extends controller{
                 header('location: ' . URLROOT . 'patientcontroller/dashboard');
                 break;
             case 'pharmacist':
-                header('location: ' . URLROOT . 'pharmacist/home');
+                header('location: ' . URLROOT . 'pharmacycontroller/pharmacyhome');
                 break;
             case 'lab':
-                header('location: ' . URLROOT . 'lab/home');
+                header('location: ' . URLROOT . 'labcontroller/labhomepage');
                 break;
             default:
                 header('location: ' . URLROOT . 'login');
@@ -216,6 +130,7 @@ class logInController extends controller{
         $_SESSION['user_email'] = $user->email;
         $_SESSION['role'] = $user->role;
         $_SESSION['user_name'] = $user->user_name;
+        $_SESSION['profile_picture'] = $user->profile_picture;
         
     }
 
@@ -225,7 +140,7 @@ class logInController extends controller{
         unset($_SESSION['user_name']);
         unset($_SESSION['role']);
         session_destroy();
-        header('location: ' . URLROOT . '/homecontroller/index');
+        header('location: ' . URLROOT . 'homecontroller/index');
     }
 
     public function isLoggedIn() {

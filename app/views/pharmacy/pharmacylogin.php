@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT;?>public/Assets/css/logn.css">
 </head>
 <body>
+<?php include 'pharmacyNavbar.php';?>
     <div class="container">
         <div class="login-box">
             <div class="header">

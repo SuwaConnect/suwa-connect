@@ -1,11 +1,13 @@
-<link rel="stylesheet" href="<?php echo URLROOT?>assets/css/navbartwo.css">
 
-<div class="sidebar">
+<link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
+
+
+<div class="sideBar">
         <div class="logo">
             <img src="<?php echo URLROOT?>public/assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
             <h2>සුව CONNECT</h2>
 
-            <button class="toggle-btn" id="toggleSidebar"> 
+            <button class="toggle-btn" id="toggleSideBar"> 
                 <i class="material-icons-round">chevron_left</i>
             </button>
         </div>

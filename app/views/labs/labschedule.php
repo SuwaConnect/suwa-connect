@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="<?php echo URLROOT;?>public/assets/css/schedule.css">
 </head>
 <body>
+
+<?php include "labNavbar.php";?>
+
     <div class="main-container">
         <div class="appointment-section">
             <h1>Book an Appointment</h1>
