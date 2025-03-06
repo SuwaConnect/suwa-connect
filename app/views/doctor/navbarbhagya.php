@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
 
     <div class="sideBar">
+
     <div class="logo">
         <img src="<?php echo URLROOT; ?>public/images/doctor/Images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
         <h2>සුව CONNECT</h2>
@@ -9,6 +10,7 @@
             <i class="material-icons-round">chevron_left</i>
         </button>
     </div>
+    
     <ul class="nav-menu">
         <li class="nav-item active">
             <a href="<?php echo URLROOT?>doctor/home" class="nav-link">
@@ -53,7 +55,7 @@
     </ul>
     
         <div class="sidebar-footer">
-        <a href="<?php echo URLROOT?>/logincontroller/logout" class="btn-user">Log-Out</a>
+        <a href="<?php echo URLROOT?>logincontroller/logout" class="btn-user">Log-Out</a>
         </div>
 
     

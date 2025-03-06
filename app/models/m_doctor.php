@@ -100,4 +100,53 @@ public function insertApprovedDoctor($doctorData) {
     return false;
 }
 
+public function getDoctorIdByUserId($user_id){
+    $this->db->query('SELECT doctor_id FROM approved_doctors WHERE user_id = :user_id');
+    $this->db->bind(':user_id', $user_id);
+    $row = $this->db->single();
+    return $row->doctor_id;
+}
+
+public function getCountOfNewappointments($user_id){
+    $doctor_id = $this->getDoctorIdByUserId($user_id);
+    $this->db->query('SELECT COUNT(*) as count FROM appointments WHERE doctor_id = :user_id AND status = "pending"');
+    $this->db->bind(':user_id', $doctor_id);
+    $row = $this->db->single();
+    return $row;
+}
+
+public function getAppointments($user_id){
+    $doctor_id = $this->getDoctorIdByUserId($user_id);
+    $this->db->query("SELECT a.*, p.first_name, p.last_name ,t.slot_time
+                      FROM appointments a
+                      INNER JOIN patients p ON a.patient_id = p.patient_id
+                      Inner JOIN timeslots t ON a.timeslot_id = t.timeslot_id
+                      WHERE a.doctor_id = :user_id 
+                      AND a.status = 'confirmed' 
+                      AND a.consult_status = 'not consulted' 
+                      AND a.appointment_date = CURDATE() 
+                      ORDER BY a.appointment_date ASC");
+    $this->db->bind(':user_id', $doctor_id);
+    $results = $this->db->resultSet();
+    return $results;
+}
+
+public function getConsultations($user_id){
+    $doctor_id = $this->getDoctorIdByUserId($user_id);
+    $this->db->query("SELECT a.*, p.first_name, p.last_name ,t.slot_time
+                      FROM appointments a
+                      INNER JOIN patients p ON a.patient_id = p.patient_id
+                      Inner JOIN timeslots t ON a.timeslot_id = t.timeslot_id
+                      WHERE a.doctor_id = :user_id 
+                      AND a.status = 'confirmed' 
+                      AND a.consult_status = 'consulted' 
+                      AND a.appointment_date >= CURDATE() 
+                      ORDER BY a.appointment_date ASC");
+    $this->db->bind(':user_id', $doctor_id);
+    $results = $this->db->resultSet();
+    return $results;
+}
+
+
+
 }

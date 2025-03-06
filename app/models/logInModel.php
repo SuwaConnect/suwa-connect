@@ -57,31 +57,12 @@ public function pharmacyStillnotApproved($email){
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 public function getApprovedUserByEmail($email) {
     $this->db->query('SELECT * FROM users WHERE email = :email');
     $this->db->bind(':email', $email);
     return $this->db->single();
 }
 
-// public function getRejectedUserByEmail($email) {
-//     $this->db->query('SELECT * FROM rejected_users WHERE email = :email');
-//     $this->db->bind(':email', $email);
-//     return $this->db->single();
-// }
 
 public function checkPendingDoctor($email) {
     $this->db->query('SELECT * FROM pending_doctors WHERE email = :email');
@@ -118,15 +99,6 @@ public function verifyCredentials($email, $password) {
         ];
     }
 
-    // Check rejected users
-    // $rejectedUser = $this->getRejectedUserByEmail($email);
-    // if ($rejectedUser && password_verify($password, $rejectedUser->password)) {
-    //     return [
-    //         'status' => 'rejected',
-    //         'data' => $rejectedUser,
-    //         'message' => 'Your account registration has been rejected'
-    //     ];
-    // }
 
     // Check pending users
     $pendingDoctor = $this->checkPendingDoctor($email);

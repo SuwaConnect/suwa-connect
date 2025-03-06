@@ -77,7 +77,7 @@
     </div>
 
     
-    <script src="<?php echo URLROOT?>public/assets/js/navbartwo.js"></script>
+    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js" ></script>
     <script src="<?php echo URLROOT?>public/assets/js/report.js"></script>
 </body>
 

@@ -12,6 +12,7 @@
     
 </head>
 <body>
+    <?php include 'pharmacyNavbar.php';?>
     <div class="container">
         <!-- Sidebar code remains same as pharmacypromotions.php -->
         <main class="content">
@@ -53,5 +54,7 @@
         </main>
     </div>
     <script src="<?php echo URLROOT?>public/assets/js/pharmacyaddpromo.js"></script>
+    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+
 </body>
 </html>

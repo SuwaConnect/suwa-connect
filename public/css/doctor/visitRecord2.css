@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+.main-content {
+    background-color: #e6f2ff;
+    color:#2e2e2e;
+    padding: 20px;
+    margin-left: 250px; /* To make space for the sidebar */
+    padding: 20px;
+    width: calc(100% - 250px); /* Take the remaining width */
+    overflow-y: auto; /* Enable scrolling if content overflows vertically */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+    height: 100vh;  
+}
+
+.sideBar.collapsed + .main-content{
+
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+.form-group {
+    padding-left:2% ; 
+   width: 100%;
+   display: flex;
+    flex-direction: column;
+   justify-content: center;
+   
+  
+}
+
+.form-group input {
+    width: 50%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.submit-button {
+    width: 20%;
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #1c56dd;
+    color: white;
+    cursor: pointer;
+}
+
+#add-medicine-btn{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #23ec11;
+    color: white;
+    cursor: pointer;
+    width: 50%;
+    cursor: pointer;
+}
+
+
+
+.search-results {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+   
+    
+}
+
+.search-results table {
+    width: 60%;
+    /* border-collapse: collapse; */
+    border: #2e2e2e 1px solid;
+    height: 50%;
+    border-radius: 10px;
+    
+ 
+}
+
+.search-results table th {
+    background-color: #1c56dd;
+    color: white;
+    padding: 3px;
+    text-align: center;
+}
+
+.search-results table td {
+    height: 40px;
+    text-align: center;
+  
+    
+}
+
+.search-results table tr{
+   border-collapse: collapse;
+   height: 40px;
+    
+    
+}
+
+
+.add-prescription{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    flex-direction: column;
+}
+
+.button {
+    width: 20%;
+    padding: 10px;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #1c56dd;
+    color: white;
+    cursor: pointer;
+}
+
+.selected-item button{
+    width:100px;
+    background-color: #f00606;
+    color: white;
+    margin-left: 30px;
+    cursor: pointer;
+}
+
+.selected-medicines{
+   display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 40px;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.selected-medicines button{
+    background-color: #f00606;
+    color: white;
+    width:50%;
+    border: none;
+    border-radius: 5px;
+}
+
+.selected-medicines-table {
+    width: 60%;
+    border-collapse: collapse;
+    /* border: #2e2e2e 1px solid; */
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 15px;
+    
+}
+.selected-medicines table th {
+    background-color: #1c56dd;
+    color: white;
+    padding: 3px;
+    text-align: center;
+}
+
+.selected-medicines table td {
+   padding:5px;
+}
+
+.selected-medicines-table tbody {
+    background-color: #ffffff;
+   
+   
+}
+

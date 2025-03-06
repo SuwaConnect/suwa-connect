@@ -100,18 +100,44 @@
 
             </div>
 
+            <form action="<?php echo URLROOT?>profileController/changeProfilePicture" method="POST" enctype="multipart/form-data">
             <div class="profile-card">
                 
-                <img src="<?php echo URLROOT?>./public/images/doctor/images/profile.png" alt="profile icon">
+                <img src="<?php if(isset($_SESSION['profile_picture'])){
+                    echo URLROOT.'public/uploads/profile_pictures/'.$_SESSION['role'].'/'.$_SESSION['profile_picture'];
+                    } else {
+                        echo URLROOT.'public/images/doctor/images/profile.png';
+                    }?>"
+                
+                 alt="profile icon">
                 <span>Dr. Manilka Anupama</span>
-                <button>change picture</button>
-
+               
+                <input type="file" name="profile_picture" id="profileInput" accept="image/*" required hidden>
+                    <button type="button" class="custom-upload-btn" onclick="document.getElementById('profileInput').click();">
+                        Choose File
+                    </button>                   
+                    <button type="submit" class="upload-btn">Upload</button>
+                
             </div>
-
+            </form>
             
-            
+           <!-- /public/images/doctor/images/profile.png -->
         </div>
     </div>
+
     <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+    <script>
+                document.getElementById("profileInput").addEventListener("change", function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    document.getElementById("profilePreview").src = reader.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+
 </body>
 </html>

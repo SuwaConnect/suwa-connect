@@ -22,7 +22,7 @@
 
             <h1>Book an Appointment</h1>
            
-            <p>Choose a date to see available timeslots</p>
+            <h4>Choose a date to see available timeslots</h4>
 
             <div class="select-date">
         <form id="dateSearchForm">
@@ -39,7 +39,7 @@
         <form id="appointmentForm" action="<?php echo URLROOT; ?>appointmentcontroller/create" method="POST">
             <input type="hidden" name="doctor_id" value="<?php echo $data['doctor_id']; ?>">
             <input type="hidden" name="appointment_date" id="selected_date">
-            <input type="hidden" name="timeslot_id" id="selected_timeslot">
+            <input type="hidden" name="session_id" id="selected_timeslot">
             
             <div class="details-grid">
                 <p>Doctor Name</p>
@@ -48,10 +48,10 @@
                 <p>Date</p>
                 <p id="display_date">Not selected</p>
 
-                <p>Time</p>
+                <p>Session</p>
                 <p id="display_time">Not selected</p>
 
-                <p>Reason</p>
+                <p>Special notes</p>
                 <input type="text" id="reason" name="reason" required>
             </div>
             
@@ -62,9 +62,9 @@
         </div>
 
         <div class="appointment-list">
-            <h1>Available timeslots</h1>
+            <h1>Available sessions</h1>
             <div class="appointments" id="timeslots-container">
-                <!-- Timeslots will be dynamically inserted here -->
+              
             </div>
         </div>  
 
@@ -75,7 +75,7 @@
     <script src="<?php echo URLROOT?>assets/js/navbartwo.js"></script>
    
     <script>
-document.getElementById('dateSearchForm').addEventListener('submit', function(e) {
+    document.getElementById('dateSearchForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const date = document.getElementById('appointment-date').value;
     const doctorId = document.getElementById('doctor_id').value;
@@ -85,7 +85,7 @@ document.getElementById('dateSearchForm').addEventListener('submit', function(e)
     document.getElementById('selected_date').value = date;
     
     // Fetch available timeslots
-    fetch('<?php echo URLROOT; ?>appointmentcontroller/getAvailableSlots', {
+    fetch('<?php echo URLROOT; ?>appointmentcontroller/getDoctorSessionByDate', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -100,10 +100,19 @@ document.getElementById('dateSearchForm').addEventListener('submit', function(e)
         slots.forEach(slot => {
             const slotHtml = `
                 <div class="appointments-item">
-                    <div class="time">${slot.slot_time}</div>
+                    <div class="column">
+                       <div class="info">
+                            <span class="label">Time:</span> 
+                            <span class="time">${slot.start_time} - ${slot.end_time}</span>
+                        </div>
+                        <div class="info">
+                            <span class="label">Seats Left:</span> 
+                            <span class="status">${slot.available_seats}</span>
+                        </div>
+                    </div>
                     <div class="button">
-                        <button type="button" onclick="selectTimeSlot('${slot.timeslot_id}', '${slot.slot_time}')">
-                            select time
+                        <button type="button" onclick="selectTimeSlot('${slot.session_id}', '${slot.start_time} to ${slot.end_time}')">
+                            select
                         </button>
                     </div>
                 </div>
@@ -113,18 +122,18 @@ document.getElementById('dateSearchForm').addEventListener('submit', function(e)
     });
 });
 
-function selectTimeSlot(timeslotId, time) {
+function selectTimeSlot(sessionId, time) {
     // Update hidden input and display
-    document.getElementById('selected_timeslot').value = timeslotId;
+    document.getElementById('selected_timeslot').value = sessionId;
     document.getElementById('display_time').textContent = time;
     
     // Enable book appointment button
     document.getElementById('book-appointment').disabled = false;
     
     // Highlight selected timeslot
-    const buttons = document.querySelectorAll('.appointments-item button');
-    buttons.forEach(btn => btn.classList.remove('selected'));
-    event.target.classList.add('selected');
+    // const buttons = document.querySelectorAll('.appointments-item button');
+    // buttons.forEach(btn => btn.classList.remove('selected'));
+    // event.target.classList.add('selected');
 }
 </script>
 </body>

@@ -13,7 +13,15 @@ class Doctor extends Controller
     }
 
     public function home(){
-        $this->view('doctor/doctor_homepage');
+
+        $data = [
+            // 'new_appointments' => $this->doctorModel->getCountOfNewappointments($_SESSION['user_id']),
+            // 'appointments' => $this->doctorModel->getAppointments($_SESSION['user_id']),
+            // 'consultations' => $this->doctorModel->getConsultations($_SESSION['user_id']),
+        ];
+
+        $this->view('doctor/doctor_homepage',$data);
+        
     }
 
     public function appointments(){
@@ -50,6 +58,22 @@ class Doctor extends Controller
 
     public function doctorLogIn(){
         $this->view('doctor/doctorsignin');
+    }
+
+    public function visitRecords(){
+        $this->view('doctor/visitRecord');
+    }
+
+    public function visitRecords2(){
+        $this->view('doctor/visitRecord2');
+    }
+
+    public function patientGeneralInfo(){
+        $this->view('doctor/patientGeneralInfo');
+    }
+
+    public function addReport(){
+        $this->view('doctor/addReport');
     }
 
 
@@ -93,7 +117,7 @@ class Doctor extends Controller
             $newFileName = '';
             if (isset($_FILES['medicalLicenseCopy'])) {
                 
-                $uploadDir = __DIR__.'/../../uploads/';
+                $uploadDir = __DIR__.'/../../public/uploads/';
                 $fileTmpPath = $_FILES['medicalLicenseCopy']['tmp_name'];
                 $fileName = basename($_FILES['medicalLicenseCopy']['name']);
                 $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
@@ -142,8 +166,8 @@ class Doctor extends Controller
                 $this->doctorModel->registerNewDoctor($registrationData);
                 
                 // Redirect on success
-                //echo 'Doctor registered successfully!';
-                header('Location: ' . URLROOT . 'doctor/home');
+                echo 'Doctor registered successfully!';
+                header('Location: ' . URLROOT . 'homecontroller/index');
                 exit();
             } else {
                 $data['error'] = "Passwords do not match.";
@@ -153,10 +177,12 @@ class Doctor extends Controller
         $this->view('doctor/signUp2', $data ?? []);
     }
 
+    
+    }
+
    
     
     
    
 
 
-}

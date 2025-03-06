@@ -18,7 +18,7 @@ public function labHomePage(){
 }
 
 public function labNotifications(){
-    $this->view('labs/labnotifications');
+    $this->view('labs/notifications');
 }
 
 public function labProfile(){
@@ -53,4 +53,5 @@ public function labAppointments(){
     $this->view('labs/labappointments');
 
 }
+
 }

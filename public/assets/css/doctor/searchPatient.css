@@ -237,3 +237,102 @@ align-items: center;
     overflow-y: auto;
 }
 
+.no-patients{
+    padding: 50px;
+}
+
+#no-patient{
+    color: aqua;
+    font-size: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .patients-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: white;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .patients-table th,
+    .patients-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .patients-table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .patients-table tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .patient-profile-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .request-access-btn,
+    .visit-profile-btn {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+    }
+
+    .request-access-btn {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .request-access-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .visit-profile-btn {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .visit-profile-btn:hover {
+        background-color: #545b62;
+    }
+
+    .request-access-btn:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+
+    .request-access-btn.success {
+        background-color: #28a745;
+    }
+
+    .request-access-btn.error {
+        background-color: #dc3545;
+    }
+
