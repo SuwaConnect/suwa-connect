@@ -17,30 +17,28 @@
     <body> 
 
     <?php include  "navbar-patient.php";?>
-    
+    <div class="main-content">
     <div class="main-container">
         <h1>Settings</h1>
         <div class="settings-section">
-            <div class="setting-card">
-                <div class="setting-title">Notification Settings</div>
-                <div class="setting-description">Manage your notification preferences below.</div>
+            <div class="setting-card" id="confirm-request">
+                <div class="setting-title">profile access requests</div>
+                <div class="setting-description">Give access to your preferred doctors.</div>
                 <div class="setting-option">
-                    <label for="email-notifications">Email Notifications</label>
-                    <input type="checkbox" id="email-notifications" name="email-notifications">
+                    <label for="email-notifications">Access requests</label>
                 </div>
             </div>
 
             <div class="setting-card">
-                <div class="setting-title">Privacy Settings</div>
+                <div class="setting-title">Manage access</div>
                 <div class="setting-description">Control your data privacy settings.</div>
                 <div class="setting-option">
                     <label for="share-data">Share Data with Third Parties</label>
-                    <input type="checkbox" id="share-data" name="share-data">
                 </div>
         
             </div>
 
-            <div class="setting-card">
+            <div class="setting-card" >
                 <div class="setting-title">Account Settings</div>
                 <div class="setting-item change-password">
                 <span>Change Password</span>
@@ -48,6 +46,17 @@
             </div>
                 
             </div>
+
+            <div class="setting-card" id="manage-health-info">
+                <div class="setting-title">Manage health info</div>
+                <div class="setting-description">Manage and update your general health info.</div>
+                <div class="setting-option">
+                    <!-- <label for="share-data">Share Data with Third Parties</label> -->
+                </div>
+        
+            </div>
+
+            
 
             <button class="setting-button">Save Settings</button>
         </div>
@@ -71,9 +80,22 @@
             </form>
         </div>
     </div>
+    </div>
 
-    <script src="<?php echo URLROOT?>public/assets/js/navbartwo.js"></script>
+    <!-- <script src="<?php echo URLROOT?>public/assets/js/navbartwo.js"></script> -->
+    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+
     <script src="<?php echo URLROOT?>public/assets/js/setting.js"></script>
+    <script>
+        document.getElementById('confirm-request').addEventListener('click', function() {
+        window.location.href = '<?php echo URLROOT?>patientcontroller/confirmrequest';
+        });
+
+        document.getElementById('manage-health-info').addEventListener('click', function() {
+        window.location.href = '<?php echo URLROOT?>patientcontroller/managehealthinfo';
+        });
+
+    </script>
 
     </body>
 

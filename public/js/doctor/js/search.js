@@ -54,7 +54,7 @@ function createPatientElement(patient) {
                 <span id="name">${patient.first_name} ${patient.last_name}</span>
             </div>
             <div class="patient-age">
-                <span id="age">${patient.contact_no}</span>
+                <span id="age">${patient.patient_id}</span>
             </div>
             <div class="btns">
                 ${generateButtons(patient)}
@@ -65,12 +65,12 @@ function createPatientElement(patient) {
 }
 
 function generateButtons(patient) {
-    if (patient.request_status === 'pending') {
+    if (patient.status === 'pending') {
         return `
             <div class="request-access-btn">
                 <button disabled style="background-color: #cccccc;">Already Requested</button>
             </div>`;
-    } else if (patient.request_status === 'approved') {
+    } else if (patient.status === 'approved') {
         return `
             <div class="visit-profile-btn">
                 <button onclick="visitProfile('${patient.patient_id}')">Visit Profile</button>

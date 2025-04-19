@@ -40,18 +40,12 @@
             <div class="search">
                 <div class="search-bar">
                 <input type="search" placeholder="Search health records..." aria-label="Search" />
-                <button type="submit">search</button>
-                <select id="dropdown" name="options">
-                    <option value="option1">all</option>
-                    <option value="option2">by date</option>
-                    <option value="option3">by keyword</option>
-                    <option value="option4">by doctor</option>
-                </select>
+               
                 </div>
 
                 <div class="search-results">
 
-                    <div class="search-item">
+                    <!-- <div class="search-item">
                         <p class="date">24/10/2024</p>
                         <p class="doctorName">Dr. John Doe</p>
                         <p class="report-description">x-ray reports</p>
@@ -67,21 +61,9 @@
                         <button id="delete">delete</button>
                     </div>
 
-                    <div class="search-item">
-                        <p class="date">24/10/2024</p>
-                        <p class="doctorName">Dr. kumar perera</p>
-                        <p class="report-description">MRI reports attached</p>
-                        <button id="seeMore">see more</button>
-                        <button id="delete">delete</button>
-                    </div>
+                     -->
 
-                    <div class="search-item">
-                        <p class="date">24/10/2024</p>
-                        <p class="doctorName">Dr. jagath</p>
-                        <p class="report-description">x-ray reports</p>
-                        <button id="seeMore">see more</button>
-                        <button id="delete">delete</button>
-                    </div>
+                   
 
                     
                     
@@ -105,10 +87,116 @@
     <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
 
     <script>
-       
-        function addHealthRecord(patientId) {
-            window.location.href = `<?php echo URLROOT;?>visitrecordcontroller/addHealthRecord/${patientId}`;
+
+const URLROOT = "<?php echo URLROOT;?>";
+
+function addHealthRecord(patientId) {
+    window.location.href = `${URLROOT}/visitRecordController/addHealthRecord/${patientId}`;
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.querySelector('input[type="search"]');
+    const resultsContainer = document.querySelector('.search-results');
+
+    // Load all records on page load
+    fetchHealthRecords('');
+
+    // Add live search listener
+    searchInput.addEventListener('input', function () {
+        const searchTerm = searchInput.value.trim();
+        fetchHealthRecords(searchTerm);
+    });
+
+    // Fetch records from PHP backend
+    function fetchHealthRecords(searchTerm = '') {
+        const patientId = "<?php echo $data['patient']->patient_id; ?>";
+        let apiUrl = `${URLROOT}/visitRecordController/getHealthRecords/${patientId}`;
+
+        if (searchTerm) {
+            apiUrl += `?search=${encodeURIComponent(searchTerm)}`;
         }
+
+        resultsContainer.innerHTML = '<p>Loading health records...</p>';
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                displayRecords(data);
+            })
+            .catch(error => {
+                resultsContainer.innerHTML = `<p>Error loading records: ${error.message}</p>`;
+                console.error('Fetch error:', error);
+            });
+    }
+
+    // Display records
+    function displayRecords(records) {
+        if (records.length === 0) {
+            resultsContainer.innerHTML = '<p>No records found.</p>';
+            return;
+        }
+
+        let html = '';
+        records.forEach(record => {
+            const dateOnly = new Date(record.created_at).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: '2-digit'
+            });
+
+            html += `
+                <div class="search-item">
+                    <p class="date">${dateOnly}</p>
+                    <p class="doctorName">Dr. ${record.doctor_name}</p>
+                    <p class="report-description">${record.diagnosis}</p>
+                    <button class="seeMore" id="seeMore" data-id="${record.record_id}" onclick="seeMoreinfo('${record.record_id}')">see more</button>
+                    <button class="delete" id="delete" data-id="${record.record_id}" onclick="deleteRecord('${record.record_id}')">delete</button>
+                </div>
+            `;
+        });
+
+        resultsContainer.innerHTML = html;
+    }
+
+});
+
+// Make sure these are global so inline onclick can access them
+function seeMoreinfo(recordId) {
+    window.location.href = `${URLROOT}visitRecordController/viewHealthRecord/${recordId}`;
+}
+
+function deleteRecord(recordId) {
+    if (confirm('Are you sure you want to delete this record?')) {
+        fetch(`${URLROOT}/visitRecordController/deleteHealthRecord/${recordId}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Record deleted successfully!');
+                // Refresh records (make sure search input is still accessible)
+                const searchInput = document.querySelector('input[type="search"]');
+                const searchTerm = searchInput?.value.trim() || '';
+                fetchHealthRecords(searchTerm);
+            } else {
+                alert('Error deleting record: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error deleting record: ' + error.message);
+        });
+    }
+}
+
+
     </script>
     
 </body>

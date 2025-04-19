@@ -19,6 +19,14 @@ body {
       padding-bottom: 0;
   
   }
+
+  .sideBar.collapsed + .main-content{
+
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+}
+
   
   /* Header */
   header {

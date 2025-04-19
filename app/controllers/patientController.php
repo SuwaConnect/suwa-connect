@@ -3,10 +3,12 @@ class patientController extends Controller {
 
     private $patientModel;
     private $userModel;
+    private $appointmentModel;
 
     public function __construct() {
         $this->patientModel = $this->model('patientModel');
         $this->userModel = $this->model('UserModel');
+        $this->appointmentModel = $this->model('appointmentModel');
     }
 
     public function confirmRequest() {
@@ -18,7 +20,22 @@ class patientController extends Controller {
     }
 
     public function appointments() {
-        $this->view('patient/appointments');
+
+            try{
+                $patientId = $this->appointmentModel->getPatientIdByUserId($_SESSION['user_id'])->patient_id;
+                $appointments = $this->appointmentModel->getScheduledAppointmentsForPatient($patientId);
+
+                $data = [
+                    'appointments' => $appointments
+                ];
+                //var_dump($data['appointments']);
+                $this->view('patient/appointments', $data);
+            }catch (Exception $e) {
+                // Handle exception (e.g., log the error, show an error message)
+                echo "Error: " . $e->getMessage();
+            }
+            
+       
     }
 
     public function dashboard() {
@@ -26,7 +43,24 @@ class patientController extends Controller {
     }
 
     public function records() {
-        $this->view('patient/record');
+        try{
+            // Fetch patient data from the model
+            $patient_id = $this->patientModel->getPatientByUserId($_SESSION['user_id'])->patient_id;
+            $patient = $this->patientModel->getPatientByUserId($_SESSION['user_id']);
+            $vitalSigns = $this->patientModel->getRecentVitalSigns($patient_id);
+            $data = [
+                'vitalSigns' => $vitalSigns,
+                'patient_id' => $patient_id,
+                'patient' => $patient,
+                $count = count($vitalSigns)-1
+            ];
+           //var_dump($data['count']);
+            $this->view('patient/record', $data);
+        } catch (Exception $e) {
+            // Handle exception (e.g., log the error, show an error message)
+            echo "Error: " . $e->getMessage();
+        }
+       
     }
 
     public function notifications() {
@@ -51,6 +85,7 @@ class patientController extends Controller {
     
 
 public function patientRegister() {
+    try{
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Create data array to store validation errors
         $errors = [];
@@ -137,10 +172,24 @@ public function patientRegister() {
     }
 
     // Load view with any error data
-    $this->view('patient/patientSignup', $data ?? ['errors' => []]);
+    $this->view('patient/patientSignup', $data ?? ['errors' => []]);}
+    catch (Exception $e) {
+        // Handle exception (e.g., log the error, show an error message)
+        echo "Error: " . $e->getMessage();
+    }
 }
 
 
+public function manageHealthInfo() {
+   try{
+    $this->view('patient/health-info');
+   }
 
 
+
+catch (Exception $e) {
+    // Handle exception (e.g., log the error, show an error message)
+    echo "Error: " . $e->getMessage();
+}
+}
 }

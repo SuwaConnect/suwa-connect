@@ -16,40 +16,7 @@ class appointmentModel{
         return $row;
     }
 
-    public function getAllTimeSlots() {
-        $this->db->query('SELECT * FROM timeslots ORDER BY slot_time');
-        return $this->db->resultSet();
-    }
     
-    // Get available time slots for a specific date and doctor
-    public function getAvailableTimeSlots($doctorId, $date) {
-        $this->db->query('SELECT t.* 
-                         FROM timeslots t 
-                         WHERE t.timeslot_id NOT IN (
-                             SELECT a.timeslot_id 
-                             FROM appointments a 
-                             WHERE a.doctor_id = :doctor_id 
-                             AND a.appointment_date = :appointment_date
-                             AND a.status != "cancelled"
-                         )
-                         ORDER BY t.slot_time');
-                         
-        $this->db->bind(':doctor_id', $doctorId);
-        $this->db->bind(':appointment_date', $date);
-        
-        return $this->db->resultSet();
-    }
-    
-    // Get a specific time slot by ID
-    public function getTimeSlotById($timeslotId) {
-        $this->db->query('SELECT * FROM timeslots WHERE timeslot_id = :timeslot_id');
-        $this->db->bind(':timeslot_id', $timeslotId);
-        return $this->db->single();
-    }
-
-
-
-
     public function createAppointment($data) {
         $this->db->query('INSERT INTO appointments 
                          (doctor_id, patient_id, appointment_date, session_id, reason) 
@@ -71,81 +38,7 @@ class appointmentModel{
         }
     }
     
-    // Check if timeslot is available
-    public function isTimeSlotAvailable($doctorId, $date, $timeslotId) {
-        $this->db->query('SELECT COUNT(*) as count 
-                         FROM appointments 
-                         WHERE doctor_id = :doctor_id 
-                         AND appointment_date = :appointment_date 
-                         AND timeslot_id = :timeslot_id 
-                         AND status != "cancelled"');
-                         
-        $this->db->bind(':doctor_id', $doctorId);
-        $this->db->bind(':appointment_date', $date);
-        $this->db->bind(':timeslot_id', $timeslotId);
-        
-        $result = $this->db->single();
-        return $result->count == 0;
-    }
-    
-    // Get all appointments for a patient
-    public function getPatientAppointments($patientId) {
-        $this->db->query('SELECT a.*, t.slot_time, d.firstName as doctor_name 
-                         FROM appointments a 
-                         JOIN timeslots t ON a.timeslot_id = t.timeslot_id 
-                         JOIN doctors d ON a.doctor_id = d.doctor_id 
-                         WHERE a.patient_id = :patient_id 
-                         ORDER BY a.appointment_date DESC, t.slot_time DESC');
-                         
-        $this->db->bind(':patient_id', $patientId);
-        return $this->db->resultSet();
-    }
-    
-    // Get all appointments for a doctor
-    public function getDoctorAppointments($doctorId) {
-        $this->db->query('SELECT a.*, t.slot_time, p.name as patient_name 
-                         FROM appointments a 
-                         JOIN timeslots t ON a.timeslot_id = t.timeslot_id 
-                         JOIN patients p ON a.patient_id = p.patient_id 
-                         WHERE a.doctor_id = :doctor_id 
-                         ORDER BY a.appointment_date DESC, t.slot_time DESC');
-                         
-        $this->db->bind(':doctor_id', $doctorId);
-        return $this->db->resultSet();
-    }
-    
-    // Get specific appointment by ID
-    public function getAppointmentById($appointmentId) {
-        $this->db->query('SELECT a.*, t.slot_time, d.firstName as doctor_name, p.name as patient_name 
-                         FROM appointments a 
-                         JOIN timeslots t ON a.timeslot_id = t.timeslot_id 
-                         JOIN doctors d ON a.doctor_id = d.doctor_id 
-                         JOIN patients p ON a.patient_id = p.patient_id 
-                         WHERE a.appointment_id = :appointment_id');
-                         
-        $this->db->bind(':appointment_id', $appointmentId);
-        return $this->db->single();
-    }
-    
-    
-    
-    // Get appointments for specific date and doctor
-    public function getDoctorAppointmentsByDate($doctorId, $date) {
-        $this->db->query('SELECT a.*, t.slot_time, p.name as patient_name 
-                         FROM appointments a 
-                         JOIN timeslots t ON a.timeslot_id = t.timeslot_id 
-                         JOIN patients p ON a.patient_id = p.patient_id 
-                         WHERE a.doctor_id = :doctor_id 
-                         AND a.appointment_date = :appointment_date 
-                         AND a.status != "cancelled" 
-                         ORDER BY t.slot_time');
-                         
-        $this->db->bind(':doctor_id', $doctorId);
-        $this->db->bind(':appointment_date', $date);
-        
-        return $this->db->resultSet();
-    }
-
+   
     public function getPatientIdByUserId($user_id){
         $this->db->query('SELECT patient_id FROM patients WHERE user_id = :user_id');
         $this->db->bind(':user_id', $user_id);
@@ -161,158 +54,6 @@ class appointmentModel{
     }
 
     
-
-    public function getPendingAppointments($doctor_id, $date) {
-        try {
-            $this->db->query('SELECT 
-                                a.appointment_id,
-                                a.appointment_date,
-                                a.status,
-                                a.reason,
-                                t.slot_time,
-                                p.first_name as patient_name,
-                                p.patient_id
-                             FROM appointments a 
-                             JOIN timeslots t ON a.timeslot_id = t.timeslot_id 
-                             JOIN patients p ON a.patient_id = p.patient_id 
-                             WHERE a.doctor_id = :doctor_id 
-                             AND a.appointment_date = :appointment_date 
-                             AND a.status = "pending" 
-                             ORDER BY t.slot_time');
-                             
-            $this->db->bind(':doctor_id', $doctor_id);
-            $this->db->bind(':appointment_date', $date);
-            
-            return $this->db->resultSet();
-        } catch (PDOException $e) {
-            error_log("Database error: " . $e->getMessage());
-            return [];
-        }
-    }
-
-    public function getApprovedAppointments($doctor_id, $date) {
-        try {
-            $this->db->query('SELECT 
-                                a.appointment_id,
-                                a.appointment_date,
-                                a.status,
-                                a.reason,
-                                t.slot_time,
-                                p.first_name as patient_name,
-                                p.patient_id
-                             FROM appointments a 
-                             JOIN timeslots t ON a.timeslot_id = t.timeslot_id 
-                             JOIN patients p ON a.patient_id = p.patient_id 
-                             WHERE a.doctor_id = :doctor_id 
-                             AND a.appointment_date = :appointment_date 
-                             AND a.status = "confirmed" 
-                             And a.consult_status = "not consulted"
-                             ORDER BY t.slot_time');
-                             
-            $this->db->bind(':doctor_id', $doctor_id);
-            $this->db->bind(':appointment_date', $date);
-            
-            return $this->db->resultSet();
-        } catch (PDOException $e) {
-            error_log("Database error: " . $e->getMessage());
-            return [];
-        }
-    }
-
-    public function updateAppointmentStatus($appointment_id, $status) {
-        try {
-            $this->db->query('UPDATE appointments 
-                             SET status = :status   
-                             WHERE appointment_id = :appointment_id');
-            
-            $this->db->bind(':status', $status);
-            $this->db->bind(':appointment_id', $appointment_id);
-            
-            return $this->db->execute();
-        } catch (PDOException $e) {
-            error_log("Error updating appointment status: " . $e->getMessage());
-            throw new Exception("Database error occurred");
-        }
-    }
-
-    public function getAllAppointments($doctor_id) {
-        try {
-            $this->db->query('SELECT 
-                                a.appointment_id,
-                                a.appointment_date,
-                                a.status,
-                                a.reason,
-                                a.consult_status,
-                                t.slot_time,
-                                p.first_name as patient_name,
-                                p.patient_id
-                             FROM appointments a 
-                             JOIN timeslots t ON a.timeslot_id = t.timeslot_id 
-                             JOIN patients p ON a.patient_id = p.patient_id 
-                             WHERE a.doctor_id = :doctor_id AND a.status = "confirmed" AND a.consult_status = "not consulted" 
-                             ORDER BY a.appointment_date DESC, t.slot_time DESC');
-                             
-            $this->db->bind(':doctor_id', $doctor_id);
-            
-            return $this->db->resultSet();
-        } catch (PDOException $e) {
-            error_log("Database error: " . $e->getMessage());
-            return [];
-        }
-    }
-
-    // Add method to send notification to patient (optional)
-    public function notifyPatient($appointment_id, $status) {
-        // Get patient details
-        $this->db->query('SELECT p.email, p.name, a.appointment_date, t.slot_time 
-                         FROM appointments a
-                         JOIN patients p ON a.patient_id = p.patient_id
-                         JOIN timeslots t ON a.timeslot_id = t.timeslot_id
-                         WHERE a.appointment_id = :appointment_id');
-        
-        $this->db->bind(':appointment_id', $appointment_id);
-        $patientDetails = $this->db->single();
-        
-        if($patientDetails) {
-            // Send email notification
-            // Implement your email sending logic here
-            return true;
-        }
-        return false;
-    }
-
-    public function markAppointmentAsCompleted($appointment_id) {
-        try {
-            $this->db->query('UPDATE appointments 
-                             SET consult_status = "consulted"   
-                             WHERE appointment_id = :appointment_id');
-            
-            $this->db->bind(':appointment_id', $appointment_id);
-            
-            return $this->db->execute();
-        } catch (PDOException $e) {
-            error_log("Error updating appointment status: " . $e->getMessage());
-            throw new Exception("Database error occurred");
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function getSessionsForTheSelecteddate($doctor_id, $date, $dayOfWeek) {
         try {
@@ -358,5 +99,149 @@ class appointmentModel{
             return false;
         }
     }
+
+   
+
+
+
+
+public function getSessionsByDoctorAndDay($doctorId, $dayOfWeek) {
+    try {
+        $this->db->query('SELECT * FROM doctor_sessions 
+                         WHERE doctor_id = :doctor_id 
+                         AND session_date = :day_of_week 
+                         ORDER BY start_time');
+        
+        $this->db->bind(':doctor_id', $doctorId);
+        $this->db->bind(':day_of_week', $dayOfWeek);
+        
+        return $this->db->resultSet();
+    } catch (PDOException $e) {
+        error_log("Error fetching doctor sessions: " . $e->getMessage());
+        throw new Exception("Could not retrieve doctor sessions");
+    }
+}
+
+
+public function getAppointmentsForSession($sessionId, $date) {
+    try {
+        $this->db->query('SELECT a.*, p.first_name,p.last_name, p.contact_no 
+                         FROM appointments a
+                         JOIN patients p ON a.patient_id = p.patient_id
+                         WHERE a.session_id = :session_id 
+                         AND a.appointment_date = :appointment_date
+                         ORDER BY a.created_at');
+        
+        $this->db->bind(':session_id', $sessionId);
+        $this->db->bind(':appointment_date', $date);
+        
+        return $this->db->resultSet();
+    } catch (PDOException $e) {
+        error_log("Error fetching appointments for session: " . $e->getMessage());
+        throw new Exception("Could not retrieve appointments");
+    }
+}
+
+public function getNumberOfSessions($doctorId, $dayOfWeek) {
+    try {
+        $this->db->query('SELECT COUNT(*) as count FROM doctor_sessions 
+                         WHERE doctor_id = :doctor_id 
+                         AND session_date = :day_of_week');
+        
+        $this->db->bind(':doctor_id', $doctorId);
+        $this->db->bind(':day_of_week', $dayOfWeek);
+        
+        $result = $this->db->single();
+        return $result->count;
+    } catch (PDOException $e) {
+        error_log("Error counting doctor sessions: " . $e->getMessage());
+        throw new Exception("Could not count sessions");
+    }
+}
+
+public function getAllSessionsForDoctor($doctorId) {
+    try {
+        $this->db->query('SELECT * FROM doctor_sessions 
+                         WHERE doctor_id = :doctor_id 
+                         ORDER BY session_date, start_time');
+        
+        $this->db->bind(':doctor_id', $doctorId);
+        
+        return $this->db->resultSet();
+    } catch (PDOException $e) {
+        error_log("Error fetching all sessions for doctor: " . $e->getMessage());
+        throw new Exception("Could not retrieve sessions");
+    }
+
+}
+
+public function checkOverlappingSessions($doctorId, $sessionDate, $startTime, $endTime) {
+    // Query to check if there's any session that overlaps with the new session time
+    $this->db->query("SELECT * FROM doctor_sessions 
+                      WHERE doctor_id = :doctor_id 
+                      AND session_date = :session_date 
+                      AND (
+                          (start_time <= :start_time AND end_time > :start_time) OR
+                          (start_time < :end_time AND end_time >= :end_time) OR
+                          (start_time >= :start_time AND end_time <= :end_time)
+                      )");
+                      
+    $this->db->bind(':doctor_id', $doctorId);
+    $this->db->bind(':session_date', $sessionDate);
+    $this->db->bind(':start_time', $startTime);
+    $this->db->bind(':end_time', $endTime);
+    
+    $results = $this->db->resultSet();
+    
+    // If any rows are returned, there's an overlap
+    //var_dump($results);
+    return !empty($results);
+}
+
+public function addSession($data) {
+    $this->db->query('INSERT INTO doctor_sessions 
+                     (doctor_id, session_date, start_time, end_time, max_patients) 
+                     VALUES 
+                     (:doctor_id, :session_date, :start_time, :end_time, :max_patients)');
+    
+    // Bind values
+    $this->db->bind(':doctor_id', $data['doctor_id']);
+    $this->db->bind(':session_date', $data['session_date']);
+    $this->db->bind(':start_time', $data['start_time']);
+    $this->db->bind(':end_time', $data['end_time']);
+    $this->db->bind(':max_patients', $data['max_patients']);
+    
+    if($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+public function deleteSession($sessionId) {
+    $this->db->query('DELETE FROM doctor_sessions WHERE session_id = :session_id');
+    
+    // Bind values
+    $this->db->bind(':session_id', $sessionId);
+    
+    if($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
+public function getScheduledAppointmentsForPatient($patientId) {
+    $this->db->query('SELECT a.*, d.firstName AS doctor_first_name, d.lastName AS doctor_last_name ,d.specialization
+                     FROM appointments a
+                     JOIN approved_doctors d ON a.doctor_id = d.doctor_id
+                     WHERE a.patient_id = :patient_id AND a.status = "SCHEDULED"');
+    
+    // Bind values
+    $this->db->bind(':patient_id', $patientId);
+    
+    return $this->db->resultSet();
+}
 
 }
