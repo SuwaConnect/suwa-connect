@@ -5,7 +5,9 @@ body {
     background-color: #e6f2ff;
 }
 
-.containerf{
+.main-content1 {
+    background-color: #e6f2ff;
+    color:#2e2e2e;
     padding: 20px;
     margin-left: 250px; /* To make space for the sidebar */
     padding: 20px;
@@ -13,9 +15,28 @@ body {
     overflow-y: auto; /* Enable scrolling if content overflows vertically */
     flex-grow: 1;
     transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+}
+
+.sideBar.collapsed + .main-content1{
+
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+
+
+.containerf{
+    padding: 20px;
+    /* margin-left: 250px;  */
+    padding: 20px;
+    /* width: calc(100% - 250px); */
+    overflow-y: auto; 
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
     margin-bottom: 0;
     padding-bottom: 0;
-    width:50%;
+    /* width:50%; */
 }
 
 .container {
@@ -268,7 +289,7 @@ h1 {
 
 .graph-bar {
     width: 6%; /* Adjust based on the number of months */
-    background-color: #007BFF; /* Blue bars */
+    background-color: #ee0c0c; /* Blue bars */
     border-radius: 5px;
     transition: height 0.3s ease;
 }
@@ -316,3 +337,20 @@ h1 {
         overflow-y: auto;
     }
 }
+
+
+.bp-graph-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  @media (max-width: 768px) {
+    .bp-graph-container {
+      padding: 10px;
+    }
+  }

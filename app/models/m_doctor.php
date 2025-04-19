@@ -81,6 +81,13 @@ public function getDoctorByIdFromApprovedDoctors($doctor_id){
     return $row;
 }
 
+public function getDoctorinfoFromUsersTable($user_id){
+    $this->db->query('SELECT * FROM users WHERE user_id = :id');
+    $this->db->bind(':id', $user_id);
+    $row = $this->db->single();
+    return $row;
+}
+
 public function insertApprovedDoctor($doctorData) {
     $this->db->query('INSERT INTO approved_doctors 
                      (user_id, firstName,lastName,contact_no,slmc_no,medicalLicenseCopyName)
@@ -131,22 +138,41 @@ public function getAppointments($user_id){
     return $results;
 }
 
-public function getConsultations($user_id){
-    $doctor_id = $this->getDoctorIdByUserId($user_id);
-    $this->db->query("SELECT a.*, p.first_name, p.last_name ,t.slot_time
-                      FROM appointments a
-                      INNER JOIN patients p ON a.patient_id = p.patient_id
-                      Inner JOIN timeslots t ON a.timeslot_id = t.timeslot_id
-                      WHERE a.doctor_id = :user_id 
-                      AND a.status = 'confirmed' 
-                      AND a.consult_status = 'consulted' 
-                      AND a.appointment_date >= CURDATE() 
-                      ORDER BY a.appointment_date ASC");
-    $this->db->bind(':user_id', $doctor_id);
-    $results = $this->db->resultSet();
-    return $results;
+// public function getConsultations($user_id){
+//     $doctor_id = $this->getDoctorIdByUserId($user_id);
+//     $this->db->query("SELECT a.*, p.first_name, p.last_name ,t.slot_time
+//                       FROM appointments a
+//                       INNER JOIN patients p ON a.patient_id = p.patient_id
+//                       Inner JOIN timeslots t ON a.timeslot_id = t.timeslot_id
+//                       WHERE a.doctor_id = :user_id 
+//                       AND a.status = 'confirmed' 
+//                       AND a.consult_status = 'consulted' 
+//                       AND a.appointment_date >= CURDATE() 
+//                       ORDER BY a.appointment_date ASC");
+//     $this->db->bind(':user_id', $doctor_id);
+//     $results = $this->db->resultSet();
+//     return $results;
+// }
+
+public function updateProfileInfo($doctor_id,$data){
+    $this->db->query('UPDATE approved_doctors SET firstName = :first_name, lastName = :last_name, contact_no = :contact_no,contact_no2 = :contact_no2,specialization = :specialization,slmc_no = :slmc_no,bio = :bio, street =:street ,city= :city, state = :state WHERE doctor_id = :doctor_id');
+    $this->db->bind(':doctor_id', $doctor_id);
+    $this->db->bind(':first_name', $data['first_name']);
+    $this->db->bind(':last_name', $data['last_name']);
+    $this->db->bind(':contact_no', $data['contact1']);
+    $this->db->bind(':contact_no2', $data['contact2']);
+    $this->db->bind(':specialization', $data['specialization']);
+    $this->db->bind(':bio', $data['bio']);
+    $this->db->bind(':slmc_no', $data['license']);
+    $this->db->bind(':street', $data['street']);
+    $this->db->bind(':city', $data['city']);
+    $this->db->bind(':state', $data['state']);
+
+    if($this->db->execute()){
+        return true;
+    } else {
+        return false;
+    }
 }
-
-
 
 }

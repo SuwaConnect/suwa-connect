@@ -17,7 +17,7 @@
 
     <body> 
 
-    <?php include  "navbar-patient.php";?>
+    <?php include  "navbarbhagya.php";?>
 
     <div class="main-content">
     <div class="main-container">

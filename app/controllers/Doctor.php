@@ -49,7 +49,21 @@ class Doctor extends Controller
     }
 
     public function updateProfile(){
-        $this->view('doctor/updateProfile');
+        try {
+            $doctor_id = $this->doctorModel->getDoctorIdByUserId($_SESSION['user_id']);
+            $doctor = $this->doctorModel->getDoctorByIdFromApprovedDoctors($doctor_id);
+            $user = $this->doctorModel->getDoctorinfoFromUsersTable($_SESSION['user_id']);
+            $data = [
+                'doctor' => $doctor,
+                'user' => $user
+                
+            ];
+            $this->view('doctor/updateProfile',$data);
+        } catch (Exception $e) {
+            // Handle the exception here (e.g., log it, show an error message, etc.)
+            echo 'Error: ' . $e->getMessage();
+        }
+       
     }
 
     public function searchPatient(){
@@ -177,6 +191,36 @@ class Doctor extends Controller
         $this->view('doctor/signUp2', $data ?? []);
     }
 
+    public function updateProfileInfo(){
+        try{
+           if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $doctor_id = $this->doctorModel->getDoctorIdByUserId($_SESSION['user_id']);
+            $dataForApprovedDoctorTable = [
+                'first_name' => trim($_POST['firstname']),
+                'last_name' => trim($_POST['lastname']),
+                // 'email' => filter_var($_POST['email'], FILTER_VALIDATE_EMAIL),
+                'contact1' => trim($_POST['contact1']),
+                'contact2' => trim($_POST['contact2']),
+                'specialization' => trim($_POST['specialization']),
+                'license' => trim($_POST['licenseNo']),
+                'bio' => trim($_POST['bio']),
+                'street' => trim($_POST['street']),
+                'city' => trim($_POST['city']),
+                'state' => trim($_POST['state'])
+            ];
+            
+
+          $this->doctorModel->updateProfileInfo($doctor_id,$dataForApprovedDoctorTable); 
+          $this->updateProfile();
+
+            
+            
+        } }catch(Exception $e){
+            // Handle the exception here (e.g., log it, show an error message, etc.)
+            echo 'Error: ' . $e->getMessage();
+        }
+   
+
     
     }
 
@@ -185,4 +229,4 @@ class Doctor extends Controller
     
    
 
-
+}

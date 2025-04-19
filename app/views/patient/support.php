@@ -17,7 +17,7 @@
     <body> 
 
     <?php include  "navbar-patient.php";?>
-
+    <div class="main-content">
     <div class="main-container">
         
 
@@ -87,8 +87,9 @@
             </form>
         </div>
     </div>
+    </div>
 
-    <script src="<?php echo URLROOT?>public/assets/js/navbartwo.js"></script>
+    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
     <script src="<?php echo URLROOT?>public/support.js"></script>
 </body>
 </html>

@@ -124,12 +124,7 @@ class visitRecordModel{
         return $this->db->single();
     }
     
-    /**
-     * Delete a report and its associated file
-     * 
-     * @param int $reportId Report ID
-     * @return bool True on success, false on failure
-     */
+    
     public function deleteReport($reportId) {
         // First get the report to find the file path
         $report = $this->getReportById($reportId);
@@ -180,4 +175,68 @@ class visitRecordModel{
         }
     }
 
+    public function getAllHealthRecords($patient_id, $search = '') {
+        $query = "SELECT hr.*, 
+            d.firstName AS doctor_name, 
+            p.first_name AS patient_name 
+            FROM health_records hr
+            LEFT JOIN approved_doctors d ON hr.doctor_id = d.doctor_id
+            LEFT JOIN patients p ON hr.patient_id = p.patient_id
+            WHERE hr.patient_id = :patient_id";
+    
+        $this->db->query($query);
+        $this->db->bind(':patient_id', $patient_id);
+    
+        if (!empty($search)) {
+            $query .= " AND (
+                d.firstName LIKE :search OR 
+                p.first_name LIKE :search OR 
+                hr.diagnosis LIKE :search OR 
+                hr.chief_complaint LIKE :search 
+            )";
+    
+            $this->db->query($query);
+            $this->db->bind(':patient_id', $patient_id);
+            $this->db->bind(':search', "%$search%");
+        }
+    
+        return $this->db->resultSet();
+    }
+
+    public function getHealthRecordById($record_id) {
+        $this->db->query('SELECT 
+                            hr.*, p.*,
+                            CONCAT(p.first_name," ",p.last_name) AS patient_name, 
+                            p.email AS patient_email, 
+                            CONCAT(d.firstName," ",d.lastName) AS doctor_name
+                        FROM 
+                            health_records hr
+                        JOIN 
+                            patients p ON hr.patient_id = p.patient_id
+                        JOIN 
+                            approved_doctors d ON hr.doctor_id = d.doctor_id
+                        WHERE 
+                            hr.record_id = :record_id');
+        $this->db->bind(':record_id', $record_id);
+        return $this->db->single();
+    }
+
+    public function getVitalSignsByRecordId($record_id) {
+        $this->db->query('SELECT * FROM vital_signs WHERE record_id = :record_id');
+        $this->db->bind(':record_id', $record_id);
+        return $this->db->single();
+    }
+
+    public function getReportsByRecordId($record_id) {
+        $this->db->query('SELECT * FROM reports WHERE health_record_id = :health_record_id');
+        $this->db->bind(':health_record_id', $record_id);
+        return $this->db->resultSet();
+    } 
+
+    public function getPrescriptionsByRecordId($record_id) {
+        $this->db->query('SELECT p.*, m.name AS medicine_name, m.dosage AS medicine_dosage FROM prescriptions p JOIN medicines m ON p.medicine_id = m.id WHERE p.health_record_id = :health_record_id');
+        $this->db->bind(':health_record_id', $record_id);
+        return $this->db->resultSet();
+    }
+    
 }

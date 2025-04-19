@@ -7,81 +7,32 @@ class permissionController extends controller{
         $this->permissionModel = $this->model('requestPermission');
     }
     
-    // public function requestAccess() {
-    //     try {
-    //         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //             // Get JSON data from request body
-    //             $jsonData = json_decode(file_get_contents('php://input'), true);
-                
-    //             $doctorId = $this->permissionModel->getDoctorIdByUserId($_SESSION['user_id']);
-    //             if (!$doctorId) {
-    //                 throw new Exception('Could not find doctor ID');
-    //             }
-                
-    //             if (!isset($jsonData['patient_id'])) {
-    //                 throw new Exception('Patient ID is required');
-    //             }
-    //             $patientId = $jsonData['patient_id'];
-                
-    //             $result = $this->permissionModel->createRequest($doctorId, $patientId);
-                
-    //             // Set appropriate HTTP status code based on result
-    //             // if ($result['status'] === 'error') {
-    //             //     http_response_code(400);
-    //             // }
-                
-    //             // Return JSON response
-    //             header('Content-Type: application/json');
-    //             echo json_encode($result);
-    //             exit;
-    //         }
-    //     } catch (Exception $e) {
-    //         //http_response_code(400);
-    //         header('Content-Type: application/json');
-    //         echo json_encode([
-    //             'status' => 'error',
-    //             'message' => $e->getMessage()
-    //         ]);
-    //         exit;
-    //     }
-    // }
-    
-    // public function checkPermission() {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $data = json_decode(file_get_contents('php://input'), true);
-    //         $doctorId = $_SESSION['doctor_id'];
-    //         $patientId = $data['patient_id'];
-            
-    //         $hasPermission = $this->permissionModel->checkPermission($doctorId, $patientId);
-            
-    //         header('Content-Type: application/json');
-    //         echo json_encode(['hasPermission' => $hasPermission]);
-    //         exit;
-    //     }
-    // }
 
-    // public function getPendingRequests() {
-    //     $requests = $this->permissionModel->getPendingRequests(1);
+    public function getPendingRequests() {
+        //$this->view('patient/confirmRequest');
+        $user_id = $_SESSION['user_id'];
+
+        $patient_id = $this->permissionModel->getPatientById($user_id)->patient_id;
+        $requests = $this->permissionModel->getPendingRequests($patient_id);
         
-    //     header('Content-Type: application/json');
-    //     echo json_encode($requests);
-    //     exit;
-    // }
+        header('Content-Type: application/json');
+        echo json_encode($requests);
+        exit;
+    }
 
     
-    // public function handleRequest() {
-    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //         $data = json_decode(file_get_contents('php://input'), true);
-    //         $requestId = $data['request_id'];
-    //         $status = $data['status'];
+    public function handleRequest() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $requestId = $_POST['request_id'];
+            $status = $_POST['status'];
             
-    //         $result = $this->permissionModel->updateRequest($requestId, $status);
+            $result = $this->permissionModel->updateRequest($requestId, $status);
             
-    //         header('Content-Type: application/json');
-    //         echo json_encode($result);
-    //         exit;
-    //     }
-    // }
+            header('Content-Type: application/json');
+            echo json_encode($result);
+            exit;
+        }
+    }
 
 
 
@@ -95,6 +46,15 @@ public function sendAccessRequest(){
             }
             $patient_id = $_POST['patient_id'];
             $result = $this->permissionModel->sendAccessRequest($doctor_id, $patient_id);
+
+            // $notificationHelper = notificationHelper::getInstance();
+            // $doctor = $this->permissionModel->getDoctorById($_SESSION['user_id']);
+            // $notificationHelper->profileAccessRequest(
+                
+            //     $this->permissionModel->getPatientById($patient_id)->user_id,
+            //     $doctor->firstName . ' ' . $doctor->lastName
+               
+            // );
             return $result;
         }
     } catch (Exception $e){
@@ -133,17 +93,12 @@ public function viewPatientProfile($patientId) {
     $hasAccess = $this->permissionModel->checkAccessPermission($doctorId, $patientId);
     
     if (!$hasAccess) {
-        // Redirect to error page or show access denied
-        redirect('pages/accessDenied');
+        echo "Access Denied";
         return;
     }
     
-    // If has access, get health records
-    //$healthRecords = $this->permissionModel->getHealthRecords($patientId) ;
-    
     $data = [
-        'patient' => $this->permissionModel->getPatientById($patientId),
-        //'healthRecords' => $healthRecords
+        'patient' => $this->permissionModel->getPatientByPatientId($patientId)
     ];
     
     $this->view('doctor/patientProfile', $data);

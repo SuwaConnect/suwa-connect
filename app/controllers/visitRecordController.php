@@ -118,17 +118,19 @@ private function isAlreadySelected($medicineId, $selectedMedicines) {
 public function addHealthRecord($patientId) {
     
     // First verify permissions again
+    //$patient_id = $this->permissionModel->getPatientById($patientId);
     $doctorId = $this->permissionModel->getDoctorIdByUserId($_SESSION['user_id']);
     $hasAccess = $this->permissionModel->checkAccessPermission($doctorId, $patientId);
+
     
     if (!$hasAccess) {
-        echo 'Access denied';
+        echo 'Access denied...';
         return;
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         // Display the form
-        $patient = $this->permissionModel->getPatientById($patientId);
+        $patient = $this->permissionModel->getPatientByPatientId($patientId);
         $data = [
             'patientId' => $patient->patient_id,
         ];
@@ -366,9 +368,7 @@ public function submitReports($patientId,$healthRecordId) {
     }
 }
 
-/**
- * Get human-readable file upload error message
- */
+
 private function getFileUploadError($code) {
     switch ($code) {
         case UPLOAD_ERR_INI_SIZE:
@@ -391,7 +391,7 @@ private function getFileUploadError($code) {
 }
 
 public function viewpatientprofile($patientId){
-    $patient = $this->permissionModel->getPatientById($patientId);
+    $patient = $this->permissionModel->getPatientByPatientId($patientId);
     $data = [
         'patient' => $patient
     ];
@@ -401,4 +401,41 @@ public function viewpatientprofile($patientId){
 
 }
 
+public function getHealthRecords($patient_id) {
+    $search = $_GET['search'] ?? '';
+    $records = $this->visitRecordModel->getAllHealthRecords($patient_id, $search);
+    
+    header('Content-Type: application/json');
+    echo json_encode($records);
+    exit; 
+}
+
+public function viewHealthRecord($healthRecordId) {
+    
+    try {
+        $healthRecord = $this->visitRecordModel->getHealthRecordById($healthRecordId);
+        if (!$healthRecord) {
+            throw new Exception('Health record not found');
+        }
+        
+        //$reports = $this->visitRecordModel->getReportsByHealthRecordId($healthRecordId);
+        
+        $data = [
+            'healthRecord' => $healthRecord,
+            'vitalSigns' => $this->visitRecordModel->getVitalSignsByRecordId($healthRecordId),
+            'reports' => $this->visitRecordModel->getReportsByRecordId($healthRecordId),
+            'prescription' => $this->visitRecordModel->getPrescriptionsByRecordId($healthRecordId)
+        ];
+        
+    } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
+        return;
+    }
+    
+     // Check permissions again
+    
+    $this->view('doctor/viewHealthRecord',$data);
+    
+
+}
 }
