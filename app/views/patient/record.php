@@ -18,7 +18,7 @@
         <div class="container">
             <div class="main-content">
                 <h1>Welcome back <?php echo $data['patient']->first_name?>! </h1>
-                <h4>Here's an overview of your past health records...</h4>
+                <h2>Here's an overview of your past health records...</h2>
 
                 <p id="current-date"></p>
 
@@ -66,42 +66,25 @@
         <div class="live-graph">
             <h2>Blood Pressure Levels Over Time</h2>
             <div class="bp-graph-container">
-        <canvas id="bpChart"></canvas>
-        </div>
-            <!-- <div class="graph-container">
-                <div class="graph-bar" data-month="January" style="height: 10%;"></div>
-                <div class="graph-bar" data-month="February" style="height: 60%;"></div>
-                <div class="graph-bar" data-month="March" style="height: 45%;"></div>
-                <div class="graph-bar" data-month="April" style="height: 70%;"></div>
-                <div class="graph-bar" data-month="May" style="height: 65%;"></div>
-                <div class="graph-bar" data-month="June" style="height: 55%;"></div>
-                <div class="graph-bar" data-month="July" style="height: 80%;"></div>
-                <div class="graph-bar" data-month="August" style="height: 75%;"></div>
-                <div class="graph-bar" data-month="September" style="height: 90%;"></div>
-                <div class="graph-bar" data-month="October" style="height: 85%;"></div>
-                <div class="graph-bar" data-month="November" style="height: 60%;"></div>
-                <div class="graph-bar" data-month="December" style="height: 70%;"></div>
+                <canvas id="bpChart"></canvas>
             </div>
-            <div class="graph-labels">
-                <span>Jan</span>
-                <span>Feb</span>
-                <span>Mar</span>
-                <span>Apr</span>
-                <span>May</span>
-                <span>Jun</span>
-                <span>Jul</span>
-                <span>Aug</span>
-                <span>Sep</span>
-                <span>Oct</span>
-                <span>Nov</span>
-                <span>Dec</span>
-            </div> -->
+        </div>
+
+        <div class="charts">
+
+        <div class="chart-container">
+            <h2>Cholesterol History</h2>
+            <canvas id="cholesterolChart"></canvas>
         </div>
 
         <div class="chart-container">
-    <h3>Cholesterol History</h3>
-    <canvas id="cholesterolChart"></canvas>
-</div>
+            <h2 class="chart-title">Blood Sugar Tracking</h2>
+            <div class="chart-wrapper">
+                <canvas id="bloodSugarChart"></canvas>
+            </div>
+        </div>
+        </div>
+
         
         
 
@@ -325,6 +308,90 @@ document.addEventListener('DOMContentLoaded', function() {
                             else if (value <= 240) status = ' (Borderline High)';
                             else status = ' (High)';
                             return 'Cholesterol: ' + value + ' mg/dL' + status;
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Get vital signs data from PHP
+    const vitalSigns = <?php echo json_encode($data['vitalSigns']); ?>;
+    
+    // Create arrays for the chart data
+    const recordDates = vitalSigns.map(record => {
+        const date = new Date(record.created_at);
+        return date.toLocaleDateString();
+    });
+    const bloodSugarValues = vitalSigns.map(record => record.blood_sugar);
+    
+    // Create the blood sugar chart
+    const ctxBloodSugar = document.getElementById('bloodSugarChart').getContext('2d');
+    const bloodSugarChart = new Chart(ctxBloodSugar, {
+        type: 'line', // Using line chart for blood sugar to distinguish from cholesterol bar chart
+        data: {
+            labels: recordDates,
+            datasets: [
+                {
+                    label: 'Blood Sugar (mg/dL)',
+                    data: bloodSugarValues,
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: bloodSugarValues.map(value => {
+                        if (value < 70) return 'rgba(255, 99, 132, 0.8)'; // Low - red
+                        if (value <= 140) return 'rgba(75, 192, 192, 0.8)'; // Normal - green
+                        if (value <= 200) return 'rgba(255, 159, 64, 0.8)'; // Pre-diabetic - orange
+                        return 'rgba(255, 99, 132, 0.8)'; // High - red
+                    }),
+                    pointRadius: 5,
+                    tension: 0.1 // Slight curve to the line
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    min: 50, // Starting from 50 for better visualization
+                    suggestedMax: Math.max(...bloodSugarValues) + 30,
+                    title: {
+                        display: true,
+                        text: 'Blood Sugar Level (mg/dL)'
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0.1)'
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const value = context.parsed.y;
+                            let status = '';
+                            if (value < 70) status = ' (Low)';
+                            else if (value <= 140) status = ' (Normal)';
+                            else if (value <= 200) status = ' (Pre-diabetic)';
+                            else status = ' (High)';
+                            return 'Blood Sugar: ' + value + ' mg/dL' + status;
                         }
                     }
                 }

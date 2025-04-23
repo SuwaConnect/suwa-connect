@@ -4,6 +4,7 @@ class adminController extends Controller
 {
     private $adminModel;
     private $userModel;
+    private $pharmacyModel;
    
 
     public function __construct(){
@@ -12,6 +13,7 @@ class adminController extends Controller
         }
         $this->adminModel = $this->model('m_doctor');
         $this->userModel = $this->model('userModel');
+        $this->pharmacyModel = $this->model('pharmacyModel');
     }
 
     public function home(){
@@ -56,9 +58,6 @@ class adminController extends Controller
 
         $data = $this->adminModel->getPendingDoctors();
         $this->view('admin/pendingdoctor', $data);
-
-
-
     }
 
     public function approveDoctor() {
@@ -112,6 +111,7 @@ class adminController extends Controller
             echo json_encode(['success' => false, 'error' => $e->getMessage()]);
         }
     }
+
     public function rejectDoctor(){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $doctor_id = $_POST['doctor_id'];
@@ -119,6 +119,77 @@ class adminController extends Controller
                 echo json_encode(['success' => true]);
             } else {
                 echo json_encode(['success' => false, 'error' => 'Failed to reject doctor']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Invalid request method']);
+        }
+    }
+
+    public function pendingpharmacy(){
+        $data = $this->pharmacyModel->getPendingPharmacies();
+        $this->view('admin/pendingpharmacy', $data);
+    }
+
+    public function approvePharmacy() {
+        header('Content-Type: application/json');
+        
+        if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'error' => 'Invalid request method']);
+            return;
+        }
+    
+        $pharmacy_id = $_POST['pharmacy_id'] ?? null;
+        
+        if (!$pharmacy_id) {
+            echo json_encode(['success' => false, 'error' => 'Pharmacy ID is required']);
+            return;
+        }
+    
+        try {
+            if($this->pharmacyModel->markPendingPharmacyAsApproved($pharmacy_id)) {
+                $data = $this->pharmacyModel->getPharmacyByIdFromPendingPharmacies($pharmacy_id);
+                
+                if (!$data) {
+                    throw new Exception('Pharmacy data not found');
+                }
+    
+                $userData = [
+                    'email' => $data->email,
+                    'password' => $data->password,
+                    'role' => 'pharmacy',
+                    'user_name' => $data->pharmacy_name  // Fixed the typo here
+                ];
+    
+                $user_id = $this->userModel->createUser($userData);
+    
+                $approvedPharmacyData = [
+                    'user_id' => $user_id,
+                    'pharmacy_name' => $data->pharmacy_name,
+                    'contact_person' => $data->contact_person,
+                    'pharmacy_reg_no' => $data->pharmacy_reg_number,
+                    'contact_no' => $data->contact_no,
+                    'pharmacyLicenseCopyName' => $data->pharmacy_license_copy
+
+                ];
+    
+                $this->pharmacyModel->insertApprovedPharmacy($approvedPharmacyData);
+                
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Failed to approve pharmacy']);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        }
+    }
+
+    public function rejectPharmacy(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $pharmacy_id = $_POST['pharmacy_id'];
+            if($this->adminModel->rejectPharmacy($pharmacy_id)){
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Failed to reject pharmacy']);
             }
         } else {
             echo json_encode(['success' => false, 'error' => 'Invalid request method']);

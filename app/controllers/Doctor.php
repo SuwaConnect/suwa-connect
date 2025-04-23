@@ -131,7 +131,7 @@ class Doctor extends Controller
             $newFileName = '';
             if (isset($_FILES['medicalLicenseCopy'])) {
                 
-                $uploadDir = __DIR__.'/../../public/uploads/';
+                $uploadDir = __DIR__.'/../../public/uploads/medical_licenses/doctor_license/';  // Make sure this directory exists in your project
                 $fileTmpPath = $_FILES['medicalLicenseCopy']['tmp_name'];
                 $fileName = basename($_FILES['medicalLicenseCopy']['name']);
                 $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));

@@ -67,6 +67,14 @@
     color: var(--dark-color);
     font-weight: bold;
   }
+
+  .profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+  }
   
   .patient-details h1 {
     color: var(--dark-color);

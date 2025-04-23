@@ -50,7 +50,7 @@
                 </li>
 
                 <li class="nav-item" id="logout">
-                    <a href="home" class="nav-link">
+                    <a href="<?php echo URLROOT?>logincontroller/logout" class="nav-link">
                         <i class="material-icons-round">logout</i> <span>Logout</span>
                     </a>
                 </li>
