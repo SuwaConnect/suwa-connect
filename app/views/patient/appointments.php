@@ -8,8 +8,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-
     <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/appoi.css">
+
+
+
+    <style>
+        /* Style for days with appointments */
+.appointment-day {
+    background-color: rgba(208, 17, 17, 0.1);
+    color: red;
+    font-weight: bold;
+}
+    </style>
 
     <title>Suwa-Connect</title>
 </head>
@@ -72,11 +82,25 @@
                     <div class="day-name">Sat</div>
                     <div id="calendarDays" class="calendar-days"></div>
                 </div>  
+
+              
                 </div>
         </div>
 </div>
 <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
 <script src="<?php echo URLROOT?>assets/js/appoi.js"></script>
+<script>
+    // Add this before including your appoi.js file
+    var appointmentDates = [
+        <?php foreach ($data['appointments'] as $appointment): ?>
+            "<?= date('Y-m-d', strtotime($appointment->appointment_date)) ?>",
+        <?php endforeach; ?>
+    ];
+</script>
+<script src="<?php echo URLROOT?>assets/js/appoi.js"></script>
+
+
+
 </body>
 
 </html>

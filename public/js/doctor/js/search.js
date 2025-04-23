@@ -65,12 +65,12 @@ function createPatientElement(patient) {
 }
 
 function generateButtons(patient) {
-    if (patient.status === 'pending') {
+    if (patient.request_status === 'pending') {
         return `
             <div class="request-access-btn">
                 <button disabled style="background-color: #cccccc;">Already Requested</button>
             </div>`;
-    } else if (patient.status === 'approved') {
+    } else if (patient.request_status === 'approved') {
         return `
             <div class="visit-profile-btn">
                 <button onclick="visitProfile('${patient.patient_id}')">Visit Profile</button>

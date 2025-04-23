@@ -26,8 +26,7 @@
             <a href ="<?php echo URLROOT;?>labcontroller/labsignin">Labs</a>
             <a href ="<?php echo URLROOT;?>pharmacycontroller/pharmacysignin">Pharmacies</a>
             <a href="#faqs">FAQs</a>
-            <button class="btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>homecontroller/patientSignIn';">Sign in</button>
-
+            <button id="signinbutton" class="btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>homecontroller/patientSignIn';">Sign In</button>
         </div>
     </nav>
 
@@ -178,6 +177,7 @@
         <p>Join thousands of patients who have already discovered easier healthcare management</p>
         <button class="btn-secondary" onclick="">Get Started Now</button>
     </section>
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">

@@ -25,7 +25,7 @@ class searchController extends Controller
             $patients = $this->searchModel->searchPatient($searchTerm);
             
             // Get request status for each patient
-            foreach ($patients as &$patient) {
+            foreach ($patients as $patient) {
                 $requestStatus = $this->permissionModel->getRequestStatus($doctorId, $patient->patient_id);
                 $patient->request_status = $requestStatus;
             }

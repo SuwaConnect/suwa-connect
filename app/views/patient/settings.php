@@ -30,7 +30,7 @@
             </div>
 
             <div class="setting-card">
-                <div class="setting-title">Manage access</div>
+                <div class="setting-title" id="manage-access">Manage access</div>
                 <div class="setting-description">Control your data privacy settings.</div>
                 <div class="setting-option">
                     <label for="share-data">Share Data with Third Parties</label>
@@ -93,6 +93,10 @@
 
         document.getElementById('manage-health-info').addEventListener('click', function() {
         window.location.href = '<?php echo URLROOT?>patientcontroller/managehealthinfo';
+        });
+
+        document.getElementById('manage-access').addEventListener('click', function() {
+        window.location.href = '<?php echo URLROOT?>patientcontroller/manageaccess';
         });
 
     </script>
