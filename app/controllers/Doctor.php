@@ -177,6 +177,8 @@ class Doctor extends Controller
         $this->view('doctor/signUp2', $data ?? []);
     }
 
+   
+
     
     }
 

@@ -64,7 +64,9 @@ form input[type="password"],form input[type="email"]{
     font-size: 1em;
 }
 
-button.login-button {
+
+
+#logn {
     width: 100%;
     padding: 12px;
     border: none;
@@ -75,9 +77,10 @@ button.login-button {
     cursor: pointer;
 }
 
-button.login-button:hover {
+#logn:hover {
     background-color: #0056b3;
 }
+
 
 
 

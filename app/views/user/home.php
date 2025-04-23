@@ -27,6 +27,7 @@
             <a href ="<?php echo URLROOT;?>pharmacycontroller/pharmacysignin">Pharmacies</a>
             <a href="#faqs">FAQs</a>
             <button class="btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>homecontroller/patientSignIn';">Sign in</button>
+            <button class="btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>homecontroller/selectActor';">Sign up</button>
 
         </div>
     </nav>

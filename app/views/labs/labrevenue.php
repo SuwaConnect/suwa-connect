@@ -30,19 +30,19 @@
   <section class="overview">
     <div class="card">
       <h3>Total Revenue Today</h3>
-      <p>Rs. 150,000</p>
+      <p><?= $data['totalRevenueToday'] ?? '0' ?></p> 
     </div>
     <div class="card">
       <h3>Pending Payments</h3>
-      <p>Rs. 20,000</p>
+      <p><?= $data['pendingPayments'] ?? '0' ?></p>
     </div>
     <div class="card">
       <h3>Total Invoices</h3>
-      <p>45</p>
+      <p><?= $data['totalInvoices'] ?? '0' ?></p>
     </div>
     <div class="card">
       <h3>Refunds/Discounts</h3>
-      <p>Rs. 5,000</p>
+      <p><?= $data['refundsDiscounts'] ?? '0' ?></p>
     </div>
   </section>
 
@@ -61,29 +61,34 @@
         </tr>
       </thead>
       <tbody>
+    <?php if(isset($data['getLabInvoices']) && is_array($data['getLabInvoices'])): ?>
+        <?php foreach($data['getLabInvoices'] as $invoice): ?>
+            <tr>
+                <td><?= $invoice->invoice_number ?></td>
+                <td><?= $invoice->patient_name ?></td>
+                <td><?= date('Y-m-d', strtotime($invoice->invoice_date)) ?></td>
+                <td>Rs. <?= number_format($invoice->total_amount, 2) ?></td>
+                <td><?= $invoice->status ?></td>
+                <td>
+                <?php if ($invoice->status == 'Paid') { ?>
+                  <button type="button" class="download-btn" onclick="window.open('<?php echo URLROOT ?>labController/viewinvoice?id=<?php echo $invoice->invoice_id; ?>', '_blank')">
+    Download
+</button>
+<?php } else { ?>
+    <button class="view-btn">Notify</button>
+<?php } ?>
+
+</td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
         <tr>
-          <td>INV001</td>
-          <td>John Doe</td>
-          <td>2024-11-29</td>
-          <td>Rs. 5,000</td>
-          <td>Paid</td>
-          <td>
-            <button class="view-btn">View</button>
-            <button class="download-btn">Download</button>
-          </td>
+            <td colspan="6">No invoices found.</td>
         </tr>
-        <tr>
-          <td>INV002</td>
-          <td>Jane Smith</td>
-          <td>2024-11-28</td>
-          <td>Rs. 3,500</td>
-          <td>Pending</td>
-          <td>
-            <button class="view-btn">View</button>
-            <button class="reminder-btn">Send Reminder</button>
-          </td>
-        </tr>
-      </tbody>
+    <?php endif; ?>
+</tbody>
+
+
     </table>
   </div>
   </section>
