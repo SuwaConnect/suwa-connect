@@ -87,8 +87,8 @@ class logInController extends controller{
             case 'patient':
                 header('location: ' . URLROOT . 'patientcontroller/dashboard');
                 break;
-            case 'pharmacist':
-                header('location: ' . URLROOT . 'pharmacycontroller/pharmacyhome');
+            case 'pharmacy':
+                header('location: ' . URLROOT . 'pharmacycontroller/pharmacyHome');
                 break;
             case 'lab':
                 header('location: ' . URLROOT . 'labcontroller/labhomepage');

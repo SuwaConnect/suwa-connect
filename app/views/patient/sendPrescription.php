@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Prescription to Pharmacy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .medication-list {
+            margin-bottom: 30px;
+        }
+        
+        .medication-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 5px;
+        }
+        
+        .medication-info {
+            flex-grow: 1;
+        }
+        
+        .medication-name {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        
+        .medication-dosage {
+            color: #555;
+            font-size: 0.9em;
+        }
+        
+        .remove-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        
+        .remove-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .notes-section {
+            margin-bottom: 20px;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .delivery-options {
+            margin-bottom: 20px;
+        }
+        
+        .option-label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .submit-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .submit-btn:hover {
+            background-color: #219653;
+        }
+        
+        .empty-list {
+            padding: 20px;
+            text-align: center;
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Send Prescription to Pharmacy</h1>
+        
+        <div class="medication-list">
+            <h2>Your Medications</h2>
+            <!-- 
+            
+            <div class="medication-item">
+                <div class="medication-info">
+                    <div class="medication-name">Atorvastatin</div>
+                    <div class="medication-dosage">20mg, once daily at bedtime</div>
+                </div>
+                <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+            </div> -->
+            <?php foreach ($data['medicines'] as $medicine): ?>
+                <div class="medication-item" data-medicine-id="<?= $medicine->id ?>">
+                    <div class="medication-info">
+                        <div class="medication-name"><?= htmlspecialchars($medicine->name) ?></div>
+                        <div class="medication-dosage"><?= htmlspecialchars($medicine->dosage) ?></div>
+                    </div>
+                    <button class="remove-btn" onclick="removeItem(this)">Remove</button>
+                </div>
+            <?php endforeach; ?>
+            <?php if (empty($data['medicines'])): ?>
+                <div class="empty-list">No medications selected</div>
+            <?php endif; ?>
+        </div>
+        
+        <div class="notes-section">
+            <h2>Special Instructions for Pharmacist</h2>
+            <textarea placeholder="Add any special notes or instructions for the pharmacist here..."></textarea>
+        </div>
+        
+        <div class="delivery-options">
+            <h2>Delivery Method</h2>
+            <label class="option-label">
+                <input type="radio" name="delivery" value="pickup" checked> I will pick up my medications
+            </label>
+            <label class="option-label">
+                <input type="radio" name="delivery" value="delivery"> Please deliver my medications
+            </label>
+        </div>
+        
+        <button class="submit-btn" onclick="submitPrescription()">Send to Pharmacy</button>
+    </div>
+
+    <script>
+        function removeItem(button) {
+            let item = button.parentElement;
+            item.style.opacity = '0.5';
+            setTimeout(() => {
+                item.remove();
+                checkEmptyList();
+            }, 300);
+        }
+        
+        function checkEmptyList() {
+            let list = document.querySelector('.medication-list');
+            let items = list.querySelectorAll('.medication-item');
+            
+            if (items.length === 0) {
+                let emptyMessage = document.createElement('div');
+                emptyMessage.className = 'empty-list';
+                emptyMessage.textContent = 'No medications selected';
+                list.appendChild(emptyMessage);
+            }
+        }
+        
+        // function submitPrescription() {
+        //     // In a real application, this would send data to your backend
+        //     alert('Prescription sent to pharmacy!');
+        // }
+
+        function submitPrescription() {
+    // Collect all medications that haven't been removed
+    let medicationIds = [];
+    document.querySelectorAll('.medication-item').forEach(item => {
+        let medicineId = item.getAttribute('data-medicine-id');
+        medicationIds.push(medicineId);
+    });
+    
+    // Get the special instructions and delivery method
+    let specialInstructions = document.querySelector('.notes-section textarea').value;
+    let deliveryMethod = document.querySelector('input[name="delivery"]:checked').value;
+    
+    // Create the data object to send
+    let data = {
+        medicineIds: medicationIds,
+        specialInstructions: specialInstructions,
+        deliveryMethod: deliveryMethod,
+        // You might need to add these values from your session/application state
+        // patientId: currentPatientId,  // Define this variable elsewhere
+        recordId: <?php echo $data['record_id']?>,    // Define this variable elsewhere
+        pharmacyId: <?php echo $data['pharmacy_id']?> // Define this variable elsewhere
+    };
+    
+    // Send data to server using fetch API
+    fetch('<?php echo URLROOT?>patientController/addToOrder', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Prescription sent to pharmacy successfully!');
+            // Redirect or show confirmation
+            //window.location.href = '/prescription-confirmation/' + data.orderId;
+        } else {
+            alert('Error: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error sending prescription:', error);
+        alert('There was an error sending your prescription. Please try again.');
+    });
+}
+    </script>
+</body>
+</html>

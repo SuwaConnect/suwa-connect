@@ -9,6 +9,6 @@
     <a href="<?php echo URLROOT?>patientcontroller/patientRegister">i am a patient</a>
     <a href="<?php echo URLROOT?>doctor/register">i am a doctor</a>
     <a href="">i am a lab</a>
-    <a href="">i am a pharmacy</a>
+    <a href="<?php echo URLROOT?>pharmacyController/signup1">i am a pharmacy</a>
 </body>
 </html>
