@@ -22,6 +22,60 @@ window.onload = function() {
     showTab('upcoming');
 };
 
+// let currentDate = new Date();
+
+// function renderCalendar() {
+//     const monthDays = document.getElementById('calendarDays');
+//     const currentDateDisplay = document.getElementById('currentDate');
+//     const year = currentDate.getFullYear();
+//     const month = currentDate.getMonth();
+
+//     currentDateDisplay.textContent = new Date(year, month).toLocaleString('default', { 
+//         month: 'long', 
+//         year: 'numeric' 
+//     });
+
+//     const firstDay = new Date(year, month, 1).getDay();
+//     const totalDays = new Date(year, month + 1, 0).getDate();
+//     const lastMonthDays = new Date(year, month, 0).getDate();
+
+//     monthDays.innerHTML = '';
+
+//     // Previous month days
+//     for (let i = firstDay - 1; i >= 0; i--) {
+//         const dayElement = document.createElement('div');
+//         dayElement.textContent = lastMonthDays - i;
+//         dayElement.classList.add('day', 'prev-date');
+//         monthDays.appendChild(dayElement);
+//     }
+
+//     // Current month days
+//     for (let i = 1; i <= totalDays; i++) {
+//         const dayElement = document.createElement('div');
+//         dayElement.textContent = i;
+//         dayElement.classList.add('day');
+
+//         if (i === new Date().getDate() && 
+//             month === new Date().getMonth() && 
+//             year === new Date().getFullYear()) {
+//             dayElement.classList.add('current-day');
+//         }
+
+//         monthDays.appendChild(dayElement);
+//     }
+
+//     // Calculate remaining grid spaces
+//     const remainingDays = 42 - (firstDay + totalDays);
+    
+//     // Next month days
+//     for (let i = 1; i <= remainingDays; i++) {
+//         const dayElement = document.createElement('div');
+//         dayElement.textContent = i;
+//         dayElement.classList.add('day', 'next-date');
+//         monthDays.appendChild(dayElement);
+//     }
+// }
+
 let currentDate = new Date();
 
 function renderCalendar() {
@@ -61,6 +115,14 @@ function renderCalendar() {
             dayElement.classList.add('current-day');
         }
 
+        // Format current date to YYYY-MM-DD to check against appointment dates
+        const formattedDate = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+        
+        // Check if this date has an appointment
+        if (typeof appointmentDates !== 'undefined' && appointmentDates.includes(formattedDate)) {
+            dayElement.classList.add('appointment-day');
+        }
+
         monthDays.appendChild(dayElement);
     }
 
@@ -75,6 +137,8 @@ function renderCalendar() {
         monthDays.appendChild(dayElement);
     }
 }
+
+
 
 // Initialize calendar
 document.addEventListener('DOMContentLoaded', () => {

@@ -54,7 +54,7 @@ function createPatientElement(patient) {
                 <span id="name">${patient.first_name} ${patient.last_name}</span>
             </div>
             <div class="patient-age">
-                <span id="age">${patient.contact_no}</span>
+                <span id="age">${patient.patient_id}</span>
             </div>
             <div class="btns">
                 ${generateButtons(patient)}

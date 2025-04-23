@@ -9,27 +9,8 @@ public function __construct(){
 
 }
 
-// public function makeAppointment(){
-
-//     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        
-//         $doctor_id = $_POST['doctor_id'];
-//         $doctor_first_name = $this->appointmentModel->getDoctorById($doctor_id)->firstName;
-//         $doctor_last_name = $this->appointmentModel->getDoctorById($doctor_id)->lastName;
-//         $data=[
-//             'doctor_id' => $doctor_id,
-//             'patient_id' => $_SESSION['user_id'],
-//             'doctor_name' => $doctor_first_name . ' ' . $doctor_last_name
-//         ];
-       
-
-//         $this->view('patient/bookAppointment', $data);
-//     }
-
-
-// }
-
-
+    
+   
 
     public function book() {
         // Get doctor details
@@ -48,18 +29,18 @@ public function __construct(){
     }
     
     // AJAX endpoint for getting available timeslots
-    public function getAvailableSlots() {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $doctorId = $_POST['doctor_id'];
-            $date = $_POST['date'];
+    // public function getAvailableSlots() {
+    //     if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //         $doctorId = $_POST['doctor_id'];
+    //         $date = $_POST['date'];
             
-            $availableSlots = $this->appointmentModel->getAvailableTimeSlots($doctorId, $date);
+    //         $availableSlots = $this->appointmentModel->getAvailableTimeSlots($doctorId, $date);
             
-            header('Content-Type: application/json');
-            echo json_encode($availableSlots);
-            exit;
-        }
-    }
+    //         header('Content-Type: application/json');
+    //         echo json_encode($availableSlots);
+    //         exit;
+    //     }
+    // }
     
     // Create appointment
     public function create() {
@@ -93,143 +74,7 @@ public function __construct(){
 
    
 
-    public function viewAppointmentsByDoctor() {
-        // If no date is selected, use today's date
-        $date = isset($_POST['date']) ? $_POST['date'] : date('Y-m-d');
-        
-     
-        try {
-            $doctorId = $this->appointmentModel->getDoctorIdByUserId($_SESSION['user_id']);
-            
-            if (!$doctorId) {
-                throw new Exception('Doctor not found');
-            }
-    
-            $pending_appointments = $this->appointmentModel->getPendingAppointments($doctorId->doctor_id, $date);
-            $approved_appointments = $this->appointmentModel->getApprovedAppointments($doctorId->doctor_id, $date);
-            $all_appointments = $this->appointmentModel->getAllAppointments($doctorId->doctor_id);
-    
-            $data = [
-                'pending_appointments' => $pending_appointments,
-                'approved_appointments' => $approved_appointments,
-                'all_appointments' => $all_appointments,
-                'selected_date' => $date
-            ];
-    
-            $this->view('doctor/appointments', $data);
-        } catch (Exception $e) {
-            // Handle the error appropriately
-            $data = [
-                'error' => $e->getMessage()
-            ];
-            $this->view('doctor/appointments', $data);
-        }
-    }
-
-
-
-    public function confirmAppointment() {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Get appointment ID from form
-            $appointment_id = $_POST['appointment_id'];
-            $date = $_POST['date'];
-            
-            try {
-                // Update appointment status
-                if($this->appointmentModel->updateAppointmentStatus($appointment_id, 'confirmed')) {
-                    // Set flash message for success
-                    //flash('appointment_message', 'Appointment confirmed successfully');
-                    echo 'Appointment confirmed successfully';
-                } else {
-                    //flash('appointment_message', 'Failed to confirm appointment', 'alert alert-danger');
-                    echo 'Failed to confirm appointment';
-                }
-            } catch (Exception $e) {
-                //flash('appointment_message', 'Error confirming appointment: ' . $e->getMessage(), 'alert alert-danger');
-            }
-            
-            // Redirect back to appointments page with the same date
-            redirect('appointmentController/viewAppointmentsByDoctor?date=' . urlencode($date));
-        } else {
-            redirect('pages/error');
-        }
-    }
-
-
-
-    public function cancelAppointment() {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $appointment_id = $_POST['appointment_id'];
-            $date = $_POST['date'];
-            
-            try {
-                if($this->appointmentModel->updateAppointmentStatus($appointment_id, 'cancelled')) {
-                    //flash('appointment_message', 'Appointment cancelled successfully');
-                } else {
-                    //flash('appointment_message', 'Failed to cancel appointment', 'alert alert-danger');
-                }
-            } catch (Exception $e) {
-                //flash('appointment_message', 'Error cancelling appointment: ' . $e->getMessage(), 'alert alert-danger');
-            }
-            
-            redirect('appointmentController/viewAppointmentsByDoctor?date=' . urlencode($date));
-        } else {
-            redirect('pages/error');
-        }
-    }
-
-
-
-    public function markAppointmentAsCompleted() {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $appointment_id = $_POST['appointment_id'];
-            $date = $_POST['date'];
-            
-            try {
-                if($this->appointmentModel->markAppointmentAsCompleted($appointment_id)) {
-                    //flash('appointment_message', 'Appointment marked as completed');
-                } else {
-                    //flash('appointment_message', 'Failed to mark appointment as completed', 'alert alert-danger');
-                }
-            } catch (Exception $e) {
-                //flash('appointment_message', 'Error marking appointment as completed: ' . $e->getMessage(), 'alert alert-danger');
-            }
-            
-            redirect('appointmentController/viewAppointmentsByDoctor?date=' . urlencode($date));
-        } else {
-            redirect('pages/error');
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
 
 
 
@@ -263,21 +108,167 @@ public function __construct(){
 
 
 
+    public function getAppointmentsByDate() {
+        try {
+            // Get the doctor ID from the logged-in user
+            $doctorId = $this->appointmentModel->getDoctorIdByUserId($_SESSION['user_id'])->doctor_id;
+            
+            // Get the date from POST request
+            $date = $_POST['date'];
+            
+            // Convert date to day of week (Monday, Tuesday, etc.)
+            $dayOfWeek = date('l', strtotime($date));
+    
+            // Get sessions for this doctor on this day of week
+            $doctorSessions = $this->appointmentModel->getSessionsByDoctorAndDay($doctorId, $dayOfWeek);
+            
+            // Initialize array to hold sessions and their appointments
+            $sessions = [];
+            
+            // For each session, get the appointments
+            foreach ($doctorSessions as $session) {
+                $sessionId = $session->session_id;
+                
+                // Get appointments for this session on the specified date
+                $appointments = $this->appointmentModel->getAppointmentsForSession($sessionId, $date);
+                
+                // Add session info and its appointments to the result
+                $sessions[$sessionId] = [
+                    'session_info' => $session,
+                    'appointments' => $appointments,
+                    'current_count' => count($appointments),
+                    'max_patients' => $session->max_patients
+                ];
+            }
+            
+            // Check if we have any sessions for this day
+            if (empty($sessions)) {
+                $data = [
+                    'date' => $date,
+                    'message' => 'No sessions scheduled for ' . $dayOfWeek
+                ];
+            } else {
+                $data = [
+                    'date' => $date,
+                    'day_of_week' => $dayOfWeek,
+                    'sessions' => $sessions
+                ];
+            }
+            
+            // Load the view with the data
+            $this->view('doctor/appointments', $data);
+            
+        } catch (Exception $e) {
+            // Handle error
+            $data = [
+                'date' => $_POST['date'] ?? date('Y-m-d'),
+                'message' => 'Error: ' . $e->getMessage()
+            ];
+            
+            $this->view('doctor/appointments', $data);
+        }
+    }
+    
+    public function markAppointmentAsCompleted() {
+        // Check if request is AJAX
+        if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
+            echo json_encode(['success' => false, 'message' => 'Invalid request']);
+            return;
+        }
+        
+        try {
+            $appointmentId = $_POST['appointment_id'] ?? null;
+            
+            if (!$appointmentId) {
+                echo json_encode(['success' => false, 'message' => 'Appointment ID is required']);
+                return;
+            }
+            
+            $result = $this->appointmentModel->markAppointmentAsCompleted($appointmentId);
+            
+            if ($result) {
+                echo json_encode(['success' => true, 'message' => 'Appointment marked as completed']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Failed to update appointment status']);
+            }
+            
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
 
+    public function manageSessions() {
+        //Get the doctor ID from the logged-in user
+        $doctorId = $this->appointmentModel->getDoctorIdByUserId($_SESSION['user_id'])->doctor_id;
+        
+        // Get all appointments for this doctor
+        $sessions = $this->appointmentModel->getAllSessionsForDoctor($doctorId);
+        
+        //Load the view with the appointments data
+        $data = [
+            'sessions' => $sessions
+        ];
+        //var_dump($data);
+        $this->view('doctor/session-management', $data);
+    }
 
+    public function addSession() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            try {
+                //$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                
+                $doctorId = $this->appointmentModel->getDoctorIdByUserId($_SESSION['user_id'])->doctor_id;
+                //var_dump($doctorId);
+                $data = [
+                    'doctor_id' => $doctorId,
+                    'session_date' => $_POST['weekdays'],
+                    'start_time' => $_POST['startTime'],
+                    'end_time' => $_POST['endTime'],
+                    'max_patients' => $_POST['maxPatients']
+                ];
+                
+                
+                // Check for existing sessions at this time
+                $overlappingSessions = $this->appointmentModel->checkOverlappingSessions(
+                    $doctorId,
+                    $data['session_date'],
+                    $data['start_time'],
+                    $data['end_time']
+                );
+                
+                if ($overlappingSessions) {
+                    echo 'Error: You already have a session scheduled during this time slot.';
+                    return;
+                }
+                
+                // If no overlapping sessions, proceed with adding
+                if ($this->appointmentModel->addSession($data)) {
+                    echo 'Session added successfully';
+                } else {
+                    echo 'Failed to add session';
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
+        //echo 'Session added successfully';
+    }
 
+    public function deleteSession($sessionId) {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            try {
+                // Delete the session
+                if ($this->appointmentModel->deleteSession($sessionId)) {
+                    //echo 'Session deleted successfully';
+                    header('Location: ' . URLROOT . 'appointmentController/manageSessions');
+                } else {
+                    echo 'Failed to delete session';
+                }
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 

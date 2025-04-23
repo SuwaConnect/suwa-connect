@@ -1,15 +1,38 @@
+<html>
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+        
+        
 
+        <title>Suwa-Connect</title>
+    </head>
 
-
+    <body>
+        
+   
+<?php include  "navbar-patient.php";?>
+    <!-- <div class="main-content">
+    <div class="main-container">
+        
+        <h1>Doctor Access Requests</h1>
+        <p>Manage your doctor access requests below:</p> -->
+        <div class="main-content">
 <div class="request-container">
     <h2>Doctor Access Requests</h2>
     <div id="requestsList">
         <!-- Requests will be loaded here -->
     </div>
 </div>
+</div>
 
 <script>
 const URLROOT = '<?php echo URLROOT; ?>';
+
 
 document.addEventListener('DOMContentLoaded', function() {
     loadPendingRequests();
@@ -23,7 +46,7 @@ function loadPendingRequests() {
         })
         .catch(error => {
             console.error('Error:', error);
-            document.getElementById('requestsList').innerHTML = 'Error loading requests';
+            document.getElementById('requestsList').innerHTML = 'Error loading requests!';
         });
 }
 
@@ -44,9 +67,8 @@ function displayRequests(requests) {
                              alt="Doctor profile" 
                              class="doctor-image">
                         <div class="doctor-details">
-                            <h3>Dr. ${request.doctor_name}</h3>
-                            <p>Requested: ${new Date(request.requested_at).toLocaleDateString()}</p>
-                        </div>
+                            <h3>Dr. ${request.firstName} wants to see your profile.</h3>
+                            <p>Requested: ${request.requested_at}</p>                        </div>
                     </div>
                     <div class="request-actions">
                         <button onclick="handleRequest(${request.id}, 'approved')" 
@@ -76,7 +98,7 @@ function handleRequest(requestId, status) {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.status === 'success') {
+        if (data.success) {
             // Remove the request card with animation
             const requestCard = document.getElementById(`request-${requestId}`);
             requestCard.style.animation = 'fadeOut 0.5s';
@@ -96,10 +118,33 @@ function handleRequest(requestId, status) {
     });
 }
 </script>
+<script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+
 
 <style>
+
+.main-content {
+    background-color: #e6f2ff;
+    color:#2e2e2e;
+    padding: 20px;
+    margin-left: 250px; /* To make space for the sidebar */
+    padding: 20px;
+    width: calc(100% - 250px); /* Take the remaining width */
+    overflow-y: auto; /* Enable scrolling if content overflows vertically */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+}
+
+
+.sideBar.collapsed + .main-content{
+
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+}
 .request-container {
-    max-width: 800px;
+    /* max-width: 800px; */
+    width: 100%;
     margin: 2rem auto;
     padding: 0 1rem;
 }
@@ -200,3 +245,5 @@ function handleRequest(requestId, status) {
     }
 }
 </style>
+</body>
+</html>

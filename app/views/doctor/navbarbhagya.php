@@ -38,7 +38,7 @@
             </a>
         </li> -->
         <li class="nav-item">
-            <a href="<?php echo URLROOT?>doctor/updateprofile" class="nav-link">
+            <a href="<?php echo URLROOT?>notificationsController/index" class="nav-link">
                 <i class="material-icons-round">notifications</i> <span>Notifications</span>
             </a>
         </li>

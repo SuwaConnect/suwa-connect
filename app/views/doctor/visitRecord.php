@@ -44,15 +44,15 @@
                         <div class="form-group">
                             <label for="bloodPressure">Blood Pressure</label>
                             <div class="bp-inputs">
-                                <input type="number" placeholder="Sistolic"  name="sistolic">
-                                <input type="number" placeholder="Diastolic"  name="diastolic">
+                                <input type="number" placeholder="Sistolic"  name="sistolic" min="60" max="250">
+                                <input type="number" placeholder="Diastolic"  name="diastolic" min="40" max="150">
                             </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="temperature">Temperature (°C)</label>
-                            <input type="number" step="0.1" id="temperature"  name="temperature">
+                            <input type="number" step="1" id="temperature"  name="temperature" min="30" max="45">
                         </div>
                     </div>
                 </div>
@@ -60,14 +60,14 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
-                            <label for="bloodSugar">Blood Sugar</label>
-                            <input type="number" id="bloodSugar"  name="bloodSugar">
+                            <label for="bloodSugar">Blood Sugar (mg/dL)</label>
+                            <input type="number" id="bloodSugar"  name="bloodSugar" min="20" max="600">
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label for="cholesterol">Cholesterol</label>
-                            <input type="number" id="cholesterol"  name="cholesterol">
+                            <label for="cholesterol">Cholesterol (mg/dL)</label>
+                            <input type="number" id="cholesterol"  name="cholesterol" min="50" max="500">
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="weight">weight</label>
-                            <input type="number" id="weight"  name="weight">
+                            <input type="number" id="weight"  name="weight" min="0.1" max="500">
                         </div>
                     </div>
                     <div class="col">
