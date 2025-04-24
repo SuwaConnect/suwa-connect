@@ -1,0 +1,243 @@
+/* Create Report Form Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f5f8fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.create-report-container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    width: 90%;
+    max-width: 1200px; 
+}
+
+
+.create-report-container h2 {
+    color: #2d3748;
+    margin-bottom: 25px;
+    font-weight: 600;
+    font-size: 24px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #edf2f7;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+fieldset {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #fbfbfb;
+}
+
+legend {
+    padding: 0 10px;
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    color: #4a5568;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Test Results Section */
+#test-results-section {
+    background-color: #f8fafc;
+}
+
+.test-result-row {
+    background-color: white;
+    padding: 16px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Add Result Button */
+.add-result-btn {
+    background-color: #4299e1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    transition: background-color 0.2s;
+}
+
+.add-result-btn:hover {
+    background-color: #3182ce;
+}
+
+/* Button Styles */
+button[type="button"], 
+button[type="submit"] {
+    background-color: #4299e1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 18px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    align-self: flex-start;
+}
+
+button[type="submit"] {
+    background-color: #48bb78;
+    margin-top: 10px;
+}
+
+button[type="button"]:hover {
+    background-color: #3182ce;
+}
+
+button[type="submit"]:hover {
+    background-color: #38a169;
+}
+
+/* Delete Result Button */
+.delete-result-btn {
+    background-color: #fc8181;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 8px;
+}
+
+.delete-result-btn:hover {
+    background-color: #f56565;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .create-report-container {
+        padding: 15px;
+        margin: 15px;
+    }
+    
+    fieldset {
+        padding: 15px;
+    }
+    
+    .test-result-row {
+        padding: 12px;
+    }
+}
+
+/* For Multiple Test Result Rows */
+.test-result-row:not(:last-child) {
+    margin-bottom: 20px;
+    border-bottom: 1px dashed #e2e8f0;
+    padding-bottom: 20px;
+}
+
+/* Button Container */
+.form-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+/* Button with Icon */
+button i {
+    margin-right: 6px;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+/* Success Message */
+.success-message {
+    background-color: #c6f6d5;
+    color: #22543d;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.success-message i {
+    margin-right: 8px;
+}
+
+/* Error Message */
+.error-message {
+    background-color: #fed7d7;
+    color: #822727;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.error-message i {
+    margin-right: 8px;
+}

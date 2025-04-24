@@ -8,71 +8,7 @@ class m_lab {
         $this->db = new Database(); // Assuming Database class is already defined
     }
 
-    public function signUpStep2() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $newFileName = '';
-            
-            // Check if medical license copy is uploaded
-            if (isset($_FILES['medicalLicenseCopy'])) {
-                $uploadDir = __DIR__.'/../../public/uploads/';
-                $fileTmpPath = $_FILES['medicalLicenseCopy']['tmp_name'];
-                $fileName = basename($_FILES['medicalLicenseCopy']['name']);
-                $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        
-                // Allowed file extensions
-                $allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
-                if (in_array($fileExtension, $allowedExtensions)) {
-                    $newFileName = uniqid('id_copy_', true) . '.' . $fileExtension;
-                    $destination = $uploadDir . $newFileName;
-        
-                    // Move the file to the destination
-                    if (!move_uploaded_file($fileTmpPath, $destination)) {
-                        echo 'File upload failed.';
-                    }
-                } else {
-                    echo 'Invalid file format.';
-                }
-            } else {
-                echo 'No file selected.';
-            }
     
-            // Get the other form data
-            $password = $_POST['password'];
-            $confirmPassword = $_POST['confirm_password'];
-            $checkbox = isset($_POST['checkbox']) ? 1 : 0;
-    
-            // Check if passwords match
-            if ($password === $confirmPassword) {
-                // Prepare the lab registration data
-                $this->labModel = $this->model('m_lab');
-    
-                $registrationData = [
-                    'lab_name' => $_SESSION['registration']['lab_name'],
-                    'contact_person' => $_SESSION['registration']['contact_person'],
-                    'email' => $_SESSION['registration']['email'],
-                    'contact_no' => $_SESSION['registration']['contact_no'],
-                    'lab_reg_no' => $_SESSION['registration']['lab_reg_no'],
-                    'medical_license_copy' => $newFileName,
-                    'password' => password_hash($password, PASSWORD_DEFAULT),
-                    'checkbox' => $checkbox
-                ];
-                
-                // Register the lab
-                $this->labModel->registerNewLab($registrationData);
-                
-                // Redirect on success
-                echo 'Lab registered successfully!';
-                header('Location: ' . URLROOT . 'homecontroller/index');
-                exit();
-            } else {
-                // If passwords don't match, show error
-                $data['error'] = "Passwords do not match.";
-            }
-        }
-    
-        // Render the view for lab registration step 2
-        $this->view('lab/signUp2', $data ?? []);
-    }
 
     public function addPendingLab($data) {
         // SQL query to insert into pending_labs table
@@ -445,7 +381,6 @@ public function getRefundsDiscounts($lab_id) {
 public function getLabInvoices($lab_id) {
     $this->db->query("SELECT 
                           lab_invoices.invoice_id, 
-                          lab_invoices.invoice_number, 
                           users.user_name AS patient_name, 
                           lab_invoices.created_at AS invoice_date, 
                           lab_invoices.total_amount, 
@@ -457,12 +392,12 @@ public function getLabInvoices($lab_id) {
     $this->db->bind(':lab_id', $lab_id);
     return $this->db->resultSet(); // Returns an array of objects
 }
-    
+
+
 public function getInvoiceById($invoice_id) {
     $this->db->query("
         SELECT 
             lab_invoices.invoice_id, 
-            lab_invoices.invoice_number, 
             users.user_name AS patient_name, 
             lab_invoices.created_at AS invoice_date, 
             lab_invoices.total_amount, 
@@ -471,10 +406,86 @@ public function getInvoiceById($invoice_id) {
         JOIN users ON lab_invoices.patient_id = users.user_id
         WHERE lab_invoices.invoice_id = :invoice_id
     ");
-
     $this->db->bind(':invoice_id', $invoice_id);
     return $this->db->single(); // returns a single object
 }
+
+public function insertPayment($data) {
+    // Add missing column 'payment_status'
+    $this->db->query("INSERT INTO lab_payments 
+                      (invoice_id, payment_method, payment_amount, payment_date, lab_id, payment_status) 
+                      VALUES (:invoice_id, :payment_method, :payment_amount, :payment_date, :lab_id, :payment_status)");
+
+    // Bind the data to the query
+    $this->db->bind(':invoice_id', $data['invoice_id']);
+    $this->db->bind(':payment_method', $data['payment_method']);
+    $this->db->bind(':payment_amount', $data['payment_amount']);
+    $this->db->bind(':payment_date', $data['payment_date']);
+    $this->db->bind(':lab_id', $data['lab_id']); // Lab ID
+    $this->db->bind(':payment_status', $data['payment_status']); // Add the payment status, e.g., 'Completed' or 'Pending'
+
+    // Execute the query to insert the payment
+    return $this->db->execute();
+}
+
+
+public function updateInvoiceStatus($data) {
+    $this->db->query("UPDATE lab_invoices 
+                      SET status = :status, paid_amount = :paid_amount 
+                      WHERE invoice_id = :invoice_id");
+    $this->db->bind(':status', $data['status']);
+    $this->db->bind(':paid_amount', $data['paid_amount']);
+    $this->db->bind(':invoice_id', $data['invoice_id']);
+    return $this->db->execute();  // Executes the query to update the invoice status
+}
+
+public function createInvoice($data) {
+    // Prepare the SQL query to insert the invoice
+    $sql = "INSERT INTO lab_invoices (appointment_id, patient_id, lab_id, total_amount, paid_amount, status, services, discount, created_at, updated_at) 
+            VALUES (:appointment_id, :patient_id, :lab_id, :total_amount, :paid_amount, :status, :services, :discount, :created_at, :updated_at)";
+
+    // Execute the query with the data passed
+    $this->db->query($sql);
+    
+    // Bind the data to the query placeholders
+    $this->db->bind(':appointment_id', $data['appointment_id']);
+    $this->db->bind(':patient_id', $data['patient_id']);
+    $this->db->bind(':lab_id', $data['lab_id']);
+    $this->db->bind(':total_amount', $data['total_amount']);
+    $this->db->bind(':paid_amount', $data['paid_amount']);
+    $this->db->bind(':status', $data['status']);
+    $this->db->bind(':services', $data['services']);
+    $this->db->bind(':discount', $data['discount']);
+    $this->db->bind(':created_at', date('Y-m-d H:i:s'));
+    $this->db->bind(':updated_at', date('Y-m-d H:i:s'));
+
+    // Execute and check if the insertion was successful
+    if ($this->db->execute()) {
+        return true;
+    }
+    return false;
+}
+
+public function getAllTestsForLab($lab_id) {
+    // Prepare the query to fetch all tests for the given lab_id
+    $this->db->query("SELECT * FROM tests WHERE lab_id = :lab_id");
+    
+    // Bind the lab_id parameter to prevent SQL injection
+    $this->db->bind(':lab_id', $lab_id);
+
+    // Execute the query and fetch the result set
+    $result = $this->db->resultSet();
+
+    // Check if any tests are found
+    if (empty($result)) {
+        // You can log the result or handle the case where no tests are found
+        return []; // Return an empty array if no results are found
+    }
+
+    return $result;  // Return the result set (an array of tests)
+}
+
+
 
 
 
