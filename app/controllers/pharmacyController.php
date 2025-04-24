@@ -26,22 +26,17 @@ class pharmacyController extends Controller {
         $this->view('pharmacy/pharmacyaddpromo');
     }
 
+    public function pharmacyNotifications(){
+        $this->view('pharmacy/pharmacynotifications');
+    }
     public function pharmacyHome(){
         $this->view('pharmacy/pharmacyhome');
     }
 
-    public function pharmacyChangePromo(){
-        $this->view('pharmacy/pharmacychangepromo');
+   public function pharmacyOrders() {
+        $this->view('pharmacy/pharmacyorders');
     }
-
-    public function pharmacyPrescriptionHistory(){
-        $this->view('pharmacy/pharmacyprescriptionhistory');
-    }
-
-    public function pharmacyPresManagement(){
-        $this->view('pharmacy/pharmacypresmanagement');
-    }
-
+    
     public function pharmacyProfile(){
         $this->view('pharmacy/pharmacyprofile');
     }

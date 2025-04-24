@@ -1,0 +1,390 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+}
+
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.header-text h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.header-text p {
+    color: #666;
+}
+
+.search-bar {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 5px;
+}
+
+.search-icon {
+    color: #aaa;
+    font-size: 1.2rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #0559e4;
+    color: white;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0448c0;
+}
+
+.btn-outline {
+    background-color: white;
+    color: #0559e4;
+    border: 1px solid #0559e4;
+}
+
+.btn-outline:hover {
+    background-color: #f0f5ff;
+}
+
+/* Stats Cards */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.stat-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0559e4;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Orders List Section */
+.orders-list-section {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.orders-list-header {
+    margin-bottom: 20px;
+}
+
+.orders-list-header h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.filters-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    background-color: white;
+    font-size: 0.9rem;
+}
+
+.date-input {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+    background-color: white;
+    font-size: 0.9rem;
+}
+
+/* Table Styles */
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orders-table th {
+    text-align: left;
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    color: #555;
+    font-weight: 600;
+}
+
+.orders-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+}
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.status-pending {
+    background-color: #fff8e6;
+    color: #f59e0b;
+}
+
+.status-confirmed {
+    background-color: #e6f7ea;
+    color: #10b981;
+}
+
+.status-declined {
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+.action-buttons-cell {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+    background-color: #e5e5e5;
+}
+
+.action-btn-view {
+    background-color: #f0f5ff;
+    color: #0559e4;
+    border-color: #c5d9ff;
+}
+
+.action-btn-view:hover {
+    background-color: #e1ebff;
+}
+
+.action-btn-confirm {
+    background-color: #e6f7ea;
+    color: #10b981;
+    border-color: #c2e7d2;
+}
+
+.action-btn-confirm:hover {
+    background-color: #d1eeda;
+}
+
+.action-btn-decline {
+    background-color: #fee2e2;
+    color: #ef4444;
+    border-color: #fbd5d5;
+}
+
+.action-btn-decline:hover {
+    background-color: #fbd5d5;
+}
+
+
+
+/* Mobile Order Card View (hidden by default) */
+.mobile-orders-container {
+    display: none;
+}
+
+.order-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.order-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.order-id {
+    font-weight: bold;
+    color: #0559e4;
+}
+
+.order-status {
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+}
+
+.order-info-row {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.order-info-label {
+    min-width: 120px;
+    font-weight: 500;
+    color: #555;
+}
+
+.order-info-value {
+    color: #333;
+}
+
+.order-medicines {
+    background-color: #f9fafb;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.medicine-item {
+    margin-bottom: 5px;
+}
+
+.order-card-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: flex-end;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .stats-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .desktop-orders-view {
+        display: none;
+    }
+
+    .mobile-orders-container {
+        display: block;
+    }
+
+    .filters-row {
+        flex-wrap: wrap;
+    }
+
+    .filter-select, .date-input {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        flex: 1;
+        min-width: 120px;
+    }
+}

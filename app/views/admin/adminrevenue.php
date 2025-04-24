@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="./css/navbar.css">
     <link rel="stylesheet" href="<?php echo URLROOT;?>public/assets/css/admin/revenue.css">
     <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/admin/dashboard.css">
+    <link rel="stylesheet" href="<?php echo URLROOT?>assets/css/admin/navbar.css">
+
 
     <link rel="stylesheet" href="./css/dashboard.css">
 
@@ -19,9 +21,9 @@
 </head>
 
 <body>
-    <!-- <div class="sidebar">
+<div class="sidebar">
         <div class="logo">
-            <img src="./Images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
+            <img src="<?php echo URLROOT;?>public/assets/images/suwa-connect logo.png" alt="Suwa-Connect Logo">
             <h2>සුව CONNECT</h2>
 
             <button class="toggle-btn" id="toggleSidebar"> 
@@ -30,52 +32,56 @@
         </div>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="home.html" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/home" class="nav-link">
                     <i class="material-icons-round">home</i> <span>Home</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="userManagement.html" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/pendingdoctors" class="nav-link">
                     <i class="material-icons-round">group</i> <span>User Management</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="appointments.html" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/appointments" class="nav-link">
                     <i class="material-icons-round">medical_services</i> <span>Appointments</span>
                 </a>
             </li>
             <li class="nav-item active">
-                <a href="revenue.html" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/revenue" class="nav-link">
                     <i class="material-icons-round">paid</i> <span>Revenue</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="reports.html" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/reports" class="nav-link">
                     <i class="material-icons-round">trending_up</i> <span>Reports</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="notifications.html" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/notifications" class="nav-link">
                     <i class="material-icons-round">notifications</i> <span>Notifications</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="settings.html" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/settings" class="nav-link">
                     <i class="material-icons-round">settings</i> <span>Settings</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="support.html" class="nav-link">
+                <a href="<?php echo URLROOT;?>admincontroller/support" class="nav-link">
                     <i class="material-icons-round">contact_support</i> <span>Support</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="<?php echo URLROOT;?>logincontroller/logout" class="nav-link">
+                    <i class="material-icons-round">logout</i> <span>Log Out</span>
                 </a>
             </li>
         </ul>
         <div class="sidebar-footer">
-            <button class="btn-user">Login as User</button>
+        <button class="btn-user"onclick="window.location.href='<?php echo URLROOT; ?>homecontroller/patientSignIn';">Log in as user</button>
+       
         </div>
-    </div> -->
-    <?php include 'adminNavbar.php'?>
-
+    </div>
     <div class="main-content">
 
     <!-- Header Section -->
