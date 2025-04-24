@@ -61,3 +61,5 @@
     
 </div>
 
+<script src="<?php echo URLROOT; ?>public/assets/js/doctor/navbar.js"></script>
+
