@@ -46,7 +46,7 @@
     </li>
 
     <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyAddPromo" class="nav-link">
+        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyNotifications" class="nav-link">
             <i class="material-icons-round">assignment</i> <span>Notifications </span>
         </a>
     </li>
@@ -60,7 +60,7 @@
 
 
     <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyPresManagement" class="nav-link">
+        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyProfile" class="nav-link">
             <i class="material-icons-round">group</i> <span>Profile</span>
         </a>
     </li>

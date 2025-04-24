@@ -8,7 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <title>Add/Edit Promotion</title>
-    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacy/pharmacyaddpromo.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacyaddpromo.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacydashboard.css">
     
 </head>
 <body>
@@ -24,25 +26,25 @@
 
 <ul class="nav-menu">
 
-    <li class="nav-item ">
+    <li class="nav-item">
             <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyHome" class="nav-link">
             <i class="material-icons-round">home</i> <span>Home</span>
         </a>
     </li>
 
-    <li class="nav-item active">
+    <li class="nav-item">
         <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyOrders" class="nav-link">
             <i class="material-icons-round">medical_services</i> <span> Orders </span>
         </a>
 
-    <li class="nav-item">
+    <li class="nav-item active">
         <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyAddPromo" class="nav-link">
             <i class="material-icons-round">assignment</i> <span>Promotions </span>
         </a>
     </li>
 
     <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyAddPromo" class="nav-link">
+        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyNotifications" class="nav-link">
             <i class="material-icons-round">assignment</i> <span>Notifications </span>
         </a>
     </li>
@@ -56,7 +58,7 @@
 
 
     <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyPresManagement" class="nav-link">
+        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyProfile" class="nav-link">
             <i class="material-icons-round">group</i> <span>Profile</span>
         </a>
     </li>
