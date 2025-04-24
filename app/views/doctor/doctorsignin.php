@@ -30,7 +30,7 @@
         <div class="form-container">
             <h2>Welcome Back!</h2>
             <h3><color>Please enter your details.</h3>
-            <form method="post" action="<?php echo URLROOT;?>logincontroller/logIn">
+            <form method="post" action="<?php echo URLROOT;?>logincontroller/authenticate">
     <label for="email">Email Address</label>
     <input type="text" id="email" name="email" placeholder="Email Address" required>
 
