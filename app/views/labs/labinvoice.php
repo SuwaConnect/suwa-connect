@@ -28,7 +28,7 @@
     <table class="bill-table">
         <tr>
             <td><strong>Invoice #</strong></td>
-            <td><?= $invoice->invoice_number ?></td>
+            <td><?= $invoice->invoice_id ?></td>
         </tr>
         <tr>
             <td><strong>Patient</strong></td>

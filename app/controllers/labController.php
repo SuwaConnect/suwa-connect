@@ -30,16 +30,18 @@ public function labSignIn(){
 
 
 public function labNotifications(){
-    $this->view('labs/notifications');
+    $labModel = $this->model('m_lab');
+    $lab_id = $_SESSION['lab_id'];
+    $notification = $labModel->generateLabNotificationsData($lab_id); // Fetch notifications
+    $this->view('labs/notifications',[
+        'notifications' => $notification,
+    ]);
 }
 
 public function labProfile(){
     $this->view('labs/labprofile');
 }
 
-public function labReports(){
-    $this->view('labs/labreports');
-}
 
 
 public function labSchedule(){
@@ -48,6 +50,9 @@ public function labSchedule(){
 
 public function labSettings(){
     $this->view('labs/labsettings');
+}
+public function labform(){
+    $this->view('labs/Createform');
 }
 
 public function labSupport(){
@@ -398,6 +403,7 @@ public function requests(){
         $totalInvoices =$labModel->getTotalInvoices($lab_id);
         $refundsDiscounts =$labModel->getRefundsDiscounts($lab_id);
 
+
         $getLabInvoices = $labModel->getLabInvoices($lab_id);
         // Passing the data to the view
 
@@ -430,6 +436,124 @@ public function requests(){
             die('Invalid or missing invoice ID.');
         }
     }
+
+    // In your LabController (or equivalent controller)
+    public function processPayment() {
+        // Check if all form fields are set
+        if (isset($_POST['invoice_id']) && isset($_POST['payment_method']) && isset($_POST['payment_amount'])) {
+            // Get the form data
+            $invoice_id = $_POST['invoice_id'];  // Correct variable name
+            $paymentMethod = $_POST['payment_method'];
+            $amount = $_POST['payment_amount'];
+    
+            // Get lab_id from session (ensure the session is started)
+            $lab_id = $_SESSION['lab_id']; // Make sure lab_id is set in the session.
+    
+            // Initialize the lab model
+            $labModel = $this->model('m_lab');
+    
+            // Step 1: Find the invoice using the invoice_id
+            $invoice = $labModel->getInvoiceById($invoice_id);  // Use correct method
+    
+            if ($invoice) {
+                // Step 2: Prepare the payment data to insert into lab_payments
+                $paymentData = [
+                    'invoice_id' => $invoice_id,       // From the invoice found
+                    'lab_id' => $lab_id,               // Lab ID from session
+                    'payment_method' => $paymentMethod, // From the form
+                    'payment_amount' => $amount,       // From the form
+                    'payment_status' => 'Completed',       // Status after payment
+                    'payment_date' => date('Y-m-d H:i:s'),  // Current date and time
+                ];
+    
+                // Insert the payment into the lab_payments table
+                $labModel->insertPayment($paymentData);
+    
+                // Step 3: Update the invoice status to 'Paid' and set paid amount
+                $updatedInvoiceData = [
+                    'invoice_id' => $invoice_id,
+                    'status' => 'Paid',
+                    'paid_amount' => $amount,  // The amount the user has paid
+                ];
+    
+                // Update the invoice status and paid amount
+                $labModel->updateInvoiceStatus($updatedInvoiceData);
+    
+                // Step 4: Redirect to the lab revenue page after successful payment
+                header('Location: ' . URLROOT . '/labController/labRevenue');
+                exit;
+            } else {
+                // If invoice is not found, handle the error
+                echo "Invoice not found!";
+            }
+        } else {
+            // If any form field is missing, show a message
+            echo "Please make sure all fields (Invoice ID, Payment Method, and Amount) are filled!";
+        }
+    }
+    
+
+    public function createInvoice() {
+        if (isset($_POST['appointment_id'], $_POST['patient_id'], $_POST['lab_id'], $_POST['total_amount'], $_POST['discount'], $_POST['services'])) {
+            
+            // Get the form data
+            $appointmentId = $_POST['appointment_id'];
+            $patientId = $_POST['patient_id'];
+            $labId = $_POST['lab_id'];
+            $totalAmount = $_POST['total_amount'];
+            $discount = $_POST['discount'];
+            $services = $_POST['services'];
+            
+            // Calculate the final amount after applying discount (but don't store it in the database)
+            $finalAmount = $totalAmount - $discount;
+    
+            // Prepare the data for the invoice (only store total_amount and discount)
+            $invoiceData = [
+                'appointment_id' => $appointmentId,
+                'patient_id' => $patientId,
+                'lab_id' => $labId,
+                'total_amount' => $totalAmount,
+                'paid_amount' => 0.00,  // Initially, nothing is paid
+                'status' => 'Pending',   // Initially, the payment status is 'Pending'
+                'services' => $services,
+                'discount' => $discount,
+            ];
+            
+            // Initialize the model
+            $labModel = $this->model('m_lab');
+            
+            // Insert the invoice into the database
+            if ($labModel->createInvoice($invoiceData)) {
+                // Redirect to the invoice list page or show a success message
+                header('Location: ' . URLROOT . '/labController/labRevenue');
+                exit;
+            } else {
+                echo "Failed to create the invoice.";
+            }
+        } else {
+            echo "Please fill in all fields.";
+        }
+    }
+    
+    public function labReports() {
+          // Get lab_id from session (ensure the session is started)
+          $lab_id = $_SESSION['lab_id']; // Make sure lab_id is set in the session.
+    
+          // Initialize the lab model
+          $labModel = $this->model('m_lab');
+        // Fetch all tests for the given lab from the model
+        $tests = $labModel->getAllTestsForLab($lab_id);
+    
+        // Prepare data to be passed to the view
+        
+    
+        // Load the labreports view and pass the data
+        $this->view('labs/labreports', [
+            'tests' => $tests,
+        ]);
+    }
+    
+    
     
     
     

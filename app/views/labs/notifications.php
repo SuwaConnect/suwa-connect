@@ -22,57 +22,25 @@
 
     <div class="main-container">
         <h1>Notifications</h1>
-        <div class="notifications-section">
-        <div class="notification-card">
-                <h2 class="notification-title">Appointment Reminder</h2>
-                <p class="notification-message">
-                    You have an appointment scheduled with Dr. John Smith on 2024-12-01 at 10:00 AM.
-                </p>
-                <span class="notification-timestamp">Received: 2024-11-26</span>
-            </div>
-            <div class="notification-card">
-                <h2 class="notification-title">Lab Report Ready</h2>
-                <p class="notification-message">
-                    Your blood test report is now available. Please log in to view your report.
-                </p>
-                <span class="notification-timestamp">Received: 2024-11-25</span>
-            </div>
-            <div class="notification-card">
-                <h2 class="notification-title">New Health Tip</h2>
-                <p class="notification-message">
-                    Stay hydrated! Drink at least 8 glasses of water daily to maintain good health.
-                </p>
-                <span class="notification-timestamp">Received: 2024-11-24</span>
-            </div>
-            <div class="notification-card">
-                <h2 class="notification-title">Vaccination Update</h2>
-                <p class="notification-message">
-                    Your next vaccination is due on 2024-12-05. Please schedule an appointment.
-                </p>
-                <span class="notification-timestamp">Received: 2024-11-23</span>
-            </div>
-            <div class="notification-card">
-                <h2 class="notification-title">Prescription Refill</h2>
-                <p class="notification-message">
-                    Your prescription for medication is due for a refill. Visit your pharmacy soon.
-                </p>
-                <span class="notification-timestamp">Received: 2024-11-22</span>
-            </div>
-            <div class="notification-card">
-                <h2 class="notification-title">Annual Checkup</h2>
-                <p class="notification-message">
-                    It’s time for your annual checkup. Book an appointment with your primary doctor.
-                </p>
-                <span class="notification-timestamp">Received: 2024-11-21</span>
-            </div>
-            <div class="notification-card">
-                <h2 class="notification-title">Upcoming Event</h2>
-                <p class="notification-message">
-                    Join us for the Health Awareness Seminar on 2024-12-10 at 2:00 PM.
-                </p>
-                <span class="notification-timestamp">Received: 2024-11-20</span>
-            </div>
-        </div>
+        <?php 
+$notificationsCount = 0; // Counter for the notifications
+// Loop through the notifications and display up to 15
+foreach ($notifications as $notification): 
+    if ($notificationsCount >= 15) break; // Stop after 15 notifications
+    $notificationsCount++;
+?>
+<div class="notifications-section">
+    <div class="notification-card">
+        <h2 class="notification-title">Appointment Reminder</h2>
+        <p class="notification-message">
+            <?= $notification ?>
+        </p>
+        <span class="notification-timestamp">Received: <?= date('Y-m-d') ?></span>
+    </div>
+</div>
+<?php endforeach; ?>
+
+
     </div>  
         
         <script src="<?php echo URLROOT;?>public/assets/js/navbartwo.js"></script>

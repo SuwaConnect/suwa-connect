@@ -71,7 +71,6 @@
             <th>Appointment Date</th>
             <th>Appointment Time</th>
             <th>Test Type</th>
-            <th>Status</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -84,7 +83,6 @@
                     <td><?= date('Y-m-d', strtotime($appointment->appointment_date)) ?></td>
                     <td><?= htmlspecialchars($appointment->appointment_time) ?></td>
                     <td><?= htmlspecialchars($appointment->test_type) ?></td>
-                    <td><?= htmlspecialchars($appointment->status) ?></td>
                     <td>
                         <!-- Actions (view, reschedule, etc.) -->
                         <form method="POST" action="">

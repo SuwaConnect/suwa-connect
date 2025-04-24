@@ -64,7 +64,7 @@
     <?php if(isset($data['getLabInvoices']) && is_array($data['getLabInvoices'])): ?>
         <?php foreach($data['getLabInvoices'] as $invoice): ?>
             <tr>
-                <td><?= $invoice->invoice_number ?></td>
+                <td><?= $invoice->invoice_id ?></td>
                 <td><?= $invoice->patient_name ?></td>
                 <td><?= date('Y-m-d', strtotime($invoice->invoice_date)) ?></td>
                 <td>Rs. <?= number_format($invoice->total_amount, 2) ?></td>
@@ -95,42 +95,52 @@
 
   <section class="payment-section">
     <h2>Process Payment</h2>
-    <form>
-      <label for="invoice-number">Invoice Number:</label>
-      <input type="text" id="invoice-number" placeholder="Enter Invoice Number" />
+    <form method="POST" action="<?php echo URLROOT?>labController/processPayment"> <!-- Ensure it's using POST -->
+      <label for="invoice-id">Invoice Number:</label>
+      <input type="text" id="invoice-id" name="invoice_id" placeholder="Enter Invoice ID" required />
 
       <label for="payment-method">Payment Method:</label>
-      <select id="payment-method">
+      <select id="payment-method" name="payment_method" required>
         <option value="cash">Cash</option>
         <option value="card">Credit/Debit Card</option>
         <option value="online">Online Payment</option>
       </select>
 
       <label for="amount">Amount:</label>
-      <input type="number" id="amount" placeholder="Enter Amount" />
+      <input type="number" id="amount" name="payment_amount" placeholder="Enter Amount" required />
 
       <button type="submit" class="confirm-payment-btn">Confirm Payment</button>
     </form>
-  </section>
+</section>
 
-  <section class="generate-invoice">
-    <h2>Create New Invoice</h2>
-    <form>
-      <label for="patient-name">Patient Name:</label>
-      <input type="text" id="patient-name" placeholder="Enter Patient Name" />
+<section class="generate-invoice">
+    <h2>Create Invoice</h2>
+    <form method="POST" action="<?php echo URLROOT ?>/labController/createInvoice">
+        <label for="appointment-id">Appointment ID:</label>
+        <input type="number" id="appointment-id" name="appointment_id" placeholder="Enter Appointment ID" required />
 
-      <label for="services">Services:</label>
-      <textarea id="services" placeholder="E.g., Blood Test - Rs. 2,000"></textarea>
+        <label for="patient-id">Patient ID:</label>
+        <input type="number" id="patient-id" name="patient_id" placeholder="Enter Patient ID" required />
 
-      <label for="discount">Discount (if any):</label>
-      <input type="number" id="discount" placeholder="Enter Discount Amount" />
+        <label for="lab-id">Lab ID:</label>
+        <input type="number" id="lab-id" name="lab_id" placeholder="Enter Lab ID" required />
 
-      <label for="total-amount">Total Amount:</label>
-      <input type="number" id="total-amount" placeholder="Enter Total Amount" />
+        <label for="total-amount">Total Amount:</label>
+        <input type="number" id="total-amount" name="total_amount" placeholder="Enter Total Amount" required />
 
-      <button type="submit" class="generate-invoice-btn">Generate Invoice</button>
+        <label for="discount">Discount:</label>
+        <input type="number" id="discount" name="discount" placeholder="Enter Discount" value="0" />
+
+        <label for="services">Services:</label>
+        <textarea id="services" name="services" placeholder="Enter services provided" required></textarea>
+
+        <button type="submit">Create Invoice</button>
     </form>
-  </section>
+</section>
+
+
+
+
 
   <section class="notifications">
     <h2>Notifications</h2>
