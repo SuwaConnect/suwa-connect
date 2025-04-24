@@ -361,7 +361,7 @@ body {
     background-color: var(--primary-color);
     border-radius: var(--border-radius);
     text-align: center;
-    color: #fff;
+    color: var(--white);
 }
 
 .cta h2 {

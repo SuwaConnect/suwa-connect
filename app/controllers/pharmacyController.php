@@ -45,6 +45,7 @@ class pharmacyController extends Controller {
         $this->view('pharmacy/pharmacyPromotions');
     }
 
+
     // public function pharmacySignUp(){
     //     $this->view('pharmacy/pharmacysignup');
     // }

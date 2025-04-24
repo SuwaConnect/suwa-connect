@@ -82,8 +82,6 @@ public function checkPendingLab($email) {
     return $this->db->single();
 }
 
-
-
 public function verifyCredentials($email, $password) {
     // Check approved users first
     $user = $this->getApprovedUserByEmail($email);
@@ -94,15 +92,14 @@ public function verifyCredentials($email, $password) {
                 'status' => 'approved',
                 'data' => $user
             ];
-        } else {
-            // Wrong password for existing user
-            return [
-                'status' => 'invalid',
-                'message' => 'Invalid credentials'
-            ];
         }
+        return [
+            'status' => 'invalid',
+            'message' => 'Invalid credentials'
+        ];
     }
-    
+
+
     // Check pending users
     $pendingDoctor = $this->checkPendingDoctor($email);
     if ($pendingDoctor && password_verify($password, $pendingDoctor->password)) {
@@ -124,25 +121,24 @@ public function verifyCredentials($email, $password) {
         ];
     }
 
-    // $pendingLab = $this->checkPendingLab($email);
-    // if ($pendingLab && password_verify($password, $pendingLab->password)) {
-    //     return [
-    //         'status' => 'pending',
-    //         'data' => $pendingLab,
-    //         'type' => 'lab',
-    //         'message' => 'Your laboratory account is pending admin approval'
-    //     ];
-    // }
+    $pendingLab = $this->checkPendingLab($email);
+    if ($pendingLab && password_verify($password, $pendingLab->password)) {
+        return [
+            'status' => 'pending',
+            'data' => $pendingLab,
+            'type' => 'lab',
+            'message' => 'Your laboratory account is pending admin approval'
+        ];
+    }
 
-    // No matching user found at all
     return [
         'status' => 'invalid',
         'message' => 'Invalid credentials'
     ];
 }
+
+
+
+
+
 }
-
-
-
-
-

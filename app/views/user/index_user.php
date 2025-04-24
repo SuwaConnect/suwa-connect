@@ -11,23 +11,23 @@
 
 
     <title>Suwa Connect- Your Health Partner</title>
-    <link rel="stylesheet" href="<?php echo URLROOT;?>public/css/user/landingtwo.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="logo"> <img src ="<?php echo URLROOT;?>public/assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
+        <div class="logo"> <img src="./assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
         </div>
         <div class="nav-links">
             <a href="#" class="active">Home</a>
             <a href="#features">Features</a>
-            <a href ="<?php echo URLROOT;?>homecontroller/doctor_landing">Doctors & Professionals </a>
-            <a href ="<?php echo URLROOT;?>homecontroller/organization_landing">Labs & Pharmacies</a> 
+            <a href="index_doctors.html">Doctors & Professionals</a>
+            <a href="index_organisations.html">Organisations</a>
             <a href="#faqs">FAQs</a>
-            <button id="signinbutton" class="btn-primary"> Sign In</button>
-            <button id="signupbutton" class="btn-secondary">Sign Up</button>
-        
+            <button class="btn-primary btn-signin">Sign Up</button>
+            <button class="btn-secondary btn-signup">Sign In</button>
+
         </div>
     </nav>
 
@@ -38,8 +38,8 @@
                 <h1>Empower your<br><span class="highlight">Health Journey</span><br>with Suwa-Connect</h1>
                 <p>Manage your health records, book appointments, and connect with healthcare professionals—all from one
                     platform.</p>
-                <button class="btn-primary" onclick="">Get Started</button>
-                <button class="btn-secondary" onclick="window.location='#specialservices'">Learn More</button>
+                <button class="btn-primary">Get Started</button>
+                <button class="btn-secondary">Learn More</button>
 
 
                 <div class="stats">
@@ -59,7 +59,7 @@
             </div>
             <div class="hero-image">
                 <div class="image-bg"></div>
-                <img src ="<?php echo URLROOT;?>public/assets/images/bagya/doctor_patient.jpg" alt="Doctor and team">
+                <img src="./assets/images/doctor_patient.jpg" alt="Doctor and team">
             </div>
         </div>
     </section>
@@ -88,9 +88,9 @@
     </section>
 
     <!-- Special Services -->
-    <section class="special-services" id="specialservices">
+    <section class="special-services">
         <div class="special-content">
-            <img src ="<?php echo URLROOT;?>public/assets/images/bagya/doctor.png" alt="Doctor with patient">
+            <img src="./assets/images/doctor.png" alt="Doctor with patient">
             <div class="special-text">
                 <h2>Why Choose <span class="highlight">Suwa-Connect</span>?</h2>
                 <div class="special-grid">
@@ -176,38 +176,39 @@
     <section class="cta">
         <h2>Get started with Suwa-Connect</h2>
         <p>Join thousands of patients who have already discovered easier healthcare management</p>
-        <button class="btn-secondary" onclick="">Get Started Now</button>
+        <button class="btn-secondary">Get Started Now</button>
     </section>
 
- <!-- Sign in & Sign Up Popup to select the user Role-->
-<div id="role-selection-popup" class="role-popup">
-    <div class="role-popup-content">
-        <span class="close-popup">&times;</span>
-        <h2>Select Your Role</h2>
-        <div class="role-options">
-            <div class="role-card" data-role="patient">
-                <img src="<?php echo URLROOT; ?>public/assets/images/patient_icon.png" alt="Patient">
-                <h3>Patient</h3>
-                <p>Access personal health records and book appointments</p>
-            </div>
-            <div class="role-card" data-role="doctor">
-                <img src="<?php echo URLROOT; ?>public/assets/images/doctor_icon.jpg" alt="Doctor">
-                <h3>Doctor</h3>
-                <p>Manage patient records and consultations</p>
-            </div>
-            <div class="role-card" data-role="pharmacy">
-                <img src="<?php echo URLROOT; ?>public/assets/images/pharmacy_icon.png" alt="Organization">
-                <h3>Pharmacy</h3>
-                <p>Manage institutional health services</p>
-            </div>
-            <div class="role-card" data-role="lab">
-                <img src="<?php echo URLROOT; ?>public/assets/images/lab_icon.jpg" alt="Laboratory">
-                <h3>Laboratory</h3>
-                <p>Access personal health records and book appointments</p>
+<!-- Sign in & Sign Up Popup to select the user Role-->
+    <div id="role-selection-popup" class="role-popup">
+        <div class="role-popup-content">
+            <span class="close-popup">&times;</span>
+            <h2>Select Your Role</h2>
+            <div class="role-options">
+                <div class="role-card" data-role="patient">
+                    <img src="./assets/images/patient_icon.png" alt="Patient">
+                    <h3>Patient</h3>
+                    <p>Access personal health records and book appointments</p>
+                </div>
+                <div class="role-card" data-role="doctor">
+                    <img src="./assets/images/doctor_icon.jpg" alt="Doctor">
+                    <h3>Doctor</h3>
+                    <p>Manage patient records and consultations</p>
+                </div>
+                <div class="role-card" data-role="pharmacy">
+                    <img src="./assets/images/pharmacy_icon.png" alt="Organization">
+                    <h3>Pharmacy</h3>
+                    <p>Manage institutional health services</p>
+                </div>
+                <div class="role-card" data-role="lab">
+                    <img src="./assets/images/lab_icon.jpg" alt="Patient">
+                    <h3>Laboratory</h3>
+                    <p>Access personal health records and book appointments</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+
 
     <!-- Footer -->
     <footer>
@@ -221,8 +222,8 @@
                 <ul>
                     <li><a href="#">About Us</a></li>
                     <li><a href="#">Our Services</a></li>
+                    <li><a href="#">Find Doctors</a></li>
                     <li><a href="#">Contact Us</a></li>
-                    <li><a href="">Sign in as Admin</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -249,11 +250,7 @@
         </div>
     </footer>
 
-   <script>
-    const SITE_URL = "<?php echo URLROOT; ?>";
-</script>
-
-    <script src ="<?php echo URLROOT;?>public/assets/js/index.js"></script>
+    <script src="./assets/js/index.js"></script>
 </body>
 
 </html>

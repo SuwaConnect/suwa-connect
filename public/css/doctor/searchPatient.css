@@ -124,25 +124,20 @@ align-items: center;
 
 }
 
-.patient-contact{
+.patient-id{
     width: 20%;
     display: flex;
     justify-content: center;
 }
 
 .patient-name{
-    width: 20%;
+    width: 30%;
     display: flex;
     justify-content: center;
 }
 
 .patient-age{
-    width: 20%;
-    display: flex;
-    justify-content: center;
-}
-.patient-gender{
-    width: 20%;
+    width: 30%;
     display: flex;
     justify-content: center;
 }

@@ -15,9 +15,8 @@ class Doctor extends Controller
     public function home(){
 
         $data = [
-             'today_appointments' => $this->doctorModel->getCountOfTodayappointments($_SESSION['user_id']),
-             'total_patients' => $this->doctorModel->getTotalPatientsForDoctor($_SESSION['user_id']),
-             'patients_consulted' => $this->doctorModel->getCountOfPatientsConsulted($_SESSION['user_id']),
+            // 'new_appointments' => $this->doctorModel->getCountOfNewappointments($_SESSION['user_id']),
+            // 'appointments' => $this->doctorModel->getAppointments($_SESSION['user_id']),
             // 'consultations' => $this->doctorModel->getConsultations($_SESSION['user_id']),
         ];
 
@@ -207,8 +206,7 @@ class Doctor extends Controller
                 'bio' => trim($_POST['bio']),
                 'street' => trim($_POST['street']),
                 'city' => trim($_POST['city']),
-                'state' => trim($_POST['state']),
-                'appointment_charges'=> trim($_POST['appointment_charges'])
+                'state' => trim($_POST['state'])
             ];
             
 

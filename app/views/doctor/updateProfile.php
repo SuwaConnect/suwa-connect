@@ -115,23 +115,8 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="form-group">
-                    <h2 class="section-title">Appointment details</h2>
-                    <label for="appointment-charge">consultation charges</label>
-                    <input type="text" id="appointment-charge" name="appointment_charges" placeholder="Enter your appointment charges" value="<?php echo $data['doctor']->appointment_charges ?? 'No appointment charge provided'; ?>">
-
-                   <a href="<?php echo URLROOT .'appointmentController/manageSessions';?>" class="update-btn">Edit sessions</a>
-                    
-                    </div>
-                   
-                    
-                   
-                </div>
-
                 <div class="submit-container">
                     <button type="submit" class="update-btn">Update Profile</button>
-                
                 </form>
                 </div>
 

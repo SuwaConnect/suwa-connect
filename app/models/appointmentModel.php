@@ -130,7 +130,6 @@ public function getAppointmentsForSession($sessionId, $date) {
                          JOIN patients p ON a.patient_id = p.patient_id
                          WHERE a.session_id = :session_id 
                          AND a.appointment_date = :appointment_date
-                            AND a.status = "SCHEDULED"
                          ORDER BY a.created_at');
         
         $this->db->bind(':session_id', $sessionId);
@@ -243,19 +242,6 @@ public function getScheduledAppointmentsForPatient($patientId) {
     $this->db->bind(':patient_id', $patientId);
     
     return $this->db->resultSet();
-}
-
-public function updateAppointmentStatus($appointment_id){
-    $this->db->query('UPDATE appointments SET status = "COMPLETED" WHERE appointment_id = :appointment_id');
-    
-    // Bind values
-    $this->db->bind(':appointment_id', $appointment_id);
-    
-    if($this->db->execute()) {
-        return true;
-    } else {
-        return false;
-}
 }
 
 }

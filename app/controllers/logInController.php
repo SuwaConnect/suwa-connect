@@ -8,31 +8,24 @@ class logInController extends controller{
         $this->loginModel = $this->model('logInModel');
     }
 
-    public function pendingUser(){
-        $this->view('user/pendingUser');
-    }
+ 
 
     public function authenticate() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             redirect('login');
         }
-    
-        // Initialize errors array with empty login error
+
+        // Sanitize and validate input
         $data = $this->validateLoginInput();
-        
-        // Ensure 'login' key exists in the errors array
-        if (!isset($data['errors']['login'])) {
-            $data['errors']['login'] = '';
-        }
         
         if (!empty($data['errors']['email']) || !empty($data['errors']['password'])) {
             $this->view('user/login', $data);
             return;
         }
-    
+
         // Attempt login
         $result = $this->loginModel->verifyCredentials($data['email'], $data['password']);
-    
+
         switch ($result['status']) {
             case 'approved':
                 $this->createUserSession($result['data']);
@@ -47,8 +40,7 @@ class logInController extends controller{
                     'user_type' => $result['type'],
                     'email' => $data['email']
                 ];
-                // redirect(URLROOT . 'loginController/pendingUser');
-                $this->pendingUser();
+                redirect(URLROOT . '/login/status');
                 break;
             
             case 'rejected':
@@ -59,8 +51,7 @@ class logInController extends controller{
                     'rejection_reason' => $result['data']->rejection_reason ?? 'No reason provided',
                     'email' => $data['email']
                 ];
-               // redirect(URLROOT . 'loginController/pendingUser');
-                $this->pendingUser();
+                redirect(URLROOT . '/login/status');
                 break;
             
             case 'invalid':
@@ -159,7 +150,5 @@ class logInController extends controller{
             return false;
         }
     }
-
-    
 
 }

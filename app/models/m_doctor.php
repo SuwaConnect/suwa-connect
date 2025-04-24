@@ -114,28 +114,12 @@ public function getDoctorIdByUserId($user_id){
     return $row->doctor_id;
 }
 
-public function getCountOfTodayappointments($user_id){
+public function getCountOfNewappointments($user_id){
     $doctor_id = $this->getDoctorIdByUserId($user_id);
-    $this->db->query('SELECT COUNT(*) as count FROM appointments WHERE doctor_id = :doctor_id AND status = "SCHEDULED" AND appointment_date = CURDATE() ');
-    $this->db->bind(':doctor_id', $doctor_id);
+    $this->db->query('SELECT COUNT(*) as count FROM appointments WHERE doctor_id = :user_id AND status = "pending"');
+    $this->db->bind(':user_id', $doctor_id);
     $row = $this->db->single();
-    return $row->count;
-}
-
-public function getCountOfPatientsConsulted($user_id){
-    $doctor_id = $this->getDoctorIdByUserId($user_id);
-    $this->db->query('SELECT COUNT(*) as count FROM appointments WHERE doctor_id = :doctor_id AND status = "COMPLETED" AND appointment_date = CURDATE() ');
-    $this->db->bind(':doctor_id', $doctor_id);
-    $row = $this->db->single();
-    return $row->count;
-}
-
-public function getTotalPatientsForDoctor($user_id){
-    $doctor_id = $this->getDoctorIdByUserId($user_id);
-    $this->db->query('SELECT COUNT(*) as count FROM permission_requests WHERE doctor_id = :doctor_id AND status = "approved" ');
-    $this->db->bind(':doctor_id', $doctor_id);
-    $row = $this->db->single();
-    return $row->count;
+    return $row;
 }
 
 public function getAppointments($user_id){
@@ -171,7 +155,7 @@ public function getAppointments($user_id){
 // }
 
 public function updateProfileInfo($doctor_id,$data){
-    $this->db->query('UPDATE approved_doctors SET firstName = :first_name, lastName = :last_name, contact_no = :contact_no,contact_no2 = :contact_no2,specialization = :specialization,slmc_no = :slmc_no,bio = :bio, street =:street ,city= :city, state = :state,appointment_charges = :appointment_charges WHERE doctor_id = :doctor_id');
+    $this->db->query('UPDATE approved_doctors SET firstName = :first_name, lastName = :last_name, contact_no = :contact_no,contact_no2 = :contact_no2,specialization = :specialization,slmc_no = :slmc_no,bio = :bio, street =:street ,city= :city, state = :state WHERE doctor_id = :doctor_id');
     $this->db->bind(':doctor_id', $doctor_id);
     $this->db->bind(':first_name', $data['first_name']);
     $this->db->bind(':last_name', $data['last_name']);
@@ -183,7 +167,6 @@ public function updateProfileInfo($doctor_id,$data){
     $this->db->bind(':street', $data['street']);
     $this->db->bind(':city', $data['city']);
     $this->db->bind(':state', $data['state']);
-    $this->db->bind(':appointment_charges', $data['appointment_charges']);
 
     if($this->db->execute()){
         return true;
