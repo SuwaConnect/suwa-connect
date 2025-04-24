@@ -26,6 +26,9 @@ class pharmacyController extends Controller {
         $this->view('pharmacy/pharmacyaddpromo');
     }
 
+    public function pharmacyNotifications(){
+        $this->view('pharmacy/pharmacynotifications');
+    }
     public function pharmacyHome(){
         $this->view('pharmacy/pharmacyhome');
     }
