@@ -55,6 +55,10 @@ class patientController extends Controller {
         $this->view('patient/dashboard',$data);
     }
 
+    public function manageHealthInfo(){
+        $this->view('patient/health-info');
+    }
+
     public function records() {
         try{
             // Fetch patient data from the model
@@ -104,14 +108,14 @@ public function patientRegister() {
         $errors = [];
         
         // Sanitize and validate inputs
-        $firstName = trim(filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING));
-        $lastName = trim(filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING));
-        $nic = trim(filter_input(INPUT_POST, 'nic', FILTER_SANITIZE_STRING));
-        $gender = trim(filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING));
+        $firstName = trim($_POST['first_name']);
+        $lastName = trim($_POST['last_name']);
+        $nic = trim($_POST['nic']);
+        $gender = trim($_POST['gender']);
         $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-        $contactNo = trim(filter_input(INPUT_POST, 'contact_no', FILTER_SANITIZE_STRING));
-        $dateOfBirth = trim(filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_STRING));
-        $address = trim(filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING));
+        $contactNo = trim($_POST['contact_no']);
+        $dateOfBirth = trim($_POST['dob']);
+        $address = trim($_POST['address']);
         $password = trim($_POST['password']);
         $confirmPassword = trim($_POST['confirm_password']);
 
@@ -249,30 +253,6 @@ public function sendPrescriptionToPharmacy($record_id) {
     ];
 
     $this->view('patient/searchPharmacy', $data);
-    // echo "sendPrescriptionToPharmacy called";
-    // echo $data;
-    // try {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $prescriptionId = $_POST['prescription_id'];
-    //         $pharmacyId = $_POST['pharmacy_id'];
-            
-    //         // Send prescription to pharmacy
-    //         $result = $this->visitRecordModel->sendPrescriptionToPharmacy($prescriptionId, $pharmacyId);
-            
-    //         if ($result) {
-    //             // Redirect or show success message
-    //             header('Location: ' . URLROOT . 'patientController/appointments');
-    //             exit();
-    //         } else {
-    //             // Handle error
-    //             echo "Failed to send prescription to pharmacy.";
-    //         }
-    //     }
-    // } catch (Exception $e) {
-    //     // Handle exception (e.g., log the error, show an error message)
-    //     echo "Error: " . $e->getMessage();
-    // }
-
 }
 
 public function searchPharmacy(){

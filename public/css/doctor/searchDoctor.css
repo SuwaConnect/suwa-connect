@@ -117,6 +117,7 @@ body{
 #patient-details{
 display: flex;
 flex-direction:row;
+justify-content: space-between;
 width: 90%; 
 font-size: 18px;
 align-items: center;
@@ -126,29 +127,35 @@ align-items: center;
 
 .patient-id{
     width: 20%;
-    display: flex;
-    justify-content: center;
+    /* display: flex;
+    justify-content: center; */
 }
 
 .patient-name{
-    width: 30%;
+    width: 20%;
     display: flex;
     justify-content: center;
 }
 
 .patient-specialization{
-    width: 30%;
+    width: 20%;
     display: flex;
     justify-content: center;
 }
 
-.btns{
+/* .patient-age{
     width: 20%;
     display: flex;
-}
+    justify-content: center;
+} */
+
+/* .btns{
+    width: 20%;
+    display: flex;
+} */
 
 .request-access-btn{
-    width: 10%;
+    width: 20%;
     
     display: flex;
     justify-content: center;
@@ -161,6 +168,8 @@ align-items: center;
     color: white;
     border: none;
     border-radius: 8px;
+    padding: 8px;
+
     /* padding: 8px; */
     
     
@@ -173,7 +182,7 @@ align-items: center;
 }
 
 .visit-profile-btn{
-    width: 10%;
+    width: 20%;
     display: flex;
     justify-content: center;
   

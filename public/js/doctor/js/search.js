@@ -36,9 +36,30 @@ const URLROOT = 'http://localhost/newFramework';
         })
         .catch(error => console.error('Error:', error));
     });
+
 // }
 
+function calculateAge(dob) {
+    // Parse the date of birth
+    const birthDate = new Date(dob);
+    
+    // Get current date
+    const today = new Date();
+    
+    // Calculate the difference in years
+    let age = today.getFullYear() - birthDate.getFullYear();
+    
+    // Check if birthday has occurred this year
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    
+    return age;
+}
+
 function createPatientElement(patient) {
+    const age = calculateAge(patient.dob);
     const div = document.createElement('div');
     div.className = 'patient';
     
@@ -47,14 +68,17 @@ function createPatientElement(patient) {
             <img src="${URLROOT}/public/images/doctor/images/profile.png" alt="patient icon">
         </div>
         <div id="patient-details">
-            <div class="patient-id">
-                <span id="patientId">${patient.email}</span>
-            </div>
             <div class="patient-name">
-                <span id="name">${patient.first_name} ${patient.last_name}</span>
+                <span id="patientId">${patient.first_name} ${patient.last_name}</span>
+            </div>
+            <div class="patient-gender">
+                <span id="name">${patient.gender} </span>
             </div>
             <div class="patient-age">
-                <span id="age">${patient.patient_id}</span>
+                <span id="age">${age} years</span>
+            </div>
+            <div class="patient-contact">
+                <span id="dob">${patient.contact_no}</span>
             </div>
             <div class="btns">
                 ${generateButtons(patient)}

@@ -22,7 +22,7 @@
             <form action="<?php echo URLROOT; ?>searchController/searchDoctor" method="post">
                 <input type="search" placeholder="Search doctor..." 
                        aria-label="Search" name="search" id="search" 
-                       value="<?php echo $data['search']; ?>">
+                       value="<?php echo isset($data['search']) ? $data['search'] : ''; ?>">
                  <button type="submit">search</button>     
             </form>
         </div>
@@ -41,13 +41,13 @@
                     </div>
                     <div id="patient-details">
                         <div class="patient-id">
-                            <span id="patientId">Dr. ID: <?php echo $doctor->doctor_id; ?></span>
+                            <span id="patientId">Dr.<?php echo $doctor->firstName.' '.$doctor->lastName; ?></span>
                         </div>
                         <div class="patient-name">
-                            <span id="name">Dr. <?php echo $doctor->firstName; ?></span>
+                            <span id="name"><?php echo $doctor->specialization; ?></span>
                         </div>
                         <div class="patient-specialization">
-                            <span id="specialization"><?php echo $doctor->contact_no; ?></span>
+                            <span id="specialization"><?php echo $doctor->state; ?></span>
                         </div>
                         <div class="request-access-btn">
                             <form action="<?php echo URLROOT?>appointmentController/book" method="POST">
