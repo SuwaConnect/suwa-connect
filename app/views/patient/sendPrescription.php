@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Send Prescription to Pharmacy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +18,32 @@
             padding: 20px;
             color: #333;
         }
+
+        /* *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    
+} */
+
+        body{
+    display: flex;
+    /* height: 100vh; */
+    overflow-x: hidden;
+    overflow-y: auto;
+}
         
+       
+
+        .sideBar.collapsed + .main-content{
+            margin-left:80px;
+            width: calc(100% - 80px);
+            overflow-y: auto;
+            }
+   
         .container {
             background-color: #f9f9f9;
             border-radius: 8px;
@@ -111,31 +141,24 @@
     </style>
 </head>
 <body>
+    <?php include 'navbar-patient.php'?>
+    
     <div class="container">
         <h1>Send Prescription to Pharmacy</h1>
         
         <div class="medication-list">
             <h2>Your Medications</h2>
-            <!-- 
-            
-            <div class="medication-item">
-                <div class="medication-info">
-                    <div class="medication-name">Atorvastatin</div>
-                    <div class="medication-dosage">20mg, once daily at bedtime</div>
-                </div>
-                <button class="remove-btn" onclick="removeItem(this)">Remove</button>
-            </div> -->
+          
             <?php foreach ($data['medicines'] as $medicine): ?>
-                <div class="medication-item" data-medicine-id="<?= $medicine->id ?>">
+                <div class="medication-item" >
                     <div class="medication-info">
                         <div class="medication-name"><?= htmlspecialchars($medicine->name) ?></div>
                         <div class="medication-dosage"><?= htmlspecialchars($medicine->dosage) ?></div>
                     </div>
-                    <button class="remove-btn" onclick="removeItem(this)">Remove</button>
                 </div>
             <?php endforeach; ?>
             <?php if (empty($data['medicines'])): ?>
-                <div class="empty-list">No medications selected</div>
+                <div class="empty-list">No medications in the prescription</div>
             <?php endif; ?>
         </div>
         
@@ -156,16 +179,10 @@
         
         <button class="submit-btn" onclick="submitPrescription()">Send to Pharmacy</button>
     </div>
+    
 
     <script>
-        function removeItem(button) {
-            let item = button.parentElement;
-            item.style.opacity = '0.5';
-            setTimeout(() => {
-                item.remove();
-                checkEmptyList();
-            }, 300);
-        }
+        
         
         function checkEmptyList() {
             let list = document.querySelector('.medication-list');
@@ -179,32 +196,20 @@
             }
         }
         
-        // function submitPrescription() {
-        //     // In a real application, this would send data to your backend
-        //     alert('Prescription sent to pharmacy!');
-        // }
+        
 
         function submitPrescription() {
-    // Collect all medications that haven't been removed
-    let medicationIds = [];
-    document.querySelectorAll('.medication-item').forEach(item => {
-        let medicineId = item.getAttribute('data-medicine-id');
-        medicationIds.push(medicineId);
-    });
     
-    // Get the special instructions and delivery method
+    
     let specialInstructions = document.querySelector('.notes-section textarea').value;
     let deliveryMethod = document.querySelector('input[name="delivery"]:checked').value;
     
-    // Create the data object to send
+    
     let data = {
-        medicineIds: medicationIds,
         specialInstructions: specialInstructions,
         deliveryMethod: deliveryMethod,
-        // You might need to add these values from your session/application state
-        // patientId: currentPatientId,  // Define this variable elsewhere
-        recordId: <?php echo $data['record_id']?>,    // Define this variable elsewhere
-        pharmacyId: <?php echo $data['pharmacy_id']?> // Define this variable elsewhere
+        recordId: <?php echo $data['record_id']?>,    
+        pharmacyId: <?php echo $data['pharmacy_id']?> 
     };
     
     // Send data to server using fetch API
@@ -219,8 +224,6 @@
     .then(data => {
         if (data.success) {
             alert('Prescription sent to pharmacy successfully!');
-            // Redirect or show confirmation
-            //window.location.href = '/prescription-confirmation/' + data.orderId;
         } else {
             alert('Error: ' + data.message);
         }

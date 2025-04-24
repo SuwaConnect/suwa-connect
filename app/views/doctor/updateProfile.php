@@ -29,7 +29,7 @@
                             echo URLROOT.'public/images/doctor/images/profile.png';
                         }?>" alt="Doctor profile">
                 </div>
-                <div class="doctor-name">Dr. <?php echo $_SESSION['user_name'] ?? 'Doctor Name'; ?></div>
+                <div class="doctor-name">Dr. <?php echo $data['doctor']->firstName.' '.$data['doctor']->lastName ?? 'Doctor Name'; ?></div>
                 
                 <form action="<?php echo URLROOT?>profileController/changeProfilePicture" method="POST" enctype="multipart/form-data">
                     <div class="upload-options">

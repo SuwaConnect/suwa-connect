@@ -144,7 +144,7 @@ public function addHealthRecord($patientId) {
             //$patient_id = $_POST['patient_id'];
             //$visitDate = $_POST['visitDate'];
             $chiefComplaint = $_POST['chiefComplaint'];
-            $sistolic = $_POST['sistolic'];
+            $sistolic =  $_POST['sistolic'] ;
             $diastolic = $_POST['diastolic'];
             $temperature = $_POST['temperature'];
             $bloodSugar = $_POST['bloodSugar'];
@@ -437,5 +437,18 @@ public function viewHealthRecord($healthRecordId) {
     $this->view('doctor/viewHealthRecord',$data);
     
 
+}
+
+public function deleteHealthRecord($healthRecordId) {
+    try {
+        $deleted = $this->visitRecordModel->deleteHealthRecord($healthRecordId);
+        if ($deleted) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to delete health record']);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
 }
 }

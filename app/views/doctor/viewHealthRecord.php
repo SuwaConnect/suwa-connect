@@ -35,9 +35,9 @@
         </div>
       </div>
       <div class="record-actions">
-        <button class="action-btn primary-btn">Edit Record</button>
+        <!-- <button class="action-btn primary-btn">Edit Record</button>
         <button class="action-btn secondary-btn">Print Record</button>
-        <button class="action-btn danger-btn">Share Record</button>
+        <button class="action-btn danger-btn">Share Record</button> -->
       </div>
     </div>
     
@@ -64,24 +64,31 @@
         <div class="vital-signs">
           <div class="vital-card">
             <div class="vital-title">Blood Pressure</div>
-            <div class="vital-value"><?php echo ($data['vitalSigns']->systolic . " / " . $data['vitalSigns']->diastolic); ?>
+            <div class="vital-value"><?php if ($data['vitalSigns']->systolic == null || $data['vitalSigns']->diastolic == null) { echo "N/A"; } else { 
+            echo ($data['vitalSigns']->systolic . " / " . $data['vitalSigns']->diastolic);} ?>
             <span class="vital-unit">mmHg</span></div>
-            <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <div class="vital-trend trend-neutral">&#8212;</div>
+            <div class="vital-date"><?php
+$date = new DateTime($data['healthRecord']->created_at);
+echo $date->format('jS F, Y H:i');
+?></div>
+            <!-- <div class="vital-trend trend-neutral">&#8212;</div> -->
           </div>
           
-          <div class="vital-card">
+          <!-- <div class="vital-card">
             <div class="vital-title">Heart Rate</div>
             <div class="vital-value">72 <span class="vital-unit">bpm</span></div>
             <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
             <div class="vital-trend trend-down">&#9660; 5</div>
-          </div>
+          </div> -->
           
           <div class="vital-card">
             <div class="vital-title">Temperature</div>
             <div class="vital-value"><?php echo $data['vitalSigns']->temperature ?> <span class="vital-unit">°F</span></div>
-            <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <div class="vital-trend trend-neutral">&#8212;</div>
+            <div class="vital-date"><?php
+$date = new DateTime($data['healthRecord']->created_at);
+echo $date->format('jS F, Y H:i');
+?></div>
+            <!-- <div class="vital-trend trend-neutral">&#8212;</div> -->
           </div>
           
           <!-- <div class="vital-card">
@@ -94,28 +101,40 @@
           <div class="vital-card">
             <div class="vital-title">Blood Sugar (Fasting)</div>
             <div class="vital-value"><?php echo $data['vitalSigns']->blood_sugar ?> <span class="vital-unit">mg/dL</span></div>
-            <div class="vital-date">Apr 5, 2025 - 07:30 AM</div>
+            <div class="vital-date"><?php
+$date = new DateTime($data['healthRecord']->created_at);
+echo $date->format('jS F, Y H:i');
+?></div>
             <div class="vital-trend trend-down">&#9660; 12</div>
           </div>
           
           <div class="vital-card">
             <div class="vital-title">Cholesterol (Total)</div>
             <div class="vital-value"><?php echo $data['vitalSigns']->cholesterol ?> <span class="vital-unit">mg/dL</span></div>
-            <div class="vital-date">Mar 22, 2025 - 09:45 AM</div>
+            <div class="vital-date"><?php
+$date = new DateTime($data['healthRecord']->created_at);
+echo $date->format('jS F, Y H:i');
+?></div>
             <div class="vital-trend trend-down">&#9660; 15</div>
           </div>
           
           <div class="vital-card">
             <div class="vital-title">Weight</div>
             <div class="vital-value"><?php echo $data['vitalSigns']->weight ?> <span class="vital-unit">lbs</span></div>
-            <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
+            <div class="vital-date"><?php
+$date = new DateTime($data['healthRecord']->created_at);
+echo $date->format('jS F, Y H:i');
+?></div>
             <div class="vital-trend trend-down">&#9660; 3</div>
           </div>
           
           <div class="vital-card">
             <div class="vital-title">BMI</div>
             <div class="vital-value">24.8 <span class="vital-unit"></span></div>
-            <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
+            <div class="vital-date"><?php
+$date = new DateTime($data['healthRecord']->created_at);
+echo $date->format('jS F, Y H:i');
+?></div>
             <div class="vital-trend trend-down">&#9660; 0.4</div>
           </div>
         </div>
@@ -164,7 +183,7 @@
               </div>
             </div>
             <div class="visit-actions">
-              <button class="action-btn secondary-btn">Edit</button>
+              <!-- <button class="action-btn secondary-btn">Edit</button> -->
             </div>
           </div> 
 
@@ -282,7 +301,7 @@
             </svg>
             Prescriptions
           </div>
-          <button class="action-btn secondary-btn">Add Prescription</button>
+          <!-- <button class="action-btn secondary-btn">Add Prescription</button> -->
         </div>
         
         <div class="prescription-list">
@@ -315,7 +334,7 @@
         </div>
         <div>
           <div class="medicine-schedule"></div>
-          <div class="medicine-duration">Refills: </div>
+          <!-- <div class="medicine-duration">Refills: </div> -->
         </div>
       </div>
     <?php endforeach; ?>

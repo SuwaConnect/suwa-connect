@@ -12,68 +12,66 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacydashboard.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacyorders.css">
+    <style>
+        /* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 70%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+#modal-prescription-content {
+    margin-top: 20px;
+}
+
+.prescription-detail-row {
+    display: flex;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.prescription-detail-label {
+    width: 40%;
+    font-weight: bold;
+}
+
+.prescription-detail-value {
+    width: 60%;
+}
+    </style>
 
     <title>Pharmacies Home - Suwa-Connect</title>
 </head>
 <body>
-  
-<div class="sideBar">
-
-<div class="logo">
-    <img src="<?php echo URLROOT?>public/assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
-    <h2>සුව CONNECT</h2>
-    <button class="toggle-btn" id="toggleSideBar">
-        <i class="material-icons-round">chevron_left</i>
-    </button>
-</div>
-
-<ul class="nav-menu">
-
-    <li class="nav-item ">
-            <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyHome" class="nav-link">
-            <i class="material-icons-round">home</i> <span>Home</span>
-        </a>
-    </li>
-
-    <li class="nav-item active">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyOrders" class="nav-link">
-            <i class="material-icons-round">medical_services</i> <span> Orders </span>
-        </a>
-
-    <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyAddPromo" class="nav-link">
-            <i class="material-icons-round">assignment</i> <span>Promotions </span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyAddPromo" class="nav-link">
-            <i class="material-icons-round">assignment</i> <span>Notifications </span>
-        </a>
-    </li>
-
-    <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyAddPromo" class="nav-link">
-            <i class="material-icons-round">assignment</i> <span>Revenue </span>
-        </a>
-    </li>
-
-
-
-    <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyPresManagement" class="nav-link">
-            <i class="material-icons-round">group</i> <span>Profile</span>
-        </a>
-    </li>
-
-    <li class="nav-item" id="logout">
-        <a href="<?php echo URLROOT?>logincontroller/logout" class="nav-link">
-            <i class="material-icons-round">logout</i> <span>Logout</span>
-        </a>
-    </li>
-
-</ul>
-</div>
+  <?php include 'pharmacyNavBar.php'?>
 
     <!-- Main Content -->
     <div class="main-content">
@@ -139,27 +137,7 @@
         <div class="orders-list-section">
             <div class="orders-list-header">
                 <h2>Orders List</h2>
-                <div class="filters-row">
-                    <select class="filter-select">
-                        <option>Filter by Status</option>
-                        <option>Pending</option>
-                        <option>Confirmed</option>
-                        <option>Declined</option>
-                    </select>
-                    <select class="filter-select">
-                        <option>Filter by Doctor</option>
-                        <option>Dr. Nimal Fernando</option>
-                        <option>Dr. Kumari Silva</option>
-                        <option>Dr. Anura Perera</option>
-                    </select>
-                    <input type="date" class="date-input" placeholder="Select Date">
-                    <select class="filter-select">
-                        <option>Sort by</option>
-                        <option>Most Recent</option>
-                        <option>Doctor Name</option>
-                        <option>Patient Name</option>
-                    </select>
-                </div>
+                
             </div>
 
             <!-- Desktop View: Orders Table -->
@@ -169,152 +147,200 @@
                         <tr>
                             <th>Order ID</th>
                             <th>Patient Name</th>
-                            <th>Doctor Name</th>
-                            <th>Prescription Summary</th>
-                            <th>Address</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <!-- <th>Doctor Name</th> -->
+                           
+                            <th>contact no</th>
+                             <th>Delivery method</th>
+                             <th>Address</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>RX0012</td>
-                            <td>Dinithi Silva</td>
-                            <td>Dr. Nimal Fernando</td>
-                            <td>Amoxil 500mg x 14 days</td>
-                            <td>No. 44, Kandy Rd, Gampaha</td>
-                            <td><span class="status-badge status-pending">Pending</span></td>
-                            <td>
-                                <div class="action-buttons-cell">
-                                    <button class="action-btn action-btn-view">View</button>
-                                    <button class="action-btn action-btn-confirm">Confirm</button>
-                                    <button class="action-btn action-btn-decline">Decline</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>RX0013</td>
-                            <td>Saman Perera</td>
-                            <td>Dr. Kumari Silva</td>
-                            <td>Metformin 500mg x 30 days</td>
-                            <td>34/2, Main St, Colombo 5</td>
-                            <td><span class="status-badge status-confirmed">Confirmed</span></td>
-                            <td>
-                                <div class="action-buttons-cell">
-                                    <button class="action-btn action-btn-view">View</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>RX0014</td>
-                            <td>Malini Gunasekara</td>
-                            <td>Dr. Anura Perera</td>
-                            <td>Atorvastatin 20mg x 28 days</td>
-                            <td>72, Beach Road, Negombo</td>
-                            <td><span class="status-badge status-pending">Pending</span></td>
-                            <td>
-                                <div class="action-buttons-cell">
-                                    <button class="action-btn action-btn-view">View</button>
-                                    <button class="action-btn action-btn-confirm">Confirm</button>
-                                    <button class="action-btn action-btn-decline">Decline</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>RX0015</td>
-                            <td>Rohan Fernando</td>
-                            <td>Dr. Nimal Fernando</td>
-                            <td>Omeprazole 20mg x 14 days</td>
-                            <td>12/A, Temple Lane, Dehiwala</td>
-                            <td><span class="status-badge status-declined">Declined</span></td>
-                            <td>
-                                <div class="action-buttons-cell">
-                                    <button class="action-btn action-btn-view">View</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>RX0016</td>
-                            <td>Nadeeka Jayawardena</td>
-                            <td>Dr. Kumari Silva</td>
-                            <td>Amlodipine 5mg x 30 days</td>
-                            <td>55, Hill Road, Kandy</td>
-                            <td><span class="status-badge status-confirmed">Confirmed</span></td>
-                            <td>
-                                <div class="action-buttons-cell">
-                                    <button class="action-btn action-btn-view">View</button>
-                                </div>
-                            </td>
-                        </tr>
+                    <?php foreach($data['pending_orders'] as $order): ?>
+            <tr>
+                <td><?php echo $order->order_id; ?></td>
+                <td><?php echo $order->first_name.''.$order->last_name; ?></td>
+                <td><?php echo $order->address; ?></td>
+                <td><?php echo $order->delivery_method?></td>
+                <td><?php echo  $order->contact_no;?></td>
+                
+                <td>
+                    <span class="status-badge status-">
+                        
+                    </span>
+                </td>
+                <td>
+                    <div class="action-buttons-cell">
+                        
+                        <button class="action-btn action-btn-view" data-order-id="<?php echo $order->order_id; ?>">View</button>
+                        
+                    </div>
+                </td>
+            </tr>
+        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
+            <div id="prescriptionModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Prescription Details</h2>
+        <div id="modal-prescription-content">
+            <!-- Prescription details will be loaded here -->
+        </div>
+    </div>
+</div>
 
-            <!-- Mobile View: Order Cards -->
-            <div class="mobile-orders-container">
-                <div class="order-card">
-                    <div class="order-card-header">
-                        <div class="order-id">RX0012</div>
-                        <div class="order-status status-badge status-pending">Pending</div>
-                    </div>
-                    <div class="order-info-row">
-                        <div class="order-info-label">Patient Name:</div>
-                        <div class="order-info-value">Dinithi Silva</div>
-                    </div>
-                    <div class="order-info-row">
-                        <div class="order-info-label">Doctor Name:</div>
-                        <div class="order-info-value">Dr. Nimal Fernando</div>
-                    </div>
-                    <div class="order-medicines">
-                        <div class="medicine-item">• Amoxil 500mg – 14 tabs</div>
-                        <div class="medicine-item">• Paracetamol 500mg – 10 tabs</div>
-                    </div>
-                    <div class="order-info-row">
-                        <div class="order-info-label">Delivery Address:</div>
-                        <div class="order-info-value">No. 44, Kandy Rd, Gampaha</div>
-                    </div>
-                    <div class="order-info-row">
-                        <div class="order-info-label">Prescription Date:</div>
-                        <div class="order-info-value">2024-12-03</div>
-                    </div>
-                    <div class="order-card-actions">
-                        <button class="action-btn action-btn-view">View Full</button>
-                        <button class="action-btn action-btn-confirm">Confirm</button>
-                        <button class="action-btn action-btn-decline">Decline</button>
-                    </div>
-                </div>
-
-                <div class="order-card">
-                    <div class="order-card-header">
-                        <div class="order-id">RX0013</div>
-                        <div class="order-status status-badge status-confirmed">Confirmed</div>
-                    </div>
-                    <div class="order-info-row">
-                        <div class="order-info-label">Patient Name:</div>
-                        <div class="order-info-value">Saman Perera</div>
-                    </div>
-                    <div class="order-info-row">
-                        <div class="order-info-label">Doctor Name:</div>
-                        <div class="order-info-value">Dr. Kumari Silva</div>
-                    </div>
-                    <div class="order-medicines">
-                        <div class="medicine-item">• Metformin 500mg – 30 tabs</div>
-                    </div>
-                    <div class="order-info-row">
-                        <div class="order-info-label">Delivery Address:</div>
-                        <div class="order-info-value">34/2, Main St, Colombo 5</div>
-                    </div>
-                    <div class="order-info-row">
-                        <div class="order-info-label">Prescription Date:</div>
-                        <div class="order-info-value">2024-12-02</div>
-                    </div>
-                    <div class="order-card-actions">
-                        <button class="action-btn action-btn-view">View Full</button>
-                    </div>
-                </div>
-            </div>
+           
 
             <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('prescriptionModal');
+    const modalContent = document.getElementById('modal-prescription-content');
+    const closeModalBtn = document.querySelector('.close-modal');
+    
+    // Close modal when clicking on X
+    closeModalBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+    });
+    
+    // Close modal when clicking outside of it
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+    
+    // Add event listeners to all view buttons
+    const viewButtons = document.querySelectorAll('.action-btn-view');
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const orderId = this.getAttribute('data-order-id');
+            fetchPrescriptionDetails(orderId);
+        });
+    });
+    
+    // Function to fetch prescription details via AJAX
+    function fetchPrescriptionDetails(orderId) {
+        // Show loading indicator
+        modalContent.innerHTML = '<p>Loading prescription details...</p>';
+        modal.style.display = 'block';
+        
+        // Fetch prescription details from server
+        fetch(`<?php echo URLROOT; ?>pharmacyController/getPrescriptionDetails/${orderId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            displayPrescriptionDetails(data);
+        })
+        .catch(error => {
+            modalContent.innerHTML = `<p class="error">Error loading prescription details: ${error.message}</p>`;
+        });
+    }
+    
+    // Function to display prescription details in the modal
+    function displayPrescriptionDetails(data) {
+        let html = `
+            <div class="prescription-details">
+                <div class="prescription-detail-row">
+                    <div class="prescription-detail-label">Order ID:</div>
+                    <div class="prescription-detail-value">${data.order_id}</div>
+                </div>
+                <div class="prescription-detail-row">
+                    <div class="prescription-detail-label">Patient:</div>
+                    <div class="prescription-detail-value">${data.patient_details.first_name} ${data.patient_details.last_name}</div>
+                </div>
+                <div class="prescription-detail-row">
+                    <div class="prescription-detail-label">Address:</div>
+                    <div class="prescription-detail-value">${data.patient_details.address}</div>
+                </div>
+                <div class="prescription-detail-row">
+                    <div class="prescription-detail-label">Status:</div>
+                    <div class="prescription-detail-value">${data.order_details.order_status}</div>
+                </div>
+                <div class="prescription-detail-row">
+                    <div class="prescription-detail-label">Date:</div>
+                    <div class="prescription-detail-value">${data.order_details.created_at}</div>
+                </div>
+                <h3>Medications</h3>
+        `;
+        
+        // Add medications if available
+        if (data.medicines && data.medicines.length > 0) {
+            html += '<ul class="medications-list">';
+            data.medicines.forEach(med => {
+                html += `<li>${med.name} - ${med.dosage} </li>`;
+            });
+            html += '</ul>';
+        } else {
+            html += '<p>No medication details available</p>';
+        }
+        
+        // Add action buttons if needed
+        html += `
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="confirm-order" data-order-id="${data.order_id}">Confirm Order</button>
+                <button class="btn btn-danger" id="decline-order" data-order-id="${data.order_id}">Decline Order</button>
+            </div>
+        `;
+        
+        html += '</div>';
+        
+        modalContent.innerHTML = html;
+        
+        // Add event listeners for new action buttons
+        document.getElementById('confirm-order').addEventListener('click', function() {
+            const orderId = this.getAttribute('data-order-id');
+            updateOrderStatus(orderId, 'confirmed');
+        });
+        
+        document.getElementById('decline-order').addEventListener('click', function() {
+            const orderId = this.getAttribute('data-order-id');
+            updateOrderStatus(orderId, 'declined');
+        });
+    }
+    
+    // Function to update order status
+    function updateOrderStatus(orderId, status) {
+        fetch(`<?php echo URLROOT; ?>pharmacyController/updateOrderStatus`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ orderId, status })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                // Close modal
+                modal.style.display = 'none';
+                // Refresh page to show updated status
+                location.reload();
+            } else {
+                throw new Error(data.message || 'Failed to update order status');
+            }
+        })
+        .catch(error => {
+            alert(`Error: ${error.message}`);
+        });
+    }
+});
+            </script>
 
             </div>
             </div>
