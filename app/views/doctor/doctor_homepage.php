@@ -33,20 +33,36 @@
 
         <div class="large-card">
             <div class="item" id="newAppointments">
-                <h3>pending appointments</h3>
+                <h3>Today appointments</h3>
                 <p class="count">
-                    <?php echo $data['new_appointments']->count; ?>
+                    <?php if (isset($data['today_appointments'])):{
+                        echo $data['today_appointments'];
+                    }else:{
+                        echo 0;
+                    };
+                    endif?>
                 </p>
             </div>
 
             <div class="item" id="oldPatients">
-                <h3>Old patients</h3>
-                <p class="count">20</p>
+                <h3>Total patients</h3>
+                <p class="count"><?php if (isset($data['total_patients'])):{
+                        echo $data['total_patients'];
+                    }else:{
+                        echo 0;
+                    };
+                    endif?></p>
             </div>
 
             <div class="item" id="newPatients">
-                <h3>New patients</h3>
-                <p class="count">20</p>
+                <h3>Consulted patients</h3>
+
+                <p class="count"><?php if (isset($data['patients_consulted'])):{
+                        echo $data['patients_consulted'];
+                    }else:{
+                        echo 0;
+                    };
+                    endif?></p>
             </div>
             
 
@@ -80,7 +96,7 @@
 
         <div class="appointments">
             <div class="title">appointments</div>
-                <?php if(isset($data['appointments'])): ?>
+            <?php if(isset($data['appointments'])): ?>
                 <?php foreach($data['appointments'] as $appointment):?>
                     <div class="name"><?php echo $appointment->first_name.' '.$appointment->last_name;?></div>
                     <div class="time"><?php echo $appointment->slot_time?></div>
@@ -93,14 +109,13 @@
         <div  class="consultations">
             <div class="title">consultations</div>
 
-            <?php if(!empty($data['consultations'])): ?>
-                <?php foreach($data['consultations'] as $consultation):?>
-                    <div class="name"><?php echo $consultation->first_name.' '.$consultation->last_name;?></div>
-                    <div class="time"><?php echo $consultation->slot_time?></div>
-                <?php endforeach;?>
-                <?php else: ?>
-                <div class="name">No consultations for today.</div>
-                <?php endif; ?>
+           
+                
+                    <div class="name"></div>
+                    <div class="time"></div>
+                
+                <!-- <div class="name">No consultations for today.</div> -->
+               
 
             <!-- <div class="name">john</div>
             <div class="time">8.00 AM</div> -->

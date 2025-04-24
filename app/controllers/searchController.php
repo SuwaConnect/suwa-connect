@@ -44,7 +44,7 @@ class searchController extends Controller
     public function searchDoctor() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            //$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             
             $searchTerm = trim($_POST['search']);
             

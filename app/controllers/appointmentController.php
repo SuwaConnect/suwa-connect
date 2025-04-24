@@ -46,7 +46,7 @@ public function __construct(){
     public function create() {
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             try{
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                //$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
                 
                 $patientId = $this->appointmentModel->getPatientIdByUserId($_SESSION['user_id']);
                 
@@ -60,7 +60,7 @@ public function __construct(){
                 ];
 
                 
-                
+                //$this->appointmentModel->createAppointment($data);
                 if($this->appointmentModel->createAppointment($data)) {
                         echo 'Appointment booked successfully';
                 } else {
@@ -169,33 +169,33 @@ public function __construct(){
         }
     }
     
-    public function markAppointmentAsCompleted() {
-        // Check if request is AJAX
-        if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
-            echo json_encode(['success' => false, 'message' => 'Invalid request']);
-            return;
-        }
+    // public function markAppointmentAsCompleted() {
+    //     // Check if request is AJAX
+    //     if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
+    //         echo json_encode(['success' => false, 'message' => 'Invalid request']);
+    //         return;
+    //     }
         
-        try {
-            $appointmentId = $_POST['appointment_id'] ?? null;
+    //     try {
+    //         $appointmentId = $_POST['appointment_id'] ?? null;
             
-            if (!$appointmentId) {
-                echo json_encode(['success' => false, 'message' => 'Appointment ID is required']);
-                return;
-            }
+    //         if (!$appointmentId) {
+    //             echo json_encode(['success' => false, 'message' => 'Appointment ID is required']);
+    //             return;
+    //         }
             
-            $result = $this->appointmentModel->markAppointmentAsCompleted($appointmentId);
+    //         $result = $this->appointmentModel->markAppointmentAsCompleted($appointmentId);
             
-            if ($result) {
-                echo json_encode(['success' => true, 'message' => 'Appointment marked as completed']);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Failed to update appointment status']);
-            }
+    //         if ($result) {
+    //             echo json_encode(['success' => true, 'message' => 'Appointment marked as completed']);
+    //         } else {
+    //             echo json_encode(['success' => false, 'message' => 'Failed to update appointment status']);
+    //         }
             
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-        }
-    }
+    //     } catch (Exception $e) {
+    //         echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    //     }
+    // }
 
     public function manageSessions() {
         //Get the doctor ID from the logged-in user
@@ -268,6 +268,34 @@ public function __construct(){
                 echo $e->getMessage();
             }
         }
+    }
+
+    // Inside your AppointmentsController.php
+    public function updateAppointmentStatus()
+    {
+        // Check if appointment ID was provided
+        if (!isset($_POST['appointment_id']) || empty($_POST['appointment_id'])) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Appointment ID is required']);
+            return;
+        }
+    
+        $appointment_id = $_POST['appointment_id'];
+        
+        // Update the status
+        $result = $this->appointmentModel->updateAppointmentStatus($appointment_id);
+        
+        // Make sure to set content type
+        header('Content-Type: application/json');
+        
+        if ($result) {
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to update status']);
+        }
+        
+        // Make sure nothing else is output after this
+        exit;
     }
 }
 

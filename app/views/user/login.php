@@ -21,26 +21,25 @@
     
             <form method="POST" action="<?php echo URLROOT?>logincontroller/authenticate">
                 
-                   
-                
-                
-                <div class="form-group">
-                    <label for="username">email</label>
-                    <input type="text" id="username" name="email" 
-                           placeholder="Enter your username"
-                           value="">
-                     <span class="error"><?php echo $data['errors']['email']?></span>      
-                </div>
+    <div class="form-group">
+        <label for="username">email</label>
+        <input type="text" id="username" name="email" 
+               placeholder="Enter your username"
+               value="<?php echo isset($data['email']) ? $data['email'] : ''; ?>">
+        <span class="error"><?php echo isset($data['errors']['email']) ? $data['errors']['email'] : ''; ?></span>      
+    </div>
 
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password"  
-                           placeholder="Enter your password">
-                           <span class="error"><?php echo $data['errors']['password']?></span>         
-                </div>
-                <span class="error"><?php echo $data['errors']['login']?></span> 
-                <button type="submit" class="login-button">Sign In</button>
-            </form>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password"  
+               placeholder="Enter your password">
+        <span class="error"><?php echo isset($data['errors']['password']) ? $data['errors']['password'] : ''; ?></span>         
+    </div>
+    
+    <span class="error"><?php echo isset($data['errors']['login']) ? $data['errors']['login'] : ''; ?></span> 
+    
+    <button type="submit" class="login-button">Sign In</button>
+</form>
 
             <div class="links">
                 <p class="signup-text">Don't have an account yet? <a href="<?php echo URLROOT?>homecontroller/selectActor">Sign Up</a></p>
