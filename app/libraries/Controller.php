@@ -14,13 +14,20 @@ class Controller
 
     // Load view
     public function view($view, $data = [])
-    {
-        // Check for view file
-        if (file_exists('../app/views/' . $view . '.php')) {
-            require_once '../app/views/' . $view . '.php';
-        } else {
-            // View does not exist
-            die('View does not exist');
-        }
+{
+    // Extract variables from $data array
+    foreach ($data as $key => $value) {
+        $$key = $value; // Creates variables from data keys
     }
+
+    // Load the view file
+    if (file_exists('../app/views/' . $view . '.php')) {
+        require_once '../app/views/' . $view . '.php';
+    } else {
+        die('View does not exist');
+    }
+}
+
+
+    
 }

@@ -218,6 +218,10 @@
             transform: translateY(-2px);
         }
 
+        #appointment-charge{
+            width: 50%;
+        }
+
         @media (max-width: 768px) {
             .profile-container {
                 grid-template-columns: 1fr;

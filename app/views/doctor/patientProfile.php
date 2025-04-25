@@ -44,34 +44,6 @@
                 </div>
 
                 <div class="search-results">
-
-                    <!-- <div class="search-item">
-                        <p class="date">24/10/2024</p>
-                        <p class="doctorName">Dr. John Doe</p>
-                        <p class="report-description">x-ray reports</p>
-                        <button id="seeMore">see more</button>
-                        <button id="delete">delete</button>
-                    </div>
-
-                    <div class="search-item">
-                        <p class="date">24/10/2024</p>
-                        <p class="doctorName">Dr. steven smith</p>
-                        <p class="report-description">x-ray reports</p>
-                        <button id="seeMore">see more</button>
-                        <button id="delete">delete</button>
-                    </div>
-
-                     -->
-
-                   
-
-                    
-                    
-                    
-                    
-                    
-                    
-
                 </div>
             </div>
 
@@ -182,9 +154,9 @@ function deleteRecord(recordId) {
             if (data.success) {
                 alert('Record deleted successfully!');
                 // Refresh records (make sure search input is still accessible)
-                const searchInput = document.querySelector('input[type="search"]');
-                const searchTerm = searchInput?.value.trim() || '';
-                fetchHealthRecords(searchTerm);
+                // const searchInput = document.querySelector('input[type="search"]');
+                // const searchTerm = searchInput?.value.trim() || '';
+                // fetchHealthRecords(searchTerm);
             } else {
                 alert('Error deleting record: ' + data.message);
             }

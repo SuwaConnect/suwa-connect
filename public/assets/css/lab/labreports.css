@@ -1,0 +1,255 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f5f8fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+/* Page Title */
+.page-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 24px;
+    border-left: 4px solid #4299e1;
+    padding-left: 12px;
+}
+
+/* Search Bar */
+.search-bar {
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 25px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 15px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+}
+
+.search-bar:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+.search-bar::placeholder {
+    color: #a0aec0;
+}
+
+/* Table Styles */
+.table-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.tests-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.tests-table thead {
+    background-color: #f7fafc;
+}
+
+.tests-table th {
+    padding: 16px;
+    font-weight: 600;
+    color: #4a5568;
+    border-bottom: 2px solid #edf2f7;
+    font-size: 14px;
+}
+
+.tests-table td {
+    padding: 16px;
+    border-bottom: 1px solid #edf2f7;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.tests-table tbody tr:hover {
+    background-color: #f7fafc;
+}
+
+.tests-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status Indicators */
+.status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: inline-block;
+    text-align: center;
+    min-width: 100px;
+}
+
+.status.completed {
+    background-color: #c6f6d5;
+    color: #22543d;
+}
+
+.status.scheduled {
+    background-color: #bee3f8;
+    color: #2c5282;
+}
+
+.status.in-progress {
+    background-color: #fefcbf;
+    color: #744210;
+}
+
+.status.cancelled {
+    background-color: #fed7d7;
+    color: #822727;
+}
+
+/* Action Buttons */
+.actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn.view {
+    background-color: #4299e1;
+    color: white;
+}
+
+.btn.view:hover {
+    background-color: #3182ce;
+}
+
+.btn.create {
+    background-color: #48bb78;
+    color: white;
+}
+
+.btn.create:hover {
+    background-color: #38a169;
+}
+
+.btn.reschedule {
+    background-color: #ecc94b;
+    color: #744210;
+}
+
+.btn.reschedule:hover {
+    background-color: #d69e2e;
+}
+
+.btn.cancel {
+    background-color: #fc8181;
+    color: white;
+}
+
+.btn.cancel:hover {
+    background-color: #f56565;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .tests-table th:nth-child(3),
+    .tests-table td:nth-child(3) {
+        display: none;
+    }
+    
+    .actions {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 15px;
+    }
+    
+    .page-title {
+        font-size: 24px;
+    }
+    
+    .tests-table thead {
+        display: none;
+    }
+    
+    .tests-table, 
+    .tests-table tbody, 
+    .tests-table tr, 
+    .tests-table td {
+        display: block;
+        width: 100%;
+    }
+    
+    .tests-table tr {
+        margin-bottom: 15px;
+        border-bottom: 2px solid #edf2f7;
+        padding: 10px;
+    }
+    
+    .tests-table td {
+        text-align: right;
+        padding: 10px;
+        position: relative;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .tests-table td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        width: 50%;
+        font-weight: 600;
+        text-align: left;
+    }
+    
+    .tests-table td:last-child {
+        border-bottom: 0;
+    }
+    
+    .actions {
+        justify-content: flex-end;
+    }
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 40px 0;
+    color: #a0aec0;
+}
+
+.empty-state p {
+    margin-top: 10px;
+    font-size: 16px;
+}

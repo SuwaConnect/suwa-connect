@@ -1,26 +1,26 @@
 // Function to switch tabs
 function showTab(tabName) {
-    // Remove active class from all tab buttons
-    const tabs = document.querySelectorAll('.tab-link');
-    tabs.forEach(tab => tab.classList.remove('active'));
+ //Remove active class from all tab buttons
+  const tabs = document.querySelectorAll('.tab-link');
+     tabs.forEach(tab => tab.classList.remove('active'));
 
-    // Add active class to the clicked tab
-    const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
-    activeTab.classList.add('active');
+      //Add active class to the clicked tab
+   const activeTab = document.querySelector(`[onclick="showTab('${tabName}')"]`);
+     activeTab.classList.add('active');
 
     // Hide all tab contents
     const contents = document.querySelectorAll('.tab-content');
     contents.forEach(content => content.classList.remove('active'));
 
-    // Show the selected tab content
-    const tabContent = document.getElementById(tabName);
-    tabContent.classList.add('active');
-}
+     // Show the selected tab content
+     const tabContent = document.getElementById(tabName);
+   tabContent.classList.add('active');
+ }
 
 // Initialize the page by showing upcoming appointments by default
-window.onload = function() {
-    showTab('upcoming');
-};
+// window.onload = function() {
+//     showTab('upcoming');
+// };
 
 // let currentDate = new Date();
 

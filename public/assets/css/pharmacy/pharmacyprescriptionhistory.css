@@ -1,0 +1,64 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  background-color: #f4f4f9;
+}
+
+/* Sidebar */
+
+  
+/* Main Content */
+.content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px; /* Matches the sidebar width */
+  transition: margin-left 0.3s ease;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+header h1 {
+  font-size: 1.8rem;
+  color: #2d3e50;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+table th {
+  background-color: #f0f0f0;
+}
+
+.view-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.view-link:hover {
+  text-decoration: underline;
+}
+
+.sidebar.collapsed + .content {
+  margin-left: 80px; /* Matches the collapsed sidebar width */
+}

@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <title>Edit Promotion</title>
-    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacyaddpromo.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacyaddpromo.css">
     
 </head>
 <body>

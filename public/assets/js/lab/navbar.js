@@ -6,3 +6,4 @@ document.getElementById("toggleSidebar").addEventListener("click", function () {
     const toggleIcon = document.querySelector('.toggle-btn i');
     toggleIcon.textContent = toggleIcon.textContent === 'chevron_left' ? 'chevron_right' : 'chevron_left';
 });
+
