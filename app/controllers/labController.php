@@ -18,8 +18,11 @@ public function labHomePage(){
 }
 
 public function labNotifications(){
+    // $labModel = $this->model('m_lab');
+    // $lab_id = $_SESSION['lab_id'];
     $labModel = $this->model('m_lab');
-    $lab_id = $_SESSION['lab_id'];
+     $lab_id = $labModel->getLabByUserId($_SESSION['user_id'])->lab_id; // Get the lab ID from the session
+
     $notification = $labModel->generateLabNotificationsData($lab_id); // Fetch notifications
     $this->view('labs/notifications',[
         'notifications' => $notification,
@@ -108,7 +111,7 @@ public function labsignup2() {
         // Check if the lab registration certificate file is uploaded
         if (isset($_FILES['labRegCertificate']) && $_FILES['labRegCertificate']['error'] == UPLOAD_ERR_OK) {
             // Define the upload directory (relative to the current script location)
-            $uploadDir = __DIR__ . '/../../public/uploads/';  // Make sure this directory exists in your project
+            $uploadDir = __DIR__ . '/../../public/uploads/medical_licenses/lab_license/';  // Make sure this directory exists in your project
 
             // Ensure the directory exists, and create it if it doesn't
             if (!is_dir($uploadDir)) {
@@ -139,10 +142,18 @@ public function labsignup2() {
         }
 
         // Get the other form data
-        $name = isset($_POST['name']) ? $_POST['name'] : '';
-        $contact_person = isset($_POST['contact_person']) ? $_POST['contact_person'] : '';
-        $contact_number = isset($_POST['contact_number']) ? $_POST['contact_number'] : '';
-        $lab_reg_number = isset($_POST['lab_reg_number']) ? $_POST['lab_reg_number'] : '';
+        // $name = isset($_POST['name']) ? $_POST['name'] : '';
+        // $contact_person = isset($_POST['contact_person']) ? $_POST['contact_person'] : '';
+        // $contact_number = isset($_POST['contact_number']) ? $_POST['contact_number'] : '';
+        // $lab_reg_number = isset($_POST['lab_reg_number']) ? $_POST['lab_reg_number'] : '';
+        // $password = isset($_POST['password']) ? $_POST['password'] : '';
+        // $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
+        // $termsAccepted = isset($_POST['terms']) ? 1 : 0;
+        $name = $_SESSION['lab_registration']['lab_name'];
+        $contact_person = $_SESSION['lab_registration']['contact_person'];
+        $email = $_SESSION['lab_registration']['email'];
+        $contact_number = $_SESSION['lab_registration']['contact_no'];
+        $lab_reg_number = $_SESSION['lab_registration']['lab_reg_no'];
         $password = isset($_POST['password']) ? $_POST['password'] : '';
         $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
         $termsAccepted = isset($_POST['terms']) ? 1 : 0;
@@ -154,13 +165,24 @@ public function labsignup2() {
                 $registrationData = $_SESSION['lab_registration'];
 
                 // Add password, file, and terms to the registration data
-                $registrationData['name'] = $name;
-                $registrationData['contact_person'] = $contact_person;
-                $registrationData['contact_number'] = $contact_number;
-                $registrationData['lab_reg_number'] = $lab_reg_number;
-                $registrationData['medical_license_copy'] = $newFileName;
-                $registrationData['password'] = password_hash($password, PASSWORD_DEFAULT);
-                $registrationData['terms_accepted'] = $termsAccepted;
+                // $registrationData['name'] = $name;
+                // $registrationData['email'] = $email; // Use the email from session
+                // $registrationData['contact_person'] = $contact_person;
+                // $registrationData['contact_number'] = $contact_number;
+                // $registrationData['lab_reg_number'] = $lab_reg_number;
+                // $registrationData['medical_license_copy'] = $newFileName;
+                // $registrationData['password'] = password_hash($password, PASSWORD_DEFAULT);
+                // $registrationData['terms_accepted'] = $termsAccepted;
+                $registrationData = [
+                    'lab_name' => $name,
+                    'contact_person' => $contact_person,
+                    'email' => $email,
+                    'contact_no' => $contact_number,
+                    'lab_reg_no' => $lab_reg_number,
+                    'medical_license_copy' => $newFileName,
+                    'password' => password_hash($password, PASSWORD_DEFAULT),
+                    'terms_accepted' => $termsAccepted
+                ];
 
                 // Load the model and save the data to the database
                 if ($this->m_lab->addPendingLab($registrationData)) {
@@ -185,43 +207,43 @@ public function labsignup2() {
     $this->view('labs/labsignup2', $data);
 }
 
-public function authenticate() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $email = trim($_POST['email']);
-        $password = trim($_POST['password']);
+// public function authenticate() {
+//     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//         $email = trim($_POST['email']);
+//         $password = trim($_POST['password']);
 
-        if (empty($email) || empty($password)) {
-            $data = [
-                'title' => 'Lab/Pharmacy Login',
-                'email' => $email,
-                'password' => $password,
-                'error' => 'Please enter both email and password'
-            ];
-            $this->view('user/lablogin', $data);
-            return;
-        }
+//         if (empty($email) || empty($password)) {
+//             $data = [
+//                 'title' => 'Lab/Pharmacy Login',
+//                 'email' => $email,
+//                 'password' => $password,
+//                 'error' => 'Please enter both email and password'
+//             ];
+//             $this->view('user/lablogin', $data);
+//             return;
+//         }
 
-        $user = $this->m_lab->verifyCredentials($email, $password);
+//         $user = $this->m_lab->verifyCredentials($email, $password);
 
-        if ($user) {
-            $_SESSION['lab_id'] = $user->lab_id;
-            $_SESSION['user_name'] = $user->name;
-            $_SESSION['user_email'] = $user->email;
+//         if ($user) {
+//             $_SESSION['lab_id'] = $user->lab_id;
+//             $_SESSION['user_name'] = $user->name;
+//             $_SESSION['user_email'] = $user->email;
 
-            redirect('labController/labHomePage');
-        } else {
-            $data = [
-                'title' => 'Lab/Pharmacy Login',
-                'email' => $email,
-                'password' => $password,
-                'error' => 'Invalid email or password'
-            ];
-            $this->view('user/lablogin', $data);
-        }
-    } else {
-        $this->login();
-    }
-}
+//             redirect('labController/labHomePage');
+//         } else {
+//             $data = [
+//                 'title' => 'Lab/Pharmacy Login',
+//                 'email' => $email,
+//                 'password' => $password,
+//                 'error' => 'Invalid email or password'
+//             ];
+//             $this->view('user/lablogin', $data);
+//         }
+//     } else {
+//         $this->login();
+//     }
+// }
 
 public function login() {
     $data = [
@@ -235,10 +257,11 @@ public function login() {
 
 
 public function dashboard() {
-    $lab_id = $_SESSION['lab_id'];
+   
 
     // Load model
     $labModel = $this->model('m_lab');
+    $lab_id = $labModel->getLabByUserId($_SESSION['user_id'])->lab_id; // Get the lab ID from the session
 
     // Fetch dashboard data
     $totalTestsToday = $labModel->getTotalTestsToday($lab_id);
@@ -263,10 +286,11 @@ public function dashboard() {
 }
 
 public function requests(){
-    $lab_id = $_SESSION['lab_id'];
+    ;
 
     // Load model
     $labModel = $this->model('m_lab');
+    $lab_id = $labModel->getLabByUserId($_SESSION['user_id'])->lab_id; // Get the lab ID from the session
 
     //accept request
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -355,10 +379,9 @@ public function requests(){
 
 
     public function labAppointments(){
-
-        $lab_id = $_SESSION['lab_id'];
-
         $labModel = $this->model('m_lab');
+        $lab_id = $labModel->getLabByUserId($_SESSION['user_id'])->lab_id; // Get the lab ID from the session
+    
 
         $totalAppointmentsToday = $labModel->getTotalAppointmentsToday($lab_id);
         $getUpcomingAppointmentsCount = $labModel->getUpcomingAppointmentsCount($lab_id);
@@ -385,9 +408,9 @@ public function requests(){
 
     public function labRevenue(){
 
-        $lab_id = $_SESSION['lab_id'];
-
         $labModel = $this->model('m_lab');
+        $lab_id = $labModel->getLabByUserId($_SESSION['user_id'])->lab_id; // Get the lab ID from the session
+    
 
         $totalRevenueToday =$labModel->getTotalRevenueToday($lab_id);
         $pendingPayments =$labModel->getPendingPayments($lab_id);
@@ -409,9 +432,9 @@ public function requests(){
     }
 
     public function viewinvoice() {
-        $lab_id = $_SESSION['lab_id'];
-
         $labModel = $this->model('m_lab');
+    $lab_id = $labModel->getLabByUserId($_SESSION['user_id'])->lab_id; // Get the lab ID from the session
+
         if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             $invoice_id = $_GET['id'];
     
@@ -528,10 +551,9 @@ public function requests(){
     
     public function labReports() {
           // Get lab_id from session (ensure the session is started)
-          $lab_id = $_SESSION['lab_id']; // Make sure lab_id is set in the session.
-    
-          // Initialize the lab model
           $labModel = $this->model('m_lab');
+          $lab_id = $labModel->getLabByUserId($_SESSION['user_id'])->lab_id; // Get the lab ID from the session
+      
         // Fetch all tests for the given lab from the model
         $tests = $labModel->getAllTestsForLab($lab_id);
     

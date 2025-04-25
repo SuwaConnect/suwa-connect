@@ -5,6 +5,7 @@ class adminController extends Controller
     private $adminModel;
     private $userModel;
     private $pharmacyModel;
+    private $labModel;
    
 
     public function __construct(){
@@ -14,6 +15,7 @@ class adminController extends Controller
         $this->adminModel = $this->model('m_doctor');
         $this->userModel = $this->model('userModel');
         $this->pharmacyModel = $this->model('pharmacyModel');
+        $this->labModel = $this->model('m_lab');
     }
 
     public function home(){
@@ -196,4 +198,75 @@ class adminController extends Controller
         }
     }
 
+
+public function pendingLabs(){
+    $data = $this->labModel->getPendingLabs();
+    $this->view('admin/pendingLab', $data);
+}
+
+public function approveLab(){
+    header('Content-Type: application/json');
+        
+    if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        echo json_encode(['success' => false, 'error' => 'Invalid request method']);
+        return;
+    }
+
+    $lab_id = $_POST['lab_id'] ?? null;
+    
+    if (!$lab_id) {
+        echo json_encode(['success' => false, 'error' => 'Pharmacy ID is required']);
+        return;
+    }
+
+    try {
+        if($this->labModel->markPendingLabAsApproved($lab_id)) {
+            $data = $this->labModel->getLabByIdFromPendingLabs($lab_id);
+            
+            if (!$data) {
+                throw new Exception('hey Pharmacy data not found');
+            }
+
+            $userData = [
+                'email' => $data->email,
+                'password' => $data->password,
+                'role' => 'lab',
+                'user_name' => $data->name  // Fixed the typo here
+            ];
+
+            $user_id = $this->userModel->createUser($userData);
+
+            $approvedLabData = [
+                'user_id' => $user_id,
+                'lab_name' => $data->name,
+                'contact_person' => $data->contact_person,
+                'lab_reg_no' => $data->lab_reg_number,
+                'contact_no' => $data->contact_number,
+                'lab_license_copy' => $data->lab_certificate
+
+            ];
+
+            $this->labModel->insertApprovedLab($approvedLabData);
+            
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Failed to approve pharmacy']);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+    }
+}
+
+public function rejectLab(){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $lab_id = $_POST['lab_id'];
+        if($this->adminModel->rejectPharmacy($lab_id)){
+            echo json_encode(['success' => true]);
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Failed to reject pharmacy']);
+        }
+    } else {
+        echo json_encode(['success' => false, 'error' => 'Invalid request method']);
+    }
+}
 } 

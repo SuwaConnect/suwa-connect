@@ -63,7 +63,7 @@ class pharmacyModel {
     }
 
     public function insertApprovedPharmacy($data) {
-        $this->db->query('INSERT INTO approved_pharmacy (user_id, pharmacy_name, contact_person, pharmacy_reg_number, contact_no, pharmacy_license_copy) VALUES (:user_id, :pharmacy_name, :contact_person, :pharmacy_reg_number, :contact_no, :pharmacy_license_copy)');
+        $this->db->query('INSERT INTO approved_pharmacy (user_id, pharmacy_name, contact_person, pharmacy_reg_number, contact_number, pharmacy_license_copy) VALUES (:user_id, :pharmacy_name, :contact_person, :pharmacy_reg_number, :contact_no, :pharmacy_license_copy)');
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':pharmacy_name', $data['pharmacy_name']);
         $this->db->bind(':contact_person', $data['contact_person']);

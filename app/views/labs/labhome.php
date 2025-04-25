@@ -16,8 +16,16 @@
 </head>
 
 <body>
+<?php include "labNavbar.php"; ?>
 
-<?php include "labNavbar.php";?>
+    <div class="page-wrapper">
+        
+        <div class="content-area">
+            <div class="main-content">
+                <header>
+                    <h1>Welcome to Laboratory Dashboard <?php echo $_SESSION['user_name']; ?></h1>
+                    <p>Welcome Back! Here's an overview of your platform's latest activities and performance.</p><br>
+                </header>
 
 
     <!-- Main Content Area -->
