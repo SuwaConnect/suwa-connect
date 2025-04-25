@@ -44,7 +44,7 @@
             <div class="links">
                 <p class="signup-text">Don't have an account yet? <a href="<?php echo URLROOT?>homecontroller/selectActor">Sign Up</a></p>
                 <p class="signup-text"><a href="forgot">Forgot your password?</a></p>
-                <p class="signup-text">Are you an organization: <a href="<?php echo URLROOT?>labController/authenticate">lab</a> | <a href="<?php echo URLROOT?>labpharloginController/authenticate">pharmacy</a></p>
+                <!-- <p class="signup-text">Are you an organization: <a href="labController/authenticate">lab</a> | <a href="labpharloginController/authenticate">pharmacy</a></p> -->
             </div>
         </div>
 

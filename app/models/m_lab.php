@@ -8,28 +8,71 @@ class m_lab {
         $this->db = new Database(); // Assuming Database class is already defined
     }
 
+    public function getPendingLabs() {
+        $this->db->query("SELECT * FROM pending_labs WHERE status = 'pending'");
+        return $this->db->resultSet(); // Returns an array of objects
+    }
+
+    public function markPendingLabAsApproved($lab_id){
+        $this->db->query('UPDATE pending_labs SET status = "approved" WHERE id = :lab_id');
+        $this->db->bind(':lab_id', $lab_id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getLabByIdFromPendingLabs($lab_id){
+        $this->db->query('SELECT * FROM Pending_labs WHERE id = :lab_id ');
+        $this->db->bind(':lab_id',$lab_id);
+        return $this->db->single();
+    }
+
+    public function insertApprovedLab($data){
+        $this->db->query('INSERT INTO registered_labs(user_id,name, contact_person,  contact_number, lab_reg_number, lab_certificate) 
+               VALUES (:user_id,:name, :contact_person,  :contact_number, :lab_reg_number, :lab_certificate)');
+        $this->db->bind(':user_id',$data['user_id']);
+        $this->db->bind(':name', $data['lab_name']);
+        $this->db->bind(':contact_person', $data['contact_person']);
+        $this->db->bind(':contact_number', $data['contact_no']);
+        $this->db->bind(':lab_reg_number', $data['lab_reg_no']);
+        $this->db->bind(':lab_certificate', $data['lab_license_copy']);
+        $this->db->execute(); 
+
+    }
+
+    public function getlabByUserid($user_id) {
+        $this->db->query('SELECT * FROM registered_labs WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        return $this->db->single();
+    }
     
 
     public function addPendingLab($data) {
-        // SQL query to insert into pending_labs table
-        $sql = "INSERT INTO pending_labs (name, contact_person, email, contact_number, lab_reg_number, lab_certificate, password, terms_accepted) 
-                VALUES (:name, :contact_person, :email, :contact_number, :lab_reg_number, :lab_certificate, :password, :terms_accepted)";
+        try{
+        
 
-        // Use the query method to prepare the SQL statement (query method already calls prepare internally)
-        $this->db->query($sql);
-
-        // Bind the parameters to the query
-        $this->db->bind(':name', $data['name']);
+        $this->db->query("INSERT INTO pending_labs (name, contact_person, email, contact_number, lab_reg_number, lab_certificate, password, terms_accepted) 
+                 VALUES (:name, :contact_person, :email, :contact_number, :lab_reg_number, :lab_certificate, :password, :terms_accepted)");
+       
+       
+        $this->db->bind(':name', $data['lab_name']);
         $this->db->bind(':contact_person', $data['contact_person']);
         $this->db->bind(':email', $data['email']);
-        $this->db->bind(':contact_number', $data['contact_number']);
-        $this->db->bind(':lab_reg_number', $data['lab_reg_number']);
+        $this->db->bind(':contact_number', $data['contact_no']);
+        $this->db->bind(':lab_reg_number', $data['lab_reg_no']);
         $this->db->bind(':lab_certificate', $data['medical_license_copy']);
         $this->db->bind(':password', $data['password']);
-        $this->db->bind(':terms_accepted', $data['terms_accepted'], PDO::PARAM_INT);
+        $this->db->bind(':terms_accepted', $data['terms_accepted']);
 
-        // Execute the query and return the result
-        return $this->db->execute();
+        
+        return $this->db->execute();}
+        catch (Exception $e) {
+           
+            echo "Error: " . $e->getMessage();
+            return false; 
+        }
     }
 
     public function verifyCredentials($email, $password) {
@@ -86,9 +129,9 @@ class m_lab {
 
     // 5. Upcoming appointments (fixed with join)
     public function getUpcomingAppointments($lab_id) {
-        $this->db->query("SELECT u.user_name AS patient_name, l.appointment_time AS time, l.appointment_date AS date
+        $this->db->query("SELECT p.first_name AS patient_name, l.appointment_time AS time, l.appointment_date AS date
                           FROM lab_appointments l
-                          JOIN users u ON l.patient_id = u.user_id
+                          JOIN patients p ON l.patient_id = p.patient_id
                           WHERE l.lab_id = :lab_id AND l.appointment_time >= NOW() AND l.appointment_date >= CURDATE()
                           ORDER BY l.appointment_time ASC
                           LIMIT 5");
@@ -100,17 +143,17 @@ class m_lab {
 
     public function generateLabNotificationsData($lab_id) {
         // Test requests - using 'user_id' from 'tests' table
-        $this->db->query("SELECT t.test_name, t.test_date, u.user_name 
+        $this->db->query("SELECT t.test_name, t.test_date, p.first_name 
                           FROM tests t 
-                          JOIN users u ON t.user_id = u.user_id  -- 'user_id' links tests to users
+                          JOIN patients p ON t.patient_id = p.patient_id  -- 'user_id' links tests to users
                           WHERE t.lab_id = :lab_id");
         $this->db->bind(':lab_id', $lab_id);
         $testRequests = $this->db->resultSet();
     
         // Appointments - using 'patient_id' from 'lab_appointments' table
-        $this->db->query("SELECT a.appointment_date, u.user_name 
+        $this->db->query("SELECT a.appointment_date, p.first_name 
                           FROM lab_appointments a 
-                          JOIN users u ON a.patient_id = u.user_id  -- 'patient_id' links appointments to users
+                          JOIN patients p ON a.patient_id = p.patient_id  -- 'patient_id' links appointments to users
                           WHERE a.lab_id = :lab_id");
         $this->db->bind(':lab_id', $lab_id);
         $appointments = $this->db->resultSet();
@@ -121,7 +164,7 @@ class m_lab {
         foreach ($testRequests as $test) {
             if (!empty($test->test_date)) {
                 $testDate = date('F d, Y', strtotime($test->test_date));
-                $notifications[] = "{$test->user_name} requested a {$test->test_name} test on $testDate";
+                $notifications[] = "{$test->first_name} requested a {$test->test_name} test on $testDate";
             }
         }
     
@@ -129,7 +172,7 @@ class m_lab {
         foreach ($appointments as $appt) {
             if (!empty($appt->appointment_date)) {
                 $appointmentDate = date('F d, Y', strtotime($appt->appointment_date));
-                $notifications[] = "{$appt->user_name} booked an appointment for $appointmentDate";
+                $notifications[] = "{$appt->first_name} booked an appointment for $appointmentDate";
             }
         }
     
@@ -194,12 +237,12 @@ class m_lab {
     public function getLabAppointmentRequests($lab_id) {
         $this->db->query("SELECT 
                               lab_appointments_requests.request_id, 
-                              users.user_name AS patient_name, 
+                              patients.first_name AS patient_name, 
                               lab_appointments_requests.appointment_date AS RDate, 
                               lab_appointments_requests.appointment_time AS RTime, 
                               lab_appointments_requests.test_name AS test_type
                           FROM lab_appointments_requests
-                          JOIN users ON lab_appointments_requests.patient_id = users.user_id
+                          JOIN patients ON lab_appointments_requests.patient_id = patients.patient_id
                           WHERE lab_appointments_requests.lab_id = :lab_id 
                           AND lab_appointments_requests.status = 'pending'");
         
@@ -238,7 +281,7 @@ class m_lab {
     }
     
     public function insertTest($data) {
-        $this->db->query("INSERT INTO tests (user_id, lab_id, test_name, test_date, status, is_completed, start_time, end_time, appointment_id)
+        $this->db->query("INSERT INTO tests (patient_id, lab_id, test_name, test_date, status, is_completed, start_time, end_time, appointment_id)
                           VALUES (:user_id, :lab_id, :test_name, :test_date, :status, :is_completed, :start_time, :end_time, :appointment_id)");
         $this->db->bind(':user_id', $data['user_id']);
         $this->db->bind(':lab_id', $data['lab_id']);
@@ -292,10 +335,10 @@ class m_lab {
                     lab_appointments.appointment_date, 
                     lab_appointments.appointment_time, 
                     lab_appointments.status, 
-                    users.user_name AS patient_name, 
+                    patients.first_name AS patient_name, 
                     tests.test_name AS test_type
                   FROM lab_appointments
-                  JOIN users ON lab_appointments.patient_id = users.user_id
+                  JOIN patients ON lab_appointments.patient_id = patients.patient_id
                   JOIN tests ON lab_appointments.appointment_id = tests.appointment_id
                   WHERE lab_appointments.lab_id = :lab_id";
     
@@ -311,7 +354,7 @@ class m_lab {
     
         // Filter by patient name, if provided
         if ($patient_name) {
-            $query .= " AND users.user_name LIKE :patient_name";
+            $query .= " AND patients.first_name LIKE :patient_name";
         }
     
         // Filter by test type, if provided
@@ -381,12 +424,12 @@ public function getRefundsDiscounts($lab_id) {
 public function getLabInvoices($lab_id) {
     $this->db->query("SELECT 
                           lab_invoices.invoice_id, 
-                          users.user_name AS patient_name, 
+                          patients.first_name AS patient_name, 
                           lab_invoices.created_at AS invoice_date, 
                           lab_invoices.total_amount, 
                           lab_invoices.status
                       FROM lab_invoices
-                      JOIN users ON lab_invoices.patient_id = users.user_id
+                      JOIN patients ON lab_invoices.patient_id = patients.patient_id
                       WHERE lab_invoices.lab_id = :lab_id");
 
     $this->db->bind(':lab_id', $lab_id);
@@ -398,12 +441,12 @@ public function getInvoiceById($invoice_id) {
     $this->db->query("
         SELECT 
             lab_invoices.invoice_id, 
-            users.user_name AS patient_name, 
+            patients.first_name AS patient_name, 
             lab_invoices.created_at AS invoice_date, 
             lab_invoices.total_amount, 
             lab_invoices.status
         FROM lab_invoices
-        JOIN users ON lab_invoices.patient_id = users.user_id
+        JOIN patients ON lab_invoices.patient_id = patients.patient_id
         WHERE lab_invoices.invoice_id = :invoice_id
     ");
     $this->db->bind(':invoice_id', $invoice_id);

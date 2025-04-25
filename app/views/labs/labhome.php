@@ -16,9 +16,10 @@
 </head>
 
 <body>
-    <div class="page-wrapper">
-        <?php include "labNavbar.php"; ?>
+<?php include "labNavbar.php"; ?>
 
+    <div class="page-wrapper">
+        
         <div class="content-area">
             <div class="main-content">
                 <header>

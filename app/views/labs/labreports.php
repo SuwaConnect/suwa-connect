@@ -39,7 +39,7 @@
                     <?php foreach ($data['tests'] as $test): ?>
                         <tr>
                             <td><?= htmlspecialchars($test->test_name) ?></td>
-                            <td><?= htmlspecialchars($test->patient_name ?? 'Patient ID: ' . $test->user_id) ?></td>
+                            <td><?= htmlspecialchars($test->first_name ?? 'Patient ID: ' . $test->first_name) ?></td>
                             <td><?= htmlspecialchars($test->test_date) ?></td>
                             <td>
                                 <span class="status <?= strtolower($test->status) ?>">
