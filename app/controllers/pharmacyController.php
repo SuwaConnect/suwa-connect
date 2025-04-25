@@ -14,10 +14,7 @@ class pharmacyController extends Controller {
        
     }
 
-    // public function index(){
-    //     $this->view('pharmacy/pharmacylogin');
-    // }
-
+    
     public function pharmacySignIn(){
         $this->view('pharmacy/pharmacylogin');
     }
@@ -201,4 +198,53 @@ class pharmacyController extends Controller {
     }
 }
 
+
+public function viewPendingOrders(){
+    $pharmacy_id = $this->pharmacyModel->getPharmacyId($_SESSION['user_id'])->pharmacy_id;
+    $data['pending_orders'] = $this->pharmacyModel->getPendingOrders($pharmacy_id);
+
+    //var_dump($data['pending_orders']);
+
+    $this->view('pharmacy/pharmacyorders', $data);
+}
+
+public function getPrescriptionDetails($order_id){
+   $health_record_id = $this->pharmacyModel->getHealthRecordIdFromOrder($order_id);
+   
+    $data=[
+        'order_id' => $order_id,
+        'health_record_id' => $this->pharmacyModel->getHealthRecordIdFromOrder($order_id),
+        'medicines'=>$this->pharmacyModel->getmedicinesInPrescription($health_record_id),
+        'patient_details'=>$this->pharmacyModel->getPatientDetailsFromOrder($order_id),
+        'order_details'=>$this->pharmacyModel->getOrderById($order_id),
+    ];
+
+    echo json_encode($data);
+    exit();
+
+}
+
+public function updateOrderStatus($order_id = null) {
+    // Get JSON data from request body
+    $json_data = file_get_contents('php://input');
+    $data = json_decode($json_data, true);
+    
+    // Extract status from JSON data
+    $status = $data['status'];
+    // Get order_id from JSON if not provided in URL
+    $order_id = $order_id ?? $data['orderId'];
+    
+    $updated = $this->pharmacyModel->updateOrderStatus($order_id, $status);
+    
+    // Set proper JSON content type header
+    header('Content-Type: application/json');
+    
+    if ($updated) {
+        echo json_encode(['success' => true]);
+    } else {
+        echo json_encode(['success' => false]);
+    }
+    
+    exit();
+}
 }

@@ -268,13 +268,13 @@
 <?php include  "navbar-patient.php";?>
   
 <div class="main-content">
-    <header>
+    <!-- <header>
         <div class="container">
             <div class="header-content">
                 <div class="patient-info">
                     <div class="patient-avatar">JD</div>
                     <div class="patient-details">
-                        <h1>John Doe</h1>
+                        <h1></h1>
                         <p>Patient ID: P12345 | DOB: 01/15/1985 | Gender: Male</p>
                     </div>
                 </div>
@@ -283,7 +283,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header> -->
     
     <div class="container">
         <div class="section-title">

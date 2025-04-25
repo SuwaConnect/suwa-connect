@@ -238,5 +238,31 @@ class visitRecordModel{
         $this->db->bind(':health_record_id', $record_id);
         return $this->db->resultSet();
     }
+
+    public function deleteHealthRecord($record_id) {
+        // Delete the health record
+        $this->db->query('DELETE FROM health_records WHERE record_id = :record_id');
+        $this->db->bind(':record_id', $record_id);
+        if ($this->db->execute()) {
+            // Delete associated vital signs
+            $this->db->query('DELETE FROM vital_signs WHERE record_id = :record_id');
+            $this->db->bind(':record_id', $record_id);
+            $this->db->execute();
+            
+            // Delete associated reports
+            $this->db->query('DELETE FROM reports WHERE health_record_id = :health_record_id');
+            $this->db->bind(':health_record_id', $record_id);
+            $this->db->execute();
+            
+            // Delete associated prescriptions
+            $this->db->query('DELETE FROM prescriptions WHERE health_record_id = :health_record_id');
+            $this->db->bind(':health_record_id', $record_id);
+            $this->db->execute();
+            
+            return true;
+        } else {
+            return false;
+        }
+    }
     
 }

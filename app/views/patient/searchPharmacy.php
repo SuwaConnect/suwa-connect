@@ -376,13 +376,13 @@ body{
                     pharmacyCard.className = 'pharmacy-card';
                     
                     // Create services badges if services exist
-                    let servicesBadges = '';
-                    if (pharmacy.services) {
-                        const servicesArray = pharmacy.services.split(',');
-                        servicesArray.forEach(service => {
-                            servicesBadges += `<span class="badge">${service.trim()}</span>`;
-                        });
-                    }
+                    // let servicesBadges = '';
+                    // if (pharmacy.services) {
+                    //     const servicesArray = pharmacy.services.split(',');
+                    //     servicesArray.forEach(service => {
+                    //         servicesBadges += `<span class="badge">${service.trim()}</span>`;
+                    //     });
+                    // }
                     
                     // Set the image source - use placeholder if no image
                     const imageUrl = pharmacy.image_url && pharmacy.image_url.trim() !== '' 
@@ -394,14 +394,12 @@ body{
                         <img src="${imageUrl}" alt="${pharmacy.pharmacy_name}" class="pharmacy-image">
                         <div class="pharmacy-details">
                             <h3 class="pharmacy-name">${pharmacy.pharmacy_name}</h3>
-                            <p class="pharmacy-address">${pharmacy.address}</p>
+                            <p class="pharmacy-address"></p>
                             <div class="pharmacy-info">
-                                <span class="operating-hours">Open: ${pharmacy.opening_hours}</span>
-                                <span class="phone-number">${pharmacy.phone}</span>
+                                <span class="operating-hours">Open: </span>
+                                <span class="phone-number"></span>
                             </div>
-                            <div class="pharmacy-services">
-                                ${servicesBadges}
-                            </div>
+                            
                             <a href="<?php echo URLROOT;?>patientController/sendPrescription/${record_id}/${pharmacy.pharmacy_id}" class="view-details">Select pharmacy</a>
                         </div>
                     `;

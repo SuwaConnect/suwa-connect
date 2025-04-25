@@ -496,6 +496,39 @@
             });
         }
     }
+
+});
+
+// Make sure these are global so inline onclick can access them
+function seeMoreinfo(recordId) {
+    window.location.href = `${URLROOT}visitRecordController/viewHealthRecord/${recordId}`;
+}
+
+function deleteRecord(recordId) {
+    if (confirm('Are you sure you want to delete this record?')) {
+        fetch(`${URLROOT}/visitRecordController/deleteHealthRecord/${recordId}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Record deleted successfully!');
+                // Refresh records (make sure search input is still accessible)
+                // const searchInput = document.querySelector('input[type="search"]');
+                // const searchTerm = searchInput?.value.trim() || '';
+                // fetchHealthRecords(searchTerm);
+            } else {
+                alert('Error deleting record: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error deleting record: ' + error.message);
+        });
+    }
+}
+
+
     </script>
 </body>
 </html>

@@ -34,7 +34,8 @@
         
 
         <div class="tabs">
-            <button class="tab-link active" onclick="showTab('upcoming')">Upcoming</button>
+            <button class="tab-link active" onclick="showTab('upcoming')">Doctor appointments</button>
+            <!-- <button class="tab-link" onclick="showTab('past')">Lab appointments</button> -->
             
             <button class="schedule-btn" onclick="window.location.href='<?php echo URLROOT;?>patientcontroller/searchDoctorToMakeAppointment'">Schedule an Appointment</button>
         </div>
@@ -64,6 +65,7 @@
 
         <!-- Calendar Container -->
     </div>
+   
     <div class="calendar-container">
                 <div class="calendar-header">
                     <button id="prevYear" class="nav-button">«</button>

@@ -59,7 +59,7 @@
             </li>
 
             <li class="nav-item" id="logout">
-                <a href="" class="nav-link">
+                <a href="<?php echo URLROOT?>loginController/logout" class="nav-link">
                     <i class="material-icons-round">logout</i> <span>Logout</span>
                 </a>
             </li>

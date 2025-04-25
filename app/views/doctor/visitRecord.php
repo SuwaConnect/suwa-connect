@@ -34,7 +34,7 @@
 
             <div class="form-group">
                 <label for="chiefComplaint">Chief Complaint</label>
-                <textarea id="chiefComplaint" placeholder="Primary reason for visit..."  name="chiefComplaint"></textarea>
+                <textarea id="chiefComplaint" placeholder="Primary reason for visit..."  name="chiefComplaint" required></textarea>
             </div>
 
             <div class="vital-signs">
@@ -89,14 +89,10 @@
 
             <div class="form-group">
                 <label for="diagnosis">Diagnosis</label>
-                <textarea id="diagnosis" placeholder="Enter diagnosis..."  name="diagnosis"></textarea>
+                <textarea id="diagnosis" placeholder="Enter diagnosis..."  name="diagnosis" required></textarea>
             </div>
             
-            <div class="form-group">
-                <!-- <label for="reports">Upload Reports</label>
-                <input type="file" id="reports" multiple> -->
-                
-            </div>
+            
 
             <div class="form-group">
                 <label for="doctorNotes">Additional Notes</label>
@@ -106,9 +102,7 @@
             <button type="submit">Attach reports</button>
         </form>
 
-        <div class="nav-links">
-            <a href="">Go to General Information</a>
-        </div>
+        
     </div>
 
 

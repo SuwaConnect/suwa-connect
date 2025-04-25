@@ -46,41 +46,46 @@
         <section class="appointments-table">
             <h2>Appointment List</h2>
             <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Appointment ID</th>
-                            <th>Patient Name</th>
-                            <th>Date & Time</th>
-                            <th>Test Type</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>APT001</td>
-                            <td>John Doe</td>
-                            <td>2024-11-29 | 10:00 AM</td>
-                            <td>Blood Test</td>
-                            <td>Scheduled</td>
-                            <td>
-                                <button class="view-btn">View</button>
-                                <button class="reschedule-btn">Reschedule</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>APT002</td>
-                            <td>Jane Smith</td>
-                            <td>2024-11-29 | 11:30 AM</td>
-                            <td>Urine Analysis</td>
-                            <td>Completed</td>
-                            <td>
-                                <button class="view-btn">View</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            
+
+<table>
+    <thead>
+        <tr>
+            <th>Appointment ID</th>
+            <th>Patient Name</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+            <th>Test Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (isset($appointments) && !empty($appointments)): ?>
+            <?php foreach ($appointments as $appointment): ?>
+                <tr>
+                    <td><?= htmlspecialchars($appointment->appointment_id) ?></td>
+                    <td><?= htmlspecialchars($appointment->patient_name) ?></td>
+                    <td><?= date('Y-m-d', strtotime($appointment->appointment_date)) ?></td>
+                    <td><?= htmlspecialchars($appointment->appointment_time) ?></td>
+                    <td><?= htmlspecialchars($appointment->test_type) ?></td>
+                    <td>
+                        <!-- Actions (view, reschedule, etc.) -->
+                        <form method="POST" action="">
+                            <input type="hidden" name="appointment_id" value="<?= $appointment->appointment_id ?>">
+                            <button type="submit" name="view_appointment" class="view-btn">View</button>
+                            <?php if ($appointment->status === 'scheduled'): ?>
+                                <button type="submit" name="reschedule_appointment" class="reschedule-btn">Reschedule</button>
+                            <?php endif; ?>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr><td colspan="7">No appointments found.</td></tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+
             </div>
         </section>
 

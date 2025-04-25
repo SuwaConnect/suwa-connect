@@ -278,7 +278,9 @@ public function sendPrescriptionToPharmacy($record_id) {
 public function searchPharmacy(){
     try{
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $searchTerm =$_POST['searchQuery'];
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+            $searchTerm = $data['searchQuery'];
             $pharmacies = $this->pharmacyModel->searchPharmacy($searchTerm);
             $data = [
                 'pharmacies' => $pharmacies
@@ -328,8 +330,8 @@ public function addToOrder() {
         // Check if request is AJAX with JSON
         $input = json_decode(file_get_contents('php://input'), true);
         
-        if(isset($input['medicineIds'])){
-            $medicineIds = $input['medicineIds'];
+        if(isset($input['recordId'])){
+           // $medicineIds = $input['medicineIds'];
             $specialInstructions = $input['specialInstructions'];
             $deliveryMethod = $input['deliveryMethod'];
             $patientId = $this->patientModel->getPatientByUserId($_SESSION['user_id'])->patient_id;
@@ -337,12 +339,8 @@ public function addToOrder() {
             $pharmacyId = $input['pharmacyId'];
 
             $order_id = $this->pharmacyModel->createOrder($patientId, $pharmacyId, $specialInstructions, $deliveryMethod, $recordId);
-
-            if($order_id){
-                $orderPlaced = $this->pharmacyModel->addMedicinesToOrder($medicineIds, $order_id);
-            }
             
-            if($orderPlaced){
+            if($order_id){
                 $response = [
                     'success' => true,
                     'message' => 'Prescription sent to pharmacy successfully'
