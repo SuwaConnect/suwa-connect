@@ -511,7 +511,12 @@ public function createInvoice($data) {
 
 public function getAllTestsForLab($lab_id) {
     // Prepare the query to fetch all tests for the given lab_id
-    $this->db->query("SELECT * FROM tests WHERE lab_id = :lab_id");
+    $this->db->query("SELECT t.*, p.*
+FROM tests t
+JOIN patients p ON t.patient_id = p.patient_id
+WHERE t.lab_id = :lab_id;
+
+    ");
     
     // Bind the lab_id parameter to prevent SQL injection
     $this->db->bind(':lab_id', $lab_id);

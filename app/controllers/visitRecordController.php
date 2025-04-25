@@ -123,10 +123,10 @@ public function addHealthRecord($patientId) {
     $hasAccess = $this->permissionModel->checkAccessPermission($doctorId, $patientId);
 
     
-    if (!$hasAccess) {
-        echo 'Access denied...';
-        return;
-    }
+    // if (!$hasAccess) {
+    //     echo 'Access denied...';
+    //     return;
+    // }
 
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         // Display the form
@@ -449,6 +449,27 @@ public function deleteHealthRecord($healthRecordId) {
         }
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+public function addHealthRecordToAppointmentPatient($patientId){
+    try{
+        $doctorId = $this->permissionModel->getDoctorIdByUserId($_SESSION['user_id']);
+        //$hasAccess = $this->permissionModel->checkAccessPermission($doctorId, $patientId);
+        
+        // if (!$hasAccess) {
+        //     echo 'Access denied...';
+        //     return;
+        // }
+        
+        $data = [
+            'patientId' => $patientId
+            // 'healthRecordId' => null
+        ];
+        
+        $this->view('doctor/visitRecord', $data);
+    }catch(Exception $e){
+        echo $e->getMessage();
     }
 }
 }

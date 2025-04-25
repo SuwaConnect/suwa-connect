@@ -58,7 +58,7 @@
             </svg>
             Vital Signs
           </div>
-          <button class="action-btn secondary-btn">Add Vitals</button>
+          <!-- <button class="action-btn secondary-btn">Add Vitals</button> -->
         </div>
         
         <div class="vital-signs">
@@ -154,7 +154,7 @@ echo $date->format('jS F, Y H:i');
             </svg>
             Recent Visits
           </div>
-          <button class="action-btn secondary-btn">Add Visit</button>
+          <!-- <button class="action-btn secondary-btn">Add Visit</button> -->
         </div>
         
         <div class="visit-list">

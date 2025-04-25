@@ -700,3 +700,12 @@ body {
         margin: 10% auto;
     }
 }
+
+.sideBar.collapsed + .page-active{
+
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+

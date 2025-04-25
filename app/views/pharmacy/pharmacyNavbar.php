@@ -35,11 +35,11 @@
         </a>
     </li>
 
-    <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyAddPromo" class="nav-link">
+    <!-- <li class="nav-item">
+        <a href="pharmacycontroller/pharmacyAddPromo" class="nav-link">
             <i class="material-icons-round">assignment</i> <span>Revenue </span>
         </a>
-    </li>
+    </li> -->
 
 
 

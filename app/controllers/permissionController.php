@@ -93,7 +93,7 @@ public function viewPatientProfile($patientId) {
     $hasAccess = $this->permissionModel->checkAccessPermission($doctorId, $patientId);
     
     if (!$hasAccess) {
-        echo "Access Denied";
+        redirect ('doctor/appointments');
         return;
     }
     

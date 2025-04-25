@@ -13,6 +13,11 @@ class patientController extends Controller {
         $this->appointmentModel = $this->model('appointmentModel');
         $this->visitRecordModel = $this->model('VisitRecordModel');
         $this->pharmacyModel = $this->model('pharmacyModel');
+
+        if(!isset($_SESSION['user_id'])) {
+            header('Location: ' . URLROOT . 'homeController/index');
+            exit();
+        }
     }
 
     public function confirmRequest() {
@@ -33,7 +38,7 @@ class patientController extends Controller {
                     'appointments' => $appointments
                 ];
                 //var_dump($data['appointments']);
-                $this->view('patient/appointments', $data);
+                $this->view('patient/appointment-updated', $data);
             }catch (Exception $e) {
                 // Handle exception (e.g., log the error, show an error message)
                 echo "Error: " . $e->getMessage();

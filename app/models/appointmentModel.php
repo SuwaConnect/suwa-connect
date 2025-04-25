@@ -125,7 +125,7 @@ public function getSessionsByDoctorAndDay($doctorId, $dayOfWeek) {
 
 public function getAppointmentsForSession($sessionId, $date) {
     try {
-        $this->db->query('SELECT a.*, p.first_name,p.last_name, p.contact_no 
+        $this->db->query('SELECT a.*, p.first_name,p.last_name, p.contact_no ,p.patient_id
                          FROM appointments a
                          JOIN patients p ON a.patient_id = p.patient_id
                          WHERE a.session_id = :session_id 
@@ -234,9 +234,10 @@ public function deleteSession($sessionId) {
 }
 
 public function getScheduledAppointmentsForPatient($patientId) {
-    $this->db->query('SELECT a.*, d.firstName AS doctor_first_name, d.lastName AS doctor_last_name ,d.specialization
+    $this->db->query('SELECT a.*, d.*,s.start_time
                      FROM appointments a
                      JOIN approved_doctors d ON a.doctor_id = d.doctor_id
+                     JOIN doctor_sessions s ON a.session_id = s.session_id
                      WHERE a.patient_id = :patient_id AND a.status = "SCHEDULED"');
     
     // Bind values

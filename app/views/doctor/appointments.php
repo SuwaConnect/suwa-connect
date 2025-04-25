@@ -154,6 +154,12 @@
     
     
 }
+
+.actions{
+    display: flex;
+    justify-content: space-around;
+}
+
 </style>
  
 </head>
@@ -250,8 +256,9 @@
                                                             data-appointment-id="<?php echo $appointment->appointment_id; ?>">
                                                         Mark as Completed
                                                     </button>
+                                                    <button class="button small add-report" data-patient-id ="<?php echo $appointment->patient_id?>">Add health record</button>
                                                 <?php else: ?>
-                                                    <button class="button small" disabled>Completed</button>
+                                                    <button class="button small" disabled >Completed</button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -369,6 +376,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     } else {
         console.log('No "Mark as Completed" buttons found on this page');
+    }
+
+    const addReportButtons = document.querySelectorAll('.add-report');
+    if (addReportButtons.length > 0) {
+        addReportButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const patientId = this.getAttribute('data-patient-id');
+                // Redirect to the report page with the appointment ID
+                window.location.href = `<?php echo URLROOT?>visitRecordController/addHealthRecordToAppointmentPatient/${patientId}`;
+            });
+        });
+    } else {
+        console.log('No "Add Report" buttons found on this page');
     }
 });
 </script>
