@@ -534,7 +534,23 @@ WHERE t.lab_id = :lab_id;
 }
 
 
+public function searchLabs($searchTerm){
+    $this->db->query("SELECT * FROM registered_labs WHERE name LIKE :searchTerm OR contact_person LIKE :searchTerm");
+    $this->db->bind(':searchTerm', '%' . $searchTerm . '%');
+    return $this->db->resultSet(); // Returns an array of objects
+}
 
+public function getAllLabs(){
+    $this->db->query("SELECT * FROM registered_labs");
+    return $this->db->resultSet(); // Returns an array of objects
+}
+
+public function getLabByLabId($lab_id) {
+    $this->db->query("SELECT * FROM registered_labs WHERE lab_id = :lab_id");
+    $this->db->bind(':lab_id', $lab_id);
+    return $this->db->single(); // Returns a single object
+
+}
 
 
 
