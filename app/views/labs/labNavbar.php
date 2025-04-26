@@ -10,7 +10,7 @@
 
         <ul class="nav-menu">
 
-            <li class="nav-item">
+            <li class="nav-item">  
                 <a href="<?php echo URLROOT?>labController/labHomePage" class="nav-link">
                     <i class="material-icons-round">home</i> <span>Home</span>
                 </a>
@@ -59,7 +59,7 @@
             </li>
 
             <li class="nav-item" id="logout">
-                <a href="" class="nav-link">
+                <a href="<?php echo URLROOT?>loginController/logout" class="nav-link">
                     <i class="material-icons-round">logout</i> <span>Logout</span>
                 </a>
             </li>

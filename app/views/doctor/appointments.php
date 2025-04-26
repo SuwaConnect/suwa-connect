@@ -154,6 +154,12 @@
     
     
 }
+
+.actions{
+    display: flex;
+    justify-content: space-around;
+}
+
 </style>
  
 </head>
@@ -250,6 +256,9 @@
                                                             data-appointment-id="<?php echo $appointment->appointment_id; ?>">
                                                         Mark as Completed
                                                     </button>
+                                                    <button class="button small add-report" data-patient-id ="<?php echo $appointment->patient_id?>">Add health record</button>
+                                                <?php else: ?>
+                                                    <button class="button small" disabled >Completed</button>
                                                 <?php endif; ?>
                                             </td>
                                         </tr>
@@ -271,8 +280,7 @@
     <?php endif; ?>
 </div>
 
-    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
-    <script src="<?php echo URLROOT;?>public/js/doctor/js/calender.js"></script>
+   <!-- here was render calender -->
 
     <script>
 document.addEventListener('DOMContentLoaded', function() {
@@ -301,38 +309,90 @@ document.addEventListener('DOMContentLoaded', function() {
     // Mark appointment as completed functionality
     const markCompletedButtons = document.querySelectorAll('.mark-completed');
     
-    markCompletedButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const appointmentId = this.getAttribute('data-appointment-id');
-            
-            if(confirm('Are you sure you want to mark this appointment as completed?')) {
-                // Make AJAX request to mark appointment as completed
-                fetch('<?php echo URLROOT; ?>appointmentController/markAppointmentAsCompleted', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    },
-                    body: 'appointment_id=' + appointmentId
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.success) {
-                        // Refresh the page or update the UI
-                        document.getElementById('dateSearchForm').submit();
-                    } else {
-                        alert('Error: ' + data.message);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('An error occurred while processing your request.');
-                });
-            }
+    if (markCompletedButtons.length > 0) {
+        markCompletedButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const appointmentId = this.getAttribute('data-appointment-id');
+                
+                if(confirm('Are you sure you want to mark this appointment as completed?')) {
+                    // Create form data
+                    const formData = new FormData();
+                    formData.append('appointment_id', appointmentId);
+                    
+                    // Make AJAX request to mark appointment as completed
+                    fetch('<?php echo URLROOT; ?>appointmentController/updateAppointmentStatus', {
+    method: 'POST',
+    body: formData
+})
+.then(response => {
+    // Check if response is OK
+    if (!response.ok) {
+        throw new Error('Network response was not ok: ' + response.status);
+    }
+    // Check if there's actual content
+    if (response.headers.get('content-length') === '0') {
+        throw new Error('Empty response received');
+    }
+    return response.text();
+})
+.then(text => {
+    // Log the raw response for debugging
+    console.log('Raw response:', text);
+    
+    // Only try to parse if we have content
+    if (text) {
+        try {
+            return JSON.parse(text);
+        } catch (e) {
+            console.error('JSON parse error:', e);
+            throw new Error('Invalid JSON response: ' + text);
+        }
+    } else {
+        throw new Error('Empty response');
+    }
+})
+.then(data => {
+    if (data && data.success) {
+        // Update the status badge
+        const row = button.closest('tr');
+        const statusCell = row.querySelector('.status-badge');
+        
+        statusCell.textContent = 'CONSULTED';
+        statusCell.className = 'status-badge status-consulted';
+        
+        // Remove the button
+        button.remove();
+    } else {
+        alert('Failed to update status: ' + (data ? data.message : 'Unknown error'));
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('Request failed: ' + error.message);
+});
+                }
+            });
         });
-    });
+    } else {
+        console.log('No "Mark as Completed" buttons found on this page');
+    }
+
+    const addReportButtons = document.querySelectorAll('.add-report');
+    if (addReportButtons.length > 0) {
+        addReportButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const patientId = this.getAttribute('data-patient-id');
+                // Redirect to the report page with the appointment ID
+                window.location.href = `<?php echo URLROOT?>visitRecordController/addHealthRecordToAppointmentPatient/${patientId}`;
+            });
+        });
+    } else {
+        console.log('No "Add Report" buttons found on this page');
+    }
 });
 </script>
-    
+
+<script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
 
 
 

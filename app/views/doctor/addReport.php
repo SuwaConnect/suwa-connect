@@ -33,12 +33,12 @@
             <div class="report-entry">
                 <div class="form-group">
                     <label class="form-label">Report Title</label>
-                    <input type="text" name="report_title[]" class="form-input" required>
+                    <input type="text" name="report_title[]" class="form-input" >
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Report Type</label>
-                    <select name="report_type[]" class="form-input" required>
+                    <select name="report_type[]" class="form-input" >
                         <option value="x-ray">X-ray</option>
                         <option value="mri">MRI</option>
                         <option value="blood-test">Blood Test</option>
@@ -50,17 +50,17 @@
 
                 <div class="form-group">
                     <label class="form-label">Report Date</label>
-                    <input type="date" name="report_date[]" class="form-input" value="<?php echo date('Y-m-d'); ?>" required>
+                    <input type="date" name="report_date[]" class="form-input" value="<?php echo date('Y-m-d'); ?>" >
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Findings/Observations</label>
-                    <textarea name="findings[]" class="form-input textarea" required></textarea>
+                    <textarea name="findings[]" class="form-input textarea" ></textarea>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">Attach Report File</label>
-                    <input type="file" name="report_file[]" class="form-input" required>
+                    <input type="file" name="report_file[]" class="form-input" >
                     <small class="text-muted">Accepted formats: PDF, JPG, PNG (Max: 5MB)</small>
                 </div>
 
@@ -72,6 +72,7 @@
         <div class="buttons">
             <button type="button" id="addReport" class="action-btn add-btn">Add Another Report</button>
             <button type="submit" class="action-btn submit-btn">Submit Reports</button>
+            <button type="button" class="action-btn cancel-btn" onclick="window.location.href='<?php echo URLROOT; ?>visitRecordController/prescription/<?php echo $data['patientId']?>/<?php echo $data['health_record_id']; ?>'">Skip to prescriptions</button>
         </div>
     </form>
     </div>

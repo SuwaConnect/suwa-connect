@@ -34,7 +34,8 @@
         
 
         <div class="tabs">
-            <button class="tab-link active" onclick="showTab('upcoming')">Upcoming</button>
+            <button class="tab-link active" onclick="showTab('upcoming')">Doctor appointments</button>
+            <!-- <button class="tab-link" onclick="showTab('past')">Lab appointments</button> -->
             
             <button class="schedule-btn" onclick="window.location.href='<?php echo URLROOT;?>patientcontroller/searchDoctorToMakeAppointment'">Schedule an Appointment</button>
         </div>
@@ -44,8 +45,8 @@
             <?php if (isset($data['appointments']) && !empty($data['appointments'])): ?>
                 <?php foreach ($data['appointments'] as $appointment): ?>
                     <div class="appointment-card">
-                        <div class='appointment-details'><p class="appdate"><strong> <?= date('F j, Y', strtotime($appointment->appointment_date)) ?></strong></p>
-                            <p class="apptime"><strong> <?= date('g:i A', strtotime($appointment->appointment_time)) ?></strong></p>
+                        <div class='appointment-details'><p class="appdate"><strong> <?= ($appointment->appointment_date) ?></strong></p>
+                            <p class="apptime">booked on:<strong> <?= ($appointment->created_at) ?></strong></p>
                             <p class="doctorname"><strong>Dr. <?= $appointment->doctor_first_name . ' ' . $appointment->doctor_last_name ?></strong></p>
                             <p class ="appointment-details"><?php echo $appointment->specialization ?></p>
                             <p class="reason"><strong>Reason: <?= $appointment->reason ?></strong></p>
@@ -64,6 +65,7 @@
 
         <!-- Calendar Container -->
     </div>
+   
     <div class="calendar-container">
                 <div class="calendar-header">
                     <button id="prevYear" class="nav-button">«</button>

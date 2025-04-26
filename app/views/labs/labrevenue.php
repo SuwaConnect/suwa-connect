@@ -30,19 +30,19 @@
   <section class="overview">
     <div class="card">
       <h3>Total Revenue Today</h3>
-      <p>Rs. 150,000</p>
+      <p><?= $data['totalRevenueToday'] ?? '0' ?></p> 
     </div>
     <div class="card">
       <h3>Pending Payments</h3>
-      <p>Rs. 20,000</p>
+      <p><?= $data['pendingPayments'] ?? '0' ?></p>
     </div>
     <div class="card">
       <h3>Total Invoices</h3>
-      <p>45</p>
+      <p><?= $data['totalInvoices'] ?? '0' ?></p>
     </div>
     <div class="card">
       <h3>Refunds/Discounts</h3>
-      <p>Rs. 5,000</p>
+      <p><?= $data['refundsDiscounts'] ?? '0' ?></p>
     </div>
   </section>
 
@@ -61,71 +61,86 @@
         </tr>
       </thead>
       <tbody>
+    <?php if(isset($data['getLabInvoices']) && is_array($data['getLabInvoices'])): ?>
+        <?php foreach($data['getLabInvoices'] as $invoice): ?>
+            <tr>
+                <td><?= $invoice->invoice_id ?></td>
+                <td><?= $invoice->patient_name ?></td>
+                <td><?= date('Y-m-d', strtotime($invoice->invoice_date)) ?></td>
+                <td>Rs. <?= number_format($invoice->total_amount, 2) ?></td>
+                <td><?= $invoice->status ?></td>
+                <td>
+                <?php if ($invoice->status == 'Paid') { ?>
+                  <button type="button" class="download-btn" onclick="window.open('<?php echo URLROOT ?>labController/viewinvoice?id=<?php echo $invoice->invoice_id; ?>', '_blank')">
+    Download
+</button>
+<?php } else { ?>
+    <button class="view-btn">Notify</button>
+<?php } ?>
+
+</td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
         <tr>
-          <td>INV001</td>
-          <td>John Doe</td>
-          <td>2024-11-29</td>
-          <td>Rs. 5,000</td>
-          <td>Paid</td>
-          <td>
-            <button class="view-btn">View</button>
-            <button class="download-btn">Download</button>
-          </td>
+            <td colspan="6">No invoices found.</td>
         </tr>
-        <tr>
-          <td>INV002</td>
-          <td>Jane Smith</td>
-          <td>2024-11-28</td>
-          <td>Rs. 3,500</td>
-          <td>Pending</td>
-          <td>
-            <button class="view-btn">View</button>
-            <button class="reminder-btn">Send Reminder</button>
-          </td>
-        </tr>
-      </tbody>
+    <?php endif; ?>
+</tbody>
+
+
     </table>
   </div>
   </section>
 
   <section class="payment-section">
     <h2>Process Payment</h2>
-    <form>
-      <label for="invoice-number">Invoice Number:</label>
-      <input type="text" id="invoice-number" placeholder="Enter Invoice Number" />
+    <form method="POST" action="<?php echo URLROOT?>labController/processPayment"> <!-- Ensure it's using POST -->
+      <label for="invoice-id">Invoice Number:</label>
+      <input type="text" id="invoice-id" name="invoice_id" placeholder="Enter Invoice ID" required />
 
       <label for="payment-method">Payment Method:</label>
-      <select id="payment-method">
+      <select id="payment-method" name="payment_method" required>
         <option value="cash">Cash</option>
         <option value="card">Credit/Debit Card</option>
         <option value="online">Online Payment</option>
       </select>
 
       <label for="amount">Amount:</label>
-      <input type="number" id="amount" placeholder="Enter Amount" />
+      <input type="number" id="amount" name="payment_amount" placeholder="Enter Amount" required />
 
       <button type="submit" class="confirm-payment-btn">Confirm Payment</button>
     </form>
-  </section>
+</section>
 
-  <section class="generate-invoice">
-    <h2>Create New Invoice</h2>
-    <form>
-      <label for="patient-name">Patient Name:</label>
-      <input type="text" id="patient-name" placeholder="Enter Patient Name" />
+<section class="generate-invoice">
+    <h2>Create Invoice</h2>
+    <form method="POST" action="<?php echo URLROOT ?>/labController/createInvoice">
+        <label for="appointment-id">Appointment ID:</label>
+        <input type="number" id="appointment-id" name="appointment_id" placeholder="Enter Appointment ID" required />
 
-      <label for="services">Services:</label>
-      <textarea id="services" placeholder="E.g., Blood Test - Rs. 2,000"></textarea>
+        <label for="patient-id">Patient ID:</label>
+        <input type="number" id="patient-id" name="patient_id" placeholder="Enter Patient ID" required />
 
-      <label for="discount">Discount (if any):</label>
-      <input type="number" id="discount" placeholder="Enter Discount Amount" />
+        <label for="lab-id">Lab ID:</label>
+        <input type="number" id="lab-id" name="lab_id" placeholder="Enter Lab ID" required />
 
-      <label for="total-amount">Total Amount:</label>
-      <input type="number" id="total-amount" placeholder="Enter Total Amount" />
+        <label for="total-amount">Total Amount:</label>
+        <input type="number" id="total-amount" name="total_amount" placeholder="Enter Total Amount" required />
 
-      <button type="submit" class="generate-invoice-btn">Generate Invoice</button>
+        <label for="discount">Discount:</label>
+        <input type="number" id="discount" name="discount" placeholder="Enter Discount" value="0" />
+
+        <label for="services">Services:</label>
+        <textarea id="services" name="services" placeholder="Enter services provided" required></textarea>
+
+        <button type="submit">Create Invoice</button>
     </form>
-  </section>
+</section>
+
+
+
+
 
   <section class="notifications">
     <h2>Notifications</h2>

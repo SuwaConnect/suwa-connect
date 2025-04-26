@@ -27,89 +27,84 @@
         <section class="overview">
             <div class="card">
                 <h3>Total Appointments Today</h3>
-                <p>25</p>
+                <p><?= $data['totalAppointmentsToday'] ?? 'Not Available' ?></p>
             </div>
             <div class="card">
                 <h3>Upcoming Appointments</h3>
-                <p>15</p>
+                <p><?= $data['getUpcomingAppointmentsCount'] ?? 'Not Available' ?></p>
             </div>
             <div class="card">
                 <h3>Missed Appointments</h3>
-                <p>2</p>
+                <p><?= $data['getMissedAppointmentsCount'] ?? 'Not Available' ?></p>
             </div>
             <div class="card">
                 <h3>Cancellations</h3>
-                <p>3</p>
+                <p><?= $data['getCancelledAppointments'] ?? 'Not Available' ?></p>
             </div>
         </section>
 
         <section class="appointments-table">
             <h2>Appointment List</h2>
+            <section class="filters">
+            <h2>Filter Appointments</h2>
+            <form method="GET" action="">
+    <input type="text" name="patient_name" placeholder="Enter patient name" value="<?= htmlspecialchars($_GET['patient_name'] ?? '') ?>">
+    <input type="text" name="test_type" placeholder="Enter test type" value="<?= htmlspecialchars($_GET['test_type'] ?? '') ?>">
+    <input type="date" name="appointment_date" value="<?= htmlspecialchars($_GET['appointment_date'] ?? '') ?>">
+    <select name="status">
+        <option value="all" <?= ($_GET['status'] ?? 'all') === 'all' ? 'selected' : '' ?>>All</option>
+        <option value="in_progress" <?= ($_GET['status'] ?? '') === 'pending' ? 'selected' : '' ?>>In Progress</option>
+        <option value="completed" <?= ($_GET['status'] ?? '') === 'accepted' ? 'selected' : '' ?>>Completed</option>
+        <option value="cancelled" <?= ($_GET['status'] ?? '') === 'cancelled' ? 'selected' : '' ?>>Cancelled</option>
+    </select>
+    <button type="submit">Apply Filters</button>
+</form>
+        </section>
             <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Appointment ID</th>
-                            <th>Patient Name</th>
-                            <th>Date & Time</th>
-                            <th>Test Type</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>APT001</td>
-                            <td>John Doe</td>
-                            <td>2024-11-29 | 10:00 AM</td>
-                            <td>Blood Test</td>
-                            <td>Scheduled</td>
-                            <td>
-                                <button class="view-btn">View</button>
-                                <button class="reschedule-btn">Reschedule</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>APT002</td>
-                            <td>Jane Smith</td>
-                            <td>2024-11-29 | 11:30 AM</td>
-                            <td>Urine Analysis</td>
-                            <td>Completed</td>
-                            <td>
-                                <button class="view-btn">View</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            
+
+<table>
+    <thead>
+        <tr>
+            <th>Appointment ID</th>
+            <th>Patient Name</th>
+            <th>Appointment Date</th>
+            <th>Appointment Time</th>
+            <th>Test Type</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (isset($appointments) && !empty($appointments)): ?>
+            <?php foreach ($appointments as $appointment): ?>
+                <tr>
+                    <td><?= htmlspecialchars($appointment->appointment_id) ?></td>
+                    <td><?= htmlspecialchars($appointment->patient_name) ?></td>
+                    <td><?= date('Y-m-d', strtotime($appointment->appointment_date)) ?></td>
+                    <td><?= htmlspecialchars($appointment->appointment_time) ?></td>
+                    <td><?= htmlspecialchars($appointment->test_type) ?></td>
+                    <td>
+                        <!-- Actions (view, reschedule, etc.) -->
+                        <form method="POST" action="">
+                            <input type="hidden" name="appointment_id" value="<?= $appointment->appointment_id ?>">
+                            <button type="submit" name="view_appointment" class="view-btn">View</button>
+                            <?php if ($appointment->status === 'scheduled'): ?>
+                                <button type="submit" name="reschedule_appointment" class="reschedule-btn">Reschedule</button>
+                            <?php endif; ?>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr><td colspan="7">No appointments found.</td></tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+
             </div>
         </section>
 
-        <section class="filters">
-            <h2>Filter Appointments</h2>
-            <form>
-                <label for="date-range">Date Range:</label>
-                <input type="date" id="start-date"> to <input type="date" id="end-date">
-
-                <label for="status">Status:</label>
-                <select id="status">
-                    <option value="all">All</option>
-                    <option value="scheduled">Scheduled</option>
-                    <option value="completed">Completed</option>
-                    <option value="missed">Missed</option>
-                    <option value="canceled">Canceled</option>
-                </select>
-
-                <label for="test-type">Test Type:</label>
-                <select id="test-type">
-                    <option value="all">All</option>
-                    <option value="blood-test">Blood Test</option>
-                    <option value="x-ray">X-Ray</option>
-                    <option value="mri">MRI</option>
-                </select>
-
-                <button type="submit">Apply Filters</button>
-            </form>
-        </section>
+        
 
         <section class="calendar-view">
             <h2>Appointment Calendar</h2>

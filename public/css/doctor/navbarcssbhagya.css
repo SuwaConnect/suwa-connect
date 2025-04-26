@@ -19,7 +19,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     position: fixed;
     top: 0;
     left: 0;
@@ -68,11 +68,13 @@ body {
 /* sideBar Menu */
 .sideBar .nav-menu {
     padding: 15px;
+    padding-top: 40px;
+    flex-grow: 1; /* Allow the menu to grow and fill the available space */
     list-style: none;
 }
 
 .nav-item {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     
 }
 
@@ -98,6 +100,14 @@ body {
 
 .nav-link i {
     margin-right: 10px;
+}
+
+ #logout .nav-link {
+    color:#ff0000;
+}
+
+#logout .nav-link:hover{
+    background-color: #ffcccc;
 }
 
 .sideBar-footer {

@@ -27,7 +27,7 @@
                     <i class="material-icons-round">file_copy</i> <span>Health Records</span>
                 </a>
             </li>
-            <li class="nav-item  active">
+            <li class="nav-item ">
                 <a href="<?php echo URLROOT?>patientcontroller/report" class="nav-link">
                     <i class="material-icons-round">monitor</i> <span>Reports</span>
                 </a>

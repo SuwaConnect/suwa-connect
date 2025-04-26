@@ -38,9 +38,9 @@
         </div>
       </div>
       <div class="record-actions">
-        <button class="action-btn primary-btn">Edit Record</button>
+        <!-- <button class="action-btn primary-btn">Edit Record</button>
         <button class="action-btn secondary-btn">Print Record</button>
-        <button class="action-btn danger-btn">Share Record</button>
+        <button class="action-btn danger-btn">Share Record</button> -->
       </div>
     </div>
     
@@ -61,7 +61,7 @@
             </svg>
             Vital Signs
           </div>
-          <button class="action-btn secondary-btn">Add Vitals</button>
+          <!-- <button class="action-btn secondary-btn">Add Vitals</button> -->
         </div>
         
         <div class="vital-signs">
@@ -70,21 +70,21 @@
             <div class="vital-value"><?php echo ($data['vitalSigns']->systolic . " / " . $data['vitalSigns']->diastolic); ?>
             <span class="vital-unit">mmHg</span></div>
             <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <div class="vital-trend trend-neutral">&#8212;</div>
+            <!-- <div class="vital-trend trend-neutral">&#8212;</div> -->
           </div>
           
           <div class="vital-card">
             <div class="vital-title">Heart Rate</div>
             <div class="vital-value">72 <span class="vital-unit">bpm</span></div>
             <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <div class="vital-trend trend-down">&#9660; 5</div>
+            <!-- <div class="vital-trend trend-down">&#9660; 5</div> -->
           </div>
           
           <div class="vital-card">
             <div class="vital-title">Temperature</div>
             <div class="vital-value"><?php echo $data['vitalSigns']->temperature ?> <span class="vital-unit">°F</span></div>
             <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <div class="vital-trend trend-neutral">&#8212;</div>
+            <!-- <div class="vital-trend trend-neutral">&#8212;</div> -->
           </div>
           
           <!-- <div class="vital-card">
@@ -98,28 +98,28 @@
             <div class="vital-title">Blood Sugar (Fasting)</div>
             <div class="vital-value"><?php echo $data['vitalSigns']->blood_sugar ?> <span class="vital-unit">mg/dL</span></div>
             <div class="vital-date">Apr 5, 2025 - 07:30 AM</div>
-            <div class="vital-trend trend-down">&#9660; 12</div>
+            <!-- <div class="vital-trend trend-down">&#9660; 12</div> -->
           </div>
           
           <div class="vital-card">
             <div class="vital-title">Cholesterol (Total)</div>
             <div class="vital-value"><?php echo $data['vitalSigns']->cholesterol ?> <span class="vital-unit">mg/dL</span></div>
             <div class="vital-date">Mar 22, 2025 - 09:45 AM</div>
-            <div class="vital-trend trend-down">&#9660; 15</div>
+            <!-- <div class="vital-trend trend-down">&#9660; 15</div> -->
           </div>
           
           <div class="vital-card">
             <div class="vital-title">Weight</div>
             <div class="vital-value"><?php echo $data['vitalSigns']->weight ?> <span class="vital-unit">lbs</span></div>
             <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <div class="vital-trend trend-down">&#9660; 3</div>
+            <!-- <div class="vital-trend trend-down">&#9660; 3</div> -->
           </div>
           
           <div class="vital-card">
             <div class="vital-title">BMI</div>
             <div class="vital-value">24.8 <span class="vital-unit"></span></div>
             <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <div class="vital-trend trend-down">&#9660; 0.4</div>
+            <!-- <div class="vital-trend trend-down">&#9660; 0.4</div> -->
           </div>
         </div>
       </div>
@@ -138,7 +138,7 @@
             </svg>
             Recent Visits
           </div>
-          <button class="action-btn secondary-btn">Add Visit</button>
+          <!-- <button class="action-btn secondary-btn">Add Visit</button> -->
         </div>
         
         <div class="visit-list">
@@ -167,7 +167,7 @@
               </div>
             </div>
             <div class="visit-actions">
-              <button class="action-btn secondary-btn">Edit</button>
+              <!-- <button class="action-btn secondary-btn">Edit</button> -->
             </div>
           </div> 
 

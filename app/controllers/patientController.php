@@ -6,6 +6,7 @@ class patientController extends Controller {
     private $appointmentModel;
     private $visitRecordModel;
     private $pharmacyModel;
+    private $labModel;
 
     public function __construct() {
         $this->patientModel = $this->model('patientModel');
@@ -13,8 +14,11 @@ class patientController extends Controller {
         $this->appointmentModel = $this->model('appointmentModel');
         $this->visitRecordModel = $this->model('VisitRecordModel');
         $this->pharmacyModel = $this->model('pharmacyModel');
-    }
+        $this->labModel = $this->model('m_lab');
 
+        if(!isset($_SESSION['user_id'])) {
+    }
+    }
     public function confirmRequest() {
         $this->view('patient/confirmRequest');
     }
@@ -28,12 +32,14 @@ class patientController extends Controller {
             try{
                 $patientId = $this->appointmentModel->getPatientIdByUserId($_SESSION['user_id'])->patient_id;
                 $appointments = $this->appointmentModel->getScheduledAppointmentsForPatient($patientId);
+                $labAppointments = $this->appointmentModel->getScheduledLabAppointmentsForPatient($patientId);
 
                 $data = [
-                    'appointments' => $appointments
+                    'appointments' => $appointments,
+                    'lab_appointments' => $labAppointments
                 ];
                 //var_dump($data['appointments']);
-                $this->view('patient/appointments', $data);
+                $this->view('patient/appointment-updated', $data);
             }catch (Exception $e) {
                 // Handle exception (e.g., log the error, show an error message)
                 echo "Error: " . $e->getMessage();
@@ -53,6 +59,10 @@ class patientController extends Controller {
 
         //var_dump($data['records']);
         $this->view('patient/dashboard',$data);
+    }
+
+    public function manageHealthInfo(){
+        $this->view('patient/health-info');
     }
 
     public function records() {
@@ -95,6 +105,20 @@ class patientController extends Controller {
     public function searchDoctorToMakeAppointment(){
         $this->view('patient/searchDoctor');
     }
+
+    public function searchLabToMakeAppointment(){
+        $data=  $this->labModel->getAllLabs();
+        
+        $this->view('patient/searchLabs', $data);
+    }
+
+    public function makeLabAppointment($lab_id){
+        $data = [
+            'lab' => $this->labModel->getLabByLabId($lab_id),
+            'patient' => $this->patientModel->getPatientByUserId($_SESSION['user_id']),
+        ];
+        $this->view('patient/makeLabAppointment', $data);
+    }
     
 
 public function patientRegister() {
@@ -104,14 +128,14 @@ public function patientRegister() {
         $errors = [];
         
         // Sanitize and validate inputs
-        $firstName = trim(filter_input(INPUT_POST, 'first_name', FILTER_SANITIZE_STRING));
-        $lastName = trim(filter_input(INPUT_POST, 'last_name', FILTER_SANITIZE_STRING));
-        $nic = trim(filter_input(INPUT_POST, 'nic', FILTER_SANITIZE_STRING));
-        $gender = trim(filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING));
+        $firstName = trim($_POST['first_name']);
+        $lastName = trim($_POST['last_name']);
+        $nic = trim($_POST['nic']);
+        $gender = trim($_POST['gender']);
         $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-        $contactNo = trim(filter_input(INPUT_POST, 'contact_no', FILTER_SANITIZE_STRING));
-        $dateOfBirth = trim(filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_STRING));
-        $address = trim(filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING));
+        $contactNo = trim($_POST['contact_no']);
+        $dateOfBirth = trim($_POST['dob']);
+        $address = trim($_POST['address']);
         $password = trim($_POST['password']);
         $confirmPassword = trim($_POST['confirm_password']);
 
@@ -249,36 +273,14 @@ public function sendPrescriptionToPharmacy($record_id) {
     ];
 
     $this->view('patient/searchPharmacy', $data);
-    // echo "sendPrescriptionToPharmacy called";
-    // echo $data;
-    // try {
-    //     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //         $prescriptionId = $_POST['prescription_id'];
-    //         $pharmacyId = $_POST['pharmacy_id'];
-            
-    //         // Send prescription to pharmacy
-    //         $result = $this->visitRecordModel->sendPrescriptionToPharmacy($prescriptionId, $pharmacyId);
-            
-    //         if ($result) {
-    //             // Redirect or show success message
-    //             header('Location: ' . URLROOT . 'patientController/appointments');
-    //             exit();
-    //         } else {
-    //             // Handle error
-    //             echo "Failed to send prescription to pharmacy.";
-    //         }
-    //     }
-    // } catch (Exception $e) {
-    //     // Handle exception (e.g., log the error, show an error message)
-    //     echo "Error: " . $e->getMessage();
-    // }
-
 }
 
 public function searchPharmacy(){
     try{
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $searchTerm =$_POST['searchQuery'];
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+            $searchTerm = $data['searchQuery'];
             $pharmacies = $this->pharmacyModel->searchPharmacy($searchTerm);
             $data = [
                 'pharmacies' => $pharmacies
@@ -328,8 +330,8 @@ public function addToOrder() {
         // Check if request is AJAX with JSON
         $input = json_decode(file_get_contents('php://input'), true);
         
-        if(isset($input['medicineIds'])){
-            $medicineIds = $input['medicineIds'];
+        if(isset($input['recordId'])){
+           // $medicineIds = $input['medicineIds'];
             $specialInstructions = $input['specialInstructions'];
             $deliveryMethod = $input['deliveryMethod'];
             $patientId = $this->patientModel->getPatientByUserId($_SESSION['user_id'])->patient_id;
@@ -337,12 +339,8 @@ public function addToOrder() {
             $pharmacyId = $input['pharmacyId'];
 
             $order_id = $this->pharmacyModel->createOrder($patientId, $pharmacyId, $specialInstructions, $deliveryMethod, $recordId);
-
-            if($order_id){
-                $orderPlaced = $this->pharmacyModel->addMedicinesToOrder($medicineIds, $order_id);
-            }
             
-            if($orderPlaced){
+            if($order_id){
                 $response = [
                     'success' => true,
                     'message' => 'Prescription sent to pharmacy successfully'
@@ -423,4 +421,60 @@ public function revokeAccess(){
     echo json_encode($response);
     exit; // Stop execution after sending response
 }
+
+public function searchLabs(){
+    try{if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+        $searchTerm = $data['searchQuery'];
+        $labs = $this->labModel->searchLabs($searchTerm);
+        $data = [
+            'labs' => $labs
+        ];
+        
+        echo json_encode($data);
+        exit;
+    }
+        
+    } catch (Exception $e) {
+        // Handle exception (e.g., log the error, show an error message)
+        echo "Error: " . $e->getMessage();
+    }
+}
+
+
+
+public function createLabAppointment() {
+    header('Content-Type: application/json');
+    try {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $json = file_get_contents('php://input');
+            $data = json_decode($json, true);
+            $lab_id = filter_var($data['lab_id'], FILTER_VALIDATE_INT);
+            $patient = $this->patientModel->getPatientByUserId($_SESSION['user_id']);
+            $patient_id = $patient->patient_id;
+            $test_name = htmlspecialchars($data['testName']);
+            
+            // Format date and time if necessary
+            $appointment_date = date('Y-m-d', strtotime($data['date']));
+            $appointment_time = date('H:i:s', strtotime($data['time']));
+           
+             if ($this->patientModel->createLabAppointment($lab_id, $patient_id, $test_name, $appointment_date, $appointment_time)) {
+                echo json_encode(['success' => true]);
+                
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Failed to create appointment']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Invalid request method']);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Exception: ' . $e->getMessage()]);
+    }
+}
+
+
+
+
+
 }

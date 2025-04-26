@@ -29,7 +29,7 @@
                             echo URLROOT.'public/images/doctor/images/profile.png';
                         }?>" alt="Doctor profile">
                 </div>
-                <div class="doctor-name">Dr. <?php echo $_SESSION['user_name'] ?? 'Doctor Name'; ?></div>
+                <div class="doctor-name">Dr. <?php echo $data['doctor']->firstName.' '.$data['doctor']->lastName ?? 'Doctor Name'; ?></div>
                 
                 <form action="<?php echo URLROOT?>profileController/changeProfilePicture" method="POST" enctype="multipart/form-data">
                     <div class="upload-options">
@@ -51,18 +51,18 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="firstname">First Name</label>
-                            <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" value="<?php echo $data['doctor']->firstName ?? 'Doctor Name'; ?>">
+                            <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" readonly value="<?php echo $data['doctor']->firstName ?? 'Doctor Name'; ?>">
                         </div>
                         
                         <div class="form-group">
                             <label for="lastname">Last Name</label>
-                            <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" value="<?php echo $data['doctor']->lastName ?? 'Doctor Name'; ?>">
+                            <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" readonly value="<?php echo $data['doctor']->lastName ?? 'Doctor Name'; ?>">
                         </div>
                         
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email" value="">
-                        </div> -->
+                            <input type="email" id="email" name="email" placeholder="Enter your email" readonly value="<?php echo $data['doctor']->email ?? 'No email provided'; ?>">
+                        </div> 
                         
                         <div class="form-group">
                             <label for="specialization">Specialization</label>
@@ -81,7 +81,7 @@
                         
                         <div class="form-group">
                             <label for="license">Medical License No.</label>
-                            <input type="text" id="license" name="licenseNo" placeholder="Enter your medical license number" value="<?php echo $data['doctor']->slmc_no ?? 'No medical license provided'; ?>">
+                            <input type="text" id="license" name="licenseNo" placeholder="Enter your medical license number" readonly value="<?php echo $data['doctor']->slmc_no ?? 'No medical license provided'; ?>">
                         </div>
                     </div>
                 </div>
@@ -115,8 +115,23 @@
                     </div>
                 </div>
 
+                <div class="card">
+                    <div class="form-group">
+                    <h2 class="section-title">Appointment Details</h2>
+                    <label for="appointment-charge">Consultation Charges</label>
+                    <input type="text" id="appointment-charge" name="appointment_charges" placeholder="Enter your appointment charges" value="<?php echo $data['doctor']->appointment_charges ?? 'No appointment charge provided'; ?>">
+
+                   <a href="<?php echo URLROOT .'appointmentController/manageSessions';?>" class="update-btn">Edit Sessions</a>
+                    
+                    </div>
+                   
+                    
+                   
+                </div>
+
                 <div class="submit-container">
                     <button type="submit" class="update-btn">Update Profile</button>
+                
                 </form>
                 </div>
 
@@ -145,7 +160,7 @@
                 
                 <!-- Submit Button -->
                 <div class="submit-container">
-                    <button type="submit" class="update-btn">change password</button>
+                    <button type="submit" class="update-btn">Change Password</button>
                 </div>
                 </form>
             </div>

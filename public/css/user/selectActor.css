@@ -1,0 +1,74 @@
+/* Theme Variables */
+:root {
+    --primary-color: #0052cc;
+    --secondary-color: #1E293B;
+    --text-color: #2e2e2e;
+    --light-bg: #f4f6f8;
+    --white: #FFFFFF;
+    --border-radius: 12px;
+}
+
+/* General Layout */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--light-bg);
+    margin: 0;
+}
+
+/* Container for buttons and image */
+.container {
+    display: flex;
+    align-items: center;
+    gap: 50px; /* Space between buttons and image */
+}
+
+/* Button styles */
+.button-container {
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    display: block;
+    width: 220px;
+    text-align: center;
+    padding: 15px;
+    margin: 10px;
+    text-decoration: none;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+}
+
+/* Hover effect */
+a:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.05);
+}
+
+/* Image styling */
+.image-container img {
+    max-width: 300px; /* Adjust the size as needed */
+    height: auto;
+    border-radius: var(--border-radius);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    .image-container img {
+        max-width: 80%;
+    }
+}

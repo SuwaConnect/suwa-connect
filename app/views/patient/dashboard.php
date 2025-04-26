@@ -268,13 +268,13 @@
 <?php include  "navbar-patient.php";?>
   
 <div class="main-content">
-    <header>
+    <!-- <header>
         <div class="container">
             <div class="header-content">
                 <div class="patient-info">
                     <div class="patient-avatar">JD</div>
                     <div class="patient-details">
-                        <h1>John Doe</h1>
+                        <h1></h1>
                         <p>Patient ID: P12345 | DOB: 01/15/1985 | Gender: Male</p>
                     </div>
                 </div>
@@ -283,7 +283,7 @@
                 </div>
             </div>
         </div>
-    </header>
+    </header> -->
     
     <div class="container">
         <div class="section-title">
@@ -329,14 +329,7 @@
     <p>No medical records found.</p>
 <?php endif; ?>
         
-        <!-- <div class="pagination">
-            <a href="#" class="active">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">Next »</a>
-        </div> -->
+        
     </div>
     </div>
     <script src="<?php echo URLROOT?>public/js/doctor/js/navbar.js" ></script>

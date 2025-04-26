@@ -125,11 +125,12 @@ public function getSessionsByDoctorAndDay($doctorId, $dayOfWeek) {
 
 public function getAppointmentsForSession($sessionId, $date) {
     try {
-        $this->db->query('SELECT a.*, p.first_name,p.last_name, p.contact_no 
+        $this->db->query('SELECT a.*, p.first_name,p.last_name, p.contact_no ,p.patient_id
                          FROM appointments a
                          JOIN patients p ON a.patient_id = p.patient_id
                          WHERE a.session_id = :session_id 
                          AND a.appointment_date = :appointment_date
+                            AND a.status = "SCHEDULED"
                          ORDER BY a.created_at');
         
         $this->db->bind(':session_id', $sessionId);
@@ -233,15 +234,41 @@ public function deleteSession($sessionId) {
 }
 
 public function getScheduledAppointmentsForPatient($patientId) {
-    $this->db->query('SELECT a.*, d.firstName AS doctor_first_name, d.lastName AS doctor_last_name ,d.specialization
+    $this->db->query('SELECT a.*, d.*,s.start_time
                      FROM appointments a
                      JOIN approved_doctors d ON a.doctor_id = d.doctor_id
+                     JOIN doctor_sessions s ON a.session_id = s.session_id
                      WHERE a.patient_id = :patient_id AND a.status = "SCHEDULED"');
     
     // Bind values
     $this->db->bind(':patient_id', $patientId);
     
     return $this->db->resultSet();
+}
+
+public function getScheduledLabAppointmentsForPatient($patientId) {
+    $this->db->query('SELECT l.*,r.* FROM lab_appointments l 
+    JOIN registered_labs r ON l.lab_id = r.lab_id 
+    WHERE patient_id = :patient_id AND status ="in_progress"');
+    
+    // Bind values
+    $this->db->bind(':patient_id', $patientId);
+    
+    return $this->db->resultSet();
+}
+
+
+public function updateAppointmentStatus($appointment_id){
+    $this->db->query('UPDATE appointments SET status = "COMPLETED" WHERE appointment_id = :appointment_id');
+    
+    // Bind values
+    $this->db->bind(':appointment_id', $appointment_id);
+    
+    if($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+}
 }
 
 }

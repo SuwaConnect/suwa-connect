@@ -8,6 +8,12 @@ class pharmacyModel {
         $this->db = new Database(); // Assuming Database class is already defined
     }
 
+    public function getPharmacyId($user_id) {
+        $this->db->query('SELECT pharmacy_id FROM approved_pharmacy WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        return $this->db->single();
+    }
+    
     
 
     public function addPendingpharmacy($data) {
@@ -98,26 +104,132 @@ class pharmacyModel {
         }
     }
 
-    public function addMedicinesToOrder($medicineIds, $orderId) {
-        // Loop through each medicine ID in the array
-        foreach ($medicineIds as $medicineId) {
-            // Prepare the query for each medicine
-            $this->db->query('INSERT INTO ordered_medicines (order_id, medicine_id) VALUES (:order_id, :medicine_id)');
-            
-            // Bind the values
-            $this->db->bind(':order_id', $orderId);
-            $this->db->bind(':medicine_id', $medicineId);
-            
-            // Execute the query
-            if (!$this->db->execute()) {
-                return false; // If any insertion fails, return false
-            }
-        }
-        
-        return true; // All insertions were successful
+    
+    // In your pharmacyModel class
+public function getPendingOrders($pharmacy_id) {
+    // Using the optimized query approach
+    $this->db->query('SELECT o.*, p.*
+                     FROM orders o
+                     JOIN patients p ON o.patient_id = p.patient_id
+                     WHERE o.pharmacy_id = :pharmacy_id 
+                     AND o.order_status = "pending"');
+    
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    $orders = $this->db->resultSet();
+    
+    // If you need prescription data for each order
+    foreach ($orders as &$order) {
+        $this->db->query('SELECT * FROM prescriptions 
+                         WHERE health_record_id = :record_id');
+        $this->db->bind(':record_id', $order->record_id);
+        $order->prescriptions = $this->db->resultSet();
+    }
+    
+    return $orders;
+}
+
+public function getHealthRecordIdFromOrder($order_id){
+    $this->db->query('SELECT record_id FROM orders WHERE order_id = :order_id');
+    $this->db->bind(':order_id', $order_id);
+    return $this->db->single()->record_id;
+}
+
+
+ public function getmedicinesInPrescription($record_id){
+    $this->db->query('SELECT * FROM prescriptions 
+    JOIN medicines ON prescriptions.medicine_id = medicines.id
+    WHERE health_record_id = :record_id');
+    $this->db->bind(':record_id', $record_id);
+    return $this->db->resultSet();   
+
+    
+}
+
+public function getPatientDetailsFromOrder($order_id){
+    $this->db->query('SELECT * FROM patients 
+    JOIN orders ON patients.patient_id = orders.patient_id
+    WHERE order_id = :order_id');
+    $this->db->bind(':order_id', $order_id);
+    return $this->db->single();             
+}
+
+public function getOrderById($order_id){
+    $this->db->query('SELECT * FROM orders WHERE order_id = :order_id');
+    $this->db->bind(':order_id', $order_id);
+    return $this->db->single();             
+}
+
+public function updateOrderStatus($order_id, $status){
+    $this->db->query('UPDATE orders SET order_status = :status WHERE order_id = :order_id');
+    $this->db->bind(':status', $status);
+    $this->db->bind(':order_id', $order_id);
+    if($this->db->execute()){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+public function getPharmacyByUserId($user_id){
+    $this->db->query('SELECT * FROM approved_pharmacy WHERE user_id = :user_id' );
+    $this->db->bind(':user_id',$user_id);
+    return $this->db->single();
+
+}
+
+public function updatePharmacyProfile( $pharmacy_id,$data){
+    $this->db->query('UPDATE approved_pharmacy SET pharmacy_name = :pharmacy_name, contact_person = :contact_person, contact_no = :contact_no , contact_no2 = :contact_no2, street = :street, city = :city, state = :state, start_time = :start_time, end_time = :end_time  WHERE pharmacy_id = :pharmacy_id');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    $this->db->bind(':pharmacy_name', $data['pharmacy_name']);
+    $this->db->bind(':contact_person', $data['contact_person']);
+    $this->db->bind(':contact_no', $data['contact1']);
+    $this->db->bind(':contact_no2', $data['contact2']);
+    $this->db->bind(':street', $data['street']);
+    $this->db->bind(':city', $data['city']);
+    $this->db->bind(':state', $data['state']);
+    $this->db->bind(':start_time', $data['start_time']);
+    $this->db->bind(':end_time', $data['end_time']);
+
+    if($this->db->execute()){
+        return true;
+    } else {
+        return false;
     }
 
-    
+}
 
-    
+public function getTotalOrders($pharmacy_id){
+    $this->db->query('SELECT COUNT(*) as total_orders FROM orders WHERE pharmacy_id = :pharmacy_id');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    return $this->db->single()->total_orders;
+
+}
+
+public function getAllPendingOrdersForPharmacy($pharmacy_id){
+    $this->db->query('SELECT COUNT(*) as pending_orders FROM orders WHERE pharmacy_id = :pharmacy_id AND order_status = "pending"');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    return $this->db->single()->pending_orders;
+}
+
+public function getAllCompletedOrdersForPharmacy($pharmacy_id){
+    $this->db->query('SELECT COUNT(*) as completed_orders FROM orders WHERE pharmacy_id = :pharmacy_id AND order_status = "confirmed"');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    return $this->db->single()->completed_orders;
+
+}
+
+public function getAllCancelledOrdersForPharmacy($pharmacy_id){
+    $this->db->query('SELECT COUNT(*) as cancelled_orders FROM orders WHERE pharmacy_id = :pharmacy_id AND order_status = "declined"');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    return $this->db->single()->cancelled_orders;
+
+}
+
+public function getOrdersForToday($pharmacy_id){
+    $this->db->query('SELECT COUNT(*) as today_orders FROM orders WHERE pharmacy_id = :pharmacy_id AND DATE(created_at) = CURDATE()');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    return $this->db->single()->today_orders;
+
+}
+
 }

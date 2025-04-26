@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 define('APPROOT',dirname(dirname(__FILE__)));
 

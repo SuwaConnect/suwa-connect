@@ -22,10 +22,12 @@ class NotificationsController extends Controller {
             $this->view('doctor/notifications', $data);
         } else if($_SESSION['role'] == 'patient'){
             $this->view('patient/notifications', $data);
-
+        }else if($_SESSION['role']=='pharmacy'){
+            $this->view('pharmacy/pharmacynotifications', $data);
+        }else if($_SESSION['role']=='admin'){
+            $this->view('admin/notifications', $data);
         }
         
-        // $this->view('patient/notifications',$data);
         
     }
     

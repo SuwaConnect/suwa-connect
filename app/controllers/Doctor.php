@@ -4,20 +4,22 @@ class Doctor extends Controller
 {
     private $doctorModel;
     private $userModel;
+    private $appointmentModel;
 
     public function __construct(){
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
         $this->doctorModel = $this->model('m_doctor');
+        $this->appointmentModel = $this->model('appointmentModel');
     }
 
     public function home(){
 
         $data = [
-            // 'new_appointments' => $this->doctorModel->getCountOfNewappointments($_SESSION['user_id']),
-            // 'appointments' => $this->doctorModel->getAppointments($_SESSION['user_id']),
-            // 'consultations' => $this->doctorModel->getConsultations($_SESSION['user_id']),
+             'today_appointments' => $this->doctorModel->getCountOfTodayappointments($_SESSION['user_id']),
+             'total_patients' => $this->doctorModel->getTotalPatientsForDoctor($_SESSION['user_id']),
+             'patients_consulted' => $this->doctorModel->getCountOfPatientsConsulted($_SESSION['user_id']),
         ];
 
         $this->view('doctor/doctor_homepage',$data);
@@ -25,7 +27,67 @@ class Doctor extends Controller
     }
 
     public function appointments(){
-        $this->view('doctor/appointments');
+
+        try {
+            // Get the doctor ID from the logged-in user
+            $doctorId = $this->appointmentModel->getDoctorIdByUserId($_SESSION['user_id'])->doctor_id;
+            
+            // Get the date from POST request
+            $date = date('Y-m-d');
+            //echo $date;
+            // // Convert date to day of week (Monday, Tuesday, etc.)
+             $dayOfWeek = date('l', strtotime($date));
+    
+            // // Get sessions for this doctor on this day of week
+             $doctorSessions = $this->appointmentModel->getSessionsByDoctorAndDay($doctorId, $dayOfWeek);
+            
+            // // Initialize array to hold sessions and their appointments
+             $sessions = [];
+            
+            // // For each session, get the appointments
+            foreach ($doctorSessions as $session) {
+                $sessionId = $session->session_id;
+                
+                // Get appointments for this session on the specified date
+                $appointments = $this->appointmentModel->getAppointmentsForSession($sessionId, $date);
+                
+                // Add session info and its appointments to the result
+                $sessions[$sessionId] = [
+                    'session_info' => $session,
+                    'appointments' => $appointments,
+                    'current_count' => count($appointments),
+                    'max_patients' => $session->max_patients
+                ];
+            }
+            
+            // // Check if we have any sessions for this day
+            if (empty($sessions)) {
+                $data = [
+                    'date' => $date,
+                    'message' => 'No sessions scheduled for ' . $dayOfWeek
+                ];
+            } else {
+                $data = [
+                    'date' => $date,
+                    'day_of_week' => $dayOfWeek,
+                    'sessions' => $sessions
+                ];
+            }
+            
+            // // Load the view with the data
+             $this->view('doctor/appointments', $data);
+            
+        } catch (Exception $e) {
+            // Handle error
+            $data = [
+                // 'date' => $_POST['date'] ?? date('Y-m-d'),
+                'message' => 'Error: ' . $e->getMessage()
+            ];
+            
+            //$this->view('doctor/appointments', $data);
+        }
+
+        //$this->view('doctor/appointments');
     }
 
     public function viewSignup1(){
@@ -206,7 +268,8 @@ class Doctor extends Controller
                 'bio' => trim($_POST['bio']),
                 'street' => trim($_POST['street']),
                 'city' => trim($_POST['city']),
-                'state' => trim($_POST['state'])
+                'state' => trim($_POST['state']),
+                'appointment_charges'=> trim($_POST['appointment_charges'])
             ];
             
 
