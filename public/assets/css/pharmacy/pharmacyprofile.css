@@ -12,12 +12,11 @@ body {
 
 .container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 250px;
     padding: 20px;
 }
 
 .header {
-    display: flex;
     align-items: center;
     margin-bottom: 20px;
 }

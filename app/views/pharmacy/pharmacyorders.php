@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacyhome.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacydashboard.css">
+    <!-- <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacydashboard.css"> -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacyorders.css">
     <style>
         /* Modal styles */
@@ -77,9 +77,7 @@
     <div class="main-content">
         <!-- Page Header -->
         <div class="page-header">
-            <button class="back-button">
-                <span>←</span>
-            </button>
+            
             <div class="header-text">
                 <h1>Prescription Orders</h1>
                 <p>Manage incoming orders from patients through Suwa Connect.</p>
@@ -107,29 +105,29 @@
         <!-- Stats Cards -->
         <div class="stats-container">
             <div class="stat-card">
-                <div class="stat-title">Total Orders</div>
+                <div class="stat-title">Total Orders</div><br>
                 <div class="stat-value">3,450</div>
-                <div class="stat-label">Total Orders</div>
+               
             </div>
             <div class="stat-card">
-                <div class="stat-title">Pending Orders</div>
+                <div class="stat-title">Pending Orders</div><br>
                 <div class="stat-value">582</div>
-                <div class="stat-label">Pending Orders</div>
+               
             </div>
             <div class="stat-card">
-                <div class="stat-title">Confirmed Orders</div>
+                <div class="stat-title">Confirmed Orders</div><br>
                 <div class="stat-value">2,758</div>
-                <div class="stat-label">Confirmed Orders</div>
+                
             </div>
             <div class="stat-card">
-                <div class="stat-title">Declined Orders</div>
+                <div class="stat-title">Declined Orders</div><br>
                 <div class="stat-value">110</div>
-                <div class="stat-label">Declined Orders</div>
+               
             </div>
             <div class="stat-card">
-                <div class="stat-title">Today's Orders</div>
+                <div class="stat-title">Today's Orders</div><br>
                 <div class="stat-value">45</div>
-                <div class="stat-label">Today's Orders</div>
+                
             </div>
         </div>
 
