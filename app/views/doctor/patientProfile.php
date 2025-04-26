@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
     <style>
         * {
             margin: 0;
@@ -27,9 +26,13 @@
             min-height: 100vh;
             transition: margin-left 0.3s ease;
         }
-        .main-content.sidebar-collapsed {
-            margin-left: 80px; /* Adjusted space when sidebar is collapsed */
-        }
+        .sideBar.collapsed + .main-content{
+
+            margin-left:80px;
+            width: calc(100% - 80px);
+            overflow-y: auto;
+}
+
         .patient-header {
             background-color: #fff;
             border-radius: 10px;
@@ -247,54 +250,7 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sideBar">
-        <div class="logo">
-            <img src="<?php echo URLROOT; ?>public/images/doctor/Images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
-            <h2>සුව CONNECT</h2>
-
-            <button class="toggle-btn" id="toggleSideBar"> 
-                <i class="material-icons-round">chevron_left</i>
-            </button>
-        </div>
-        
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="<?php echo URLROOT?>doctor/home" class="nav-link">
-                    <i class="material-icons-round">home</i> <span>Home</span>
-                </a>
-            </li>
-            <li class="nav-item active">
-                <a href="<?php echo URLROOT?>doctor/searchPatient" class="nav-link">
-                    <i class="material-icons-round">group</i> <span>search patient</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?php echo URLROOT?>doctor/appointments" class="nav-link">
-                    <i class="material-icons-round">medical_services</i> <span>Appointments</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?php echo URLROOT?>notificationsController/index" class="nav-link">
-                    <i class="material-icons-round">notifications</i> <span>Notifications</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?php echo URLROOT?>doctor/updateProfile" class="nav-link">
-                    <i class="material-icons-round">settings</i> <span>Settings</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="support.html" class="nav-link">
-                    <i class="material-icons-round">contact_support</i> <span>Support</span>
-                </a>
-            </li>
-        </ul>
-        
-        <div class="sidebar-footer">
-            <a href="<?php echo URLROOT?>logincontroller/logout" class="btn-user">Log-Out</a>
-        </div>
-    </div>
+    <?php include 'navbarbhagya.php'; ?>
 
     <div class="main-content" id="mainContent">
         <!-- Patient Header with Basic Info -->
@@ -388,26 +344,7 @@
         window.location.href = `${URLROOT}/patientController/viewPatientHistory/${patientId}`;
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // Toggle sidebar functionality
-        const toggleBtn = document.getElementById('toggleSideBar');
-        const sideBar = document.querySelector('.sideBar');
-        const mainContent = document.getElementById('mainContent');
-        
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', function() {
-                sideBar.classList.toggle('collapsed');
-                mainContent.classList.toggle('sidebar-collapsed');
-                
-                // Change chevron direction
-                const chevronIcon = this.querySelector('i');
-                if (sideBar.classList.contains('collapsed')) {
-                    chevronIcon.innerHTML = 'chevron_right';
-                } else {
-                    chevronIcon.innerHTML = 'chevron_left';
-                }
-            });
-        }
+   
         
         // Load health records on page load
         fetchHealthRecords();
@@ -468,7 +405,7 @@
 
             tableBody.innerHTML = html;
         }
-    });
+    
 
     // Global functions for buttons
     function seeMoreInfo(recordId) {
@@ -530,5 +467,7 @@ function deleteRecord(recordId) {
 
 
     </script>
+    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+   
 </body>
 </html>
