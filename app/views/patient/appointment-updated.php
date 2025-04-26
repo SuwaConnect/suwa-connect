@@ -265,19 +265,22 @@ overflow-y: auto;
                 <h3>Upcoming Lab Appointments</h3>
                 
                 <div class="appointment-list">
-                    <div class="appointment-item lab-appointment">
-                        <strong>Blood Work</strong> - April 28, 2025 at 8:00 AM
-                        <p>Complete Blood Count (CBC)</p>
-                        <button class="details-btn" onclick="toggleDetails('lab-apt-1')">View Details</button>
-                        <div id="lab-apt-1" class="appointment-detail">
-                            <p><strong>Test:</strong> Complete Blood Count (CBC)</p>
-                            <p><strong>Date:</strong> April 28, 2025</p>
-                            <p><strong>Time:</strong> 8:00 AM</p>
-                            <p><strong>Location:</strong> Main Hospital Lab, 1st Floor</p>
-                            <p><strong>Requirements:</strong> Fasting for 8 hours before test</p>
-                            <p><strong>Notes:</strong> Bring insurance card and ID</p>
-                        </div>
-                    </div>
+                <?php foreach ($data['lab_appointments'] as $appointment): ?>
+    <div class="appointment-item lab-appointment">
+        <strong><?= htmlspecialchars($appointment->name ?? 'Lab Test') ?></strong> - 
+        <?= date('F j, Y', strtotime($appointment->appointment_date)) ?> at 
+        <?= date('g:i A', strtotime($appointment->appointment_time)) ?>
+        <button class="details-btn" onclick="toggleDetails('lab-apt')">View Details</button>
+        
+        <div id="lab-apt" class="appointment-detail">
+            <p><strong>Date:</strong> <?= date('F j, Y', strtotime($appointment->appointment_date)) ?></p>
+            <p><strong>Time:</strong> <?= date('g:i A', strtotime($appointment->appointment_time)) ?></p>
+            <p><strong>Location:</strong> <?= $appointment->name ?? 'Main Hospital Lab, 1st Floor' ?></p>
+            
+        </div>
+    </div>
+<?php endforeach; ?>
+
                     <!-- <div class="appointment-item lab-appointment">
                         <strong>X-Ray</strong> - May 5, 2025 at 11:15 AM
                         <p>Chest X-Ray</p>
@@ -293,7 +296,7 @@ overflow-y: auto;
                     </div> -->
                 </div>
                 
-                <button class="btn" onclick="scheduleAppointment('lab')">Schedule Lab Test</button>
+                <button class="btn" onclick="window.location.href='<?php echo URLROOT;?>patientcontroller/searchLabToMakeAppointment'">Schedule Lab Test</button>
             </div>
             
             <div class="calendar-container">

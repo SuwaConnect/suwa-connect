@@ -246,6 +246,18 @@ public function getScheduledAppointmentsForPatient($patientId) {
     return $this->db->resultSet();
 }
 
+public function getScheduledLabAppointmentsForPatient($patientId) {
+    $this->db->query('SELECT l.*,r.* FROM lab_appointments l 
+    JOIN registered_labs r ON l.lab_id = r.lab_id 
+    WHERE patient_id = :patient_id AND status ="in_progress"');
+    
+    // Bind values
+    $this->db->bind(':patient_id', $patientId);
+    
+    return $this->db->resultSet();
+}
+
+
 public function updateAppointmentStatus($appointment_id){
     $this->db->query('UPDATE appointments SET status = "COMPLETED" WHERE appointment_id = :appointment_id');
     
