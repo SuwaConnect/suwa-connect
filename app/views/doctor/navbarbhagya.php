@@ -19,7 +19,7 @@
         </li>
         <li class="nav-item">
             <a href="<?php echo URLROOT?>doctor/searchPatient" class="nav-link">
-                <i class="material-icons-round">group</i> <span>search patient</span>
+                <i class="material-icons-round">group</i> <span>Search Patients</span>
             </a>
         </li>
         <li class="nav-item">
@@ -47,16 +47,20 @@
                 <i class="material-icons-round">settings</i> <span>Settings</span>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a href="support.html" class="nav-link">
                 <i class="material-icons-round">contact_support</i> <span>Support</span>
             </a>
-        </li>
-    </ul>
+        </li> -->
     
-        <div class="sidebar-footer">
-        <a href="<?php echo URLROOT?>logincontroller/logout" class="btn-user">Log-Out</a>
-        </div>
+        <li class="nav-item" id="logout">
+                <a href="<?php echo URLROOT?>logincontroller/logout" class="nav-link">
+                    <i class="material-icons-round">logout</i> <span>Log Out</span>
+                </a>
+            </li>
+        
+
+        </ul>
 
     
 </div>

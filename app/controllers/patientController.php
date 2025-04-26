@@ -16,10 +16,7 @@ class patientController extends Controller {
         $this->pharmacyModel = $this->model('pharmacyModel');
         $this->labModel = $this->model('m_lab');
 
-        // if(!isset($_SESSION['user_id'])) {
-        //     header('Location: ' . URLROOT . 'homeController/index');
-        //     exit();
-        // }
+        if(!isset($_SESSION['user_id'])) {
     }
 
     public function confirmRequest() {

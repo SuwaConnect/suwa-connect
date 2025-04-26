@@ -280,7 +280,6 @@
     <?php endif; ?>
 </div>
 
-    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
    <!-- here was render calender -->
 
     <script>
@@ -392,7 +391,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-    
+
+<script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
 
 
 
