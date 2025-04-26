@@ -177,11 +177,11 @@ public function getPharmacyByUserId($user_id){
 
 }
 
-public function updatePharmacyProfile($data, $pharmacy_id){
-    $this->db->query('UPDATE approved_pharmacy SET pharmacy_name = :pharmacy_name, contact_person = :contact_person, pharmacy_reg_number = :pharmacy_reg_number, contact_no = :contact_no , contact_no2 = :contact_no2, street = :street, city');
+public function updatePharmacyProfile( $pharmacy_id,$data){
+    $this->db->query('UPDATE approved_pharmacy SET pharmacy_name = :pharmacy_name, contact_person = :contact_person, contact_no = :contact_no , contact_no2 = :contact_no2, street = :street, city = :city, state = :state, start_time = :start_time, end_time = :end_time  WHERE pharmacy_id = :pharmacy_id');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
     $this->db->bind(':pharmacy_name', $data['pharmacy_name']);
     $this->db->bind(':contact_person', $data['contact_person']);
-    $this->db->bind(':pharmacy_reg_number', $data['']);
     $this->db->bind(':contact_no', $data['contact1']);
     $this->db->bind(':contact_no2', $data['contact2']);
     $this->db->bind(':street', $data['street']);
@@ -195,6 +195,40 @@ public function updatePharmacyProfile($data, $pharmacy_id){
     } else {
         return false;
     }
+
+}
+
+public function getTotalOrders($pharmacy_id){
+    $this->db->query('SELECT COUNT(*) as total_orders FROM orders WHERE pharmacy_id = :pharmacy_id');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    return $this->db->single()->total_orders;
+
+}
+
+public function getAllPendingOrdersForPharmacy($pharmacy_id){
+    $this->db->query('SELECT COUNT(*) as pending_orders FROM orders WHERE pharmacy_id = :pharmacy_id AND order_status = "pending"');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    return $this->db->single()->pending_orders;
+}
+
+public function getAllCompletedOrdersForPharmacy($pharmacy_id){
+    $this->db->query('SELECT COUNT(*) as completed_orders FROM orders WHERE pharmacy_id = :pharmacy_id AND order_status = "confirmed"');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    return $this->db->single()->completed_orders;
+
+}
+
+public function getAllCancelledOrdersForPharmacy($pharmacy_id){
+    $this->db->query('SELECT COUNT(*) as cancelled_orders FROM orders WHERE pharmacy_id = :pharmacy_id AND order_status = "declined"');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    return $this->db->single()->cancelled_orders;
+
+}
+
+public function getOrdersForToday($pharmacy_id){
+    $this->db->query('SELECT COUNT(*) as today_orders FROM orders WHERE pharmacy_id = :pharmacy_id AND DATE(created_at) = CURDATE()');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    return $this->db->single()->today_orders;
 
 }
 

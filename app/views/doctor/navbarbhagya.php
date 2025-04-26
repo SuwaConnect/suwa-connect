@@ -12,7 +12,7 @@
     </div>
     
     <ul class="nav-menu">
-        <li class="nav-item active">
+        <li class="nav-item ">
             <a href="<?php echo URLROOT?>doctor/home" class="nav-link">
                 <i class="material-icons-round">home</i> <span>Home</span>
             </a>

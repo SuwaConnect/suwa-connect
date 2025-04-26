@@ -30,7 +30,7 @@
     </li>
 
     <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyNotifications" class="nav-link">
+        <a href="<?php echo URLROOT?>notificationsController/index" class="nav-link">
             <i class="material-icons-round">assignment</i> <span>Notifications </span>
         </a>
     </li>

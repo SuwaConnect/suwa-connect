@@ -59,16 +59,7 @@
                             <input type="text" id="lastname" name="owner_name" placeholder="Enter your last name" value="<?php echo $data['pharmacy']->contact_person ?? 'Doctor Name'; ?>">
                         </div>
                         
-                        <!-- <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email" value="">
-                        </div> -->
-                        
-                        <!-- <div class="form-group">
-                            <label for="specialization">Specialization</label>
-                            <input type="text" id="specialization" name="specialization" placeholder="Enter your medical specialization" value="">
-                        </div> -->
-                        
+                      
                         <div class="form-group">
                             <label for="contact1">Primary Contact Number</label>
                             <input type="tel" id="contact1" name="contact1" placeholder="Enter your primary contact number" value="<?php echo $data['pharmacy']->contact_no ?? 'Doctor Name'; ?>">
@@ -107,21 +98,15 @@
                     </div>
                 </div>
                 
-                <!-- Bio -->
-                <!-- <div class="card">
-                    <h2 class="section-title">Professional Bio</h2>
-                    <div class="form-group full-width">
-                        <textarea id="bio" name="bio" placeholder="Share your professional background and expertise here..." ></textarea>
-                    </div>
-                </div> -->
+              
 
                 <div class="card">
                     <div class="form-group">
                     <h2 class="section-title">Operating hours</h2>
                     <label for="appointment-charge">From</label>
-                    <input type="time" id="appointment-charge" name="start_time" placeholder="Enter opening time" value="">
+                    <input type="time" id="appointment-charge" name="start_time" placeholder="Enter opening time" value="<?php echo $data['pharmacy']->start_time ?? 'No time provided'; ?>">
                     <label for="appointment-charge">To</label>
-                    <input type="time" id="appointment-charge" name="end_time" placeholder="Enter closing time" value="">
+                    <input type="time" id="appointment-charge" name="end_time" placeholder="Enter closing time" value="<?php echo $data['pharmacy']->end_time ?? 'No time provided'; ?>">
                     
                     </div>
                    
@@ -165,8 +150,8 @@
                 </form>
             </div>
         </div>
-    </div>
-    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+
+        <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
     
     <script>
         document.getElementById("profileInput").addEventListener("change", function(event) {

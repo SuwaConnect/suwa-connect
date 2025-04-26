@@ -27,11 +27,38 @@ class pharmacyController extends Controller {
         $this->view('pharmacy/pharmacynotifications');
     }
     public function pharmacyHome(){
-        $this->view('pharmacy/pharmacyhome');
+        //pharmacy dashboard data
+        $pharmacy_id = $this->pharmacyModel->getPharmacyByUserId($_SESSION['user_id'])->pharmacy_id;
+        $data=[
+            'total_orders' => $this->pharmacyModel->getTotalOrders($pharmacy_id),
+            'pending_orders' => $this->pharmacyModel->getAllPendingOrdersForPharmacy($pharmacy_id),
+            'completed_orders' => $this->pharmacyModel->getAllCompletedOrdersForPharmacy($pharmacy_id),
+            'cancelled_orders' => $this->pharmacyModel->getAllCancelledOrdersForPharmacy($pharmacy_id),];
+        $this->view('pharmacy/pharmacyhome', $data);
     }
 
-   public function pharmacyOrders() {
-        $this->view('pharmacy/pharmacyorders');
+    public function pharmacyOrders() {
+        // Get pharmacy ID first
+        $pharmacy_id = $this->pharmacyModel->getPharmacyByUserId($_SESSION['user_id'])->pharmacy_id;
+        
+        // Calculate all values upfront
+        $total_orders = $this->pharmacyModel->getTotalOrders($pharmacy_id);
+        $pending_orders = $this->pharmacyModel->getAllPendingOrdersForPharmacy($pharmacy_id);
+        $completed_orders = $this->pharmacyModel->getAllCompletedOrdersForPharmacy($pharmacy_id);
+        $cancelled_orders = $this->pharmacyModel->getAllCancelledOrdersForPharmacy($pharmacy_id);
+        $today_orders = $this->pharmacyModel->getOrdersForToday($pharmacy_id);
+        
+        // Create data array with calculated values
+        $data = [
+            'total_orders' => $total_orders,
+            'pending_orders' => $pending_orders,
+            'completed_orders' => $completed_orders,
+            'cancelled_orders' => $cancelled_orders,
+            'today_orders' => $today_orders,
+        ];
+        
+        // Load the view with data
+        $this->view('pharmacy/pharmacyorders', $data);
     }
     
     public function pharmacyProfile(){
@@ -210,9 +237,27 @@ class pharmacyController extends Controller {
 
 public function viewPendingOrders(){
     $pharmacy_id = $this->pharmacyModel->getPharmacyId($_SESSION['user_id'])->pharmacy_id;
-    $data['pending_orders'] = $this->pharmacyModel->getPendingOrders($pharmacy_id);
+    // $data['pending_orders'] = $this->pharmacyModel->getPendingOrders($pharmacy_id);
 
     //var_dump($data['pending_orders']);
+    //$pharmacy_id = $this->pharmacyModel->getPharmacyByUserId($_SESSION['user_id'])->pharmacy_id;
+        
+        // Calculate all values upfront
+        $total_orders = $this->pharmacyModel->getTotalOrders($pharmacy_id);
+        $pending_orders = $this->pharmacyModel->getAllPendingOrdersForPharmacy($pharmacy_id);
+        $completed_orders = $this->pharmacyModel->getAllCompletedOrdersForPharmacy($pharmacy_id);
+        $cancelled_orders = $this->pharmacyModel->getAllCancelledOrdersForPharmacy($pharmacy_id);
+        $today_orders = $this->pharmacyModel->getOrdersForToday($pharmacy_id);
+        
+        // Create data array with calculated values
+        $data = [
+            'orders' => $this->pharmacyModel->getPendingOrders($pharmacy_id),
+            'total_orders' => $total_orders,
+            'orders_pending' => $pending_orders,
+            'completed_orders' => $completed_orders,
+            'cancelled_orders' => $cancelled_orders,
+            'today_orders' => $today_orders,
+        ];
 
     $this->view('pharmacy/pharmacyorders', $data);
 }
@@ -262,25 +307,25 @@ public function updateProfileInfo(){
        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $pharmacy_id = $this->pharmacyModel->getPharmacyByUserId($_SESSION['user_id'])->pharmacy_id;
         $dataForApprovedPharmacyTable = [
-            'pharmacy_name' => trim($_POST['pharmacyname']),
-            'contact_person' => trim($_POST['owner_name']),
+            'pharmacy_name' => $_POST['pharmacy_name'],
+            'contact_person' => $_POST['owner_name'],
             // 'email' => filter_var($_POST['email'], FILTER_VALIDATE_EMAIL),
-            'contact1' => trim($_POST['contact1']),
-            'contact2' => trim($_POST['contact2']),
+            'contact1' => $_POST['contact1'],
+            'contact2' => $_POST['contact2'],
             // 'specialization' => trim($_POST['specialization']),
-            'license' => trim($_POST['licenseNo']),
+            // 'license' => trim($_POST['licenseNo']),
             // 'bio' => trim($_POST['bio']),
-            'street' => trim($_POST['street']),
-            'city' => trim($_POST['city']),
-            'state' => trim($_POST['state']),
-            'start_time'=> trim($_POST['start_time']),
-            'end_time'=> trim($_POST['end_time'])
+            'street' => $_POST['street'],
+            'city' => $_POST['city'],
+            'state' => $_POST['state'],
+            'start_time'=> $_POST['start_time'],
+            'end_time'=> $_POST['end_time']
 
         ];
         
 
-      //$this->doctorModel->updateProfileInfo($doctor_id,$dataForApprovedDoctorTable); 
-     // $this->updateProfile();
+      $this->pharmacyModel->updatePharmacyProfile($pharmacy_id,$dataForApprovedPharmacyTable); 
+      $this->pharmacyProfile();
 
         
         

@@ -108,27 +108,27 @@
         <div class="stats-container">
             <div class="stat-card">
                 <div class="stat-title">Total Orders</div>
-                <div class="stat-value">3,450</div>
+                <div class="stat-value"><?php if (isset($data['total_orders'])) {echo $data['total_orders'];} else {echo '0';}?></div>
                 <div class="stat-label">Total Orders</div>
             </div>
             <div class="stat-card">
                 <div class="stat-title">Pending Orders</div>
-                <div class="stat-value">582</div>
+                <div class="stat-value"><?php if (isset($data['orders_pending'])) {echo $data['orders_pending'];} else {echo '0';}?></div>
                 <div class="stat-label">Pending Orders</div>
             </div>
             <div class="stat-card">
                 <div class="stat-title">Confirmed Orders</div>
-                <div class="stat-value">2,758</div>
+                <div class="stat-value"><?php if (isset($data['completed_orders'])) {echo $data['completed_orders'];} else {echo '0';}?></div>
                 <div class="stat-label">Confirmed Orders</div>
             </div>
             <div class="stat-card">
                 <div class="stat-title">Declined Orders</div>
-                <div class="stat-value">110</div>
+                <div class="stat-value"><?php if (isset($data['cancelled_orders'])) {echo $data['cancelled_orders'];} else {echo '0';}?></div>
                 <div class="stat-label">Declined Orders</div>
             </div>
             <div class="stat-card">
                 <div class="stat-title">Today's Orders</div>
-                <div class="stat-value">45</div>
+                <div class="stat-value"><?php if (isset($data['today_orders'])) {echo $data['today_orders'];} else {echo '0';}?></div>
                 <div class="stat-label">Today's Orders</div>
             </div>
         </div>
@@ -156,14 +156,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach($data['pending_orders'] as $order): ?>
+    <?php if(isset($data['orders']) && !empty($data['orders'])): ?>
+        <?php foreach($data['orders'] as $order): ?>
             <tr>
                 <td><?php echo $order->order_id; ?></td>
-                <td><?php echo $order->first_name.''.$order->last_name; ?></td>
+                <td><?php echo $order->first_name.' '.$order->last_name; ?></td>
                 <td><?php echo $order->address; ?></td>
                 <td><?php echo $order->delivery_method?></td>
-                <td><?php echo  $order->contact_no;?></td>
-                
+                <td><?php echo $order->contact_no;?></td>
                 <td>
                     <span class="status-badge status-">
                         
@@ -171,13 +171,17 @@
                 </td>
                 <td>
                     <div class="action-buttons-cell">
-                        
                         <button class="action-btn action-btn-view" data-order-id="<?php echo $order->order_id; ?>">View</button>
-                        
                     </div>
                 </td>
             </tr>
         <?php endforeach; ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="7" class="no-orders-message">No orders available</td>
+        </tr>
+    <?php endif; ?>
+</tbody>
                     </tbody>
                 </table>
             </div>

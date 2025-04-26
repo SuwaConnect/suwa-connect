@@ -270,9 +270,9 @@ overflow-y: auto;
         <strong><?= htmlspecialchars($appointment->name ?? 'Lab Test') ?></strong> - 
         <?= date('F j, Y', strtotime($appointment->appointment_date)) ?> at 
         <?= date('g:i A', strtotime($appointment->appointment_time)) ?>
-        <button class="details-btn" onclick="toggleDetails('lab-apt')">View Details</button>
+        <button class="details-btn" onclick="toggleDetails('lab-apt-<?=$appointment->appointment_id?>')">View Details</button>
         
-        <div id="lab-apt" class="appointment-detail">
+        <div id="lab-apt-<?=$appointment->appointment_id?>" class="appointment-detail">
             <p><strong>Date:</strong> <?= date('F j, Y', strtotime($appointment->appointment_date)) ?></p>
             <p><strong>Time:</strong> <?= date('g:i A', strtotime($appointment->appointment_time)) ?></p>
             <p><strong>Location:</strong> <?= $appointment->name ?? 'Main Hospital Lab, 1st Floor' ?></p>
