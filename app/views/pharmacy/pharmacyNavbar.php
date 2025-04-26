@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
+<link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacynavbar.css">
 
 <div class="sideBar">
 

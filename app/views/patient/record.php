@@ -144,7 +144,8 @@
     </div>
     </div>
 
-    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js" ></script>
+    <script src="<?php echo URLROOT?>public\js\doctor\js\navbar.js"></script>
+
     <script src="<?php echo URLROOT?>public/assets/js/record.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>

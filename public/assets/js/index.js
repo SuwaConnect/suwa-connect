@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         window.location.href = SITE_URL +'pharmacycontroller/pharmacySignIn';
                         break;
                     case 'lab':
-                        window.location.href = SITE_URL + 'labcontroller/labsignin';
+                        window.location.href = SITE_URL + 'logIncontroller/authenticate';
                         break;
                 }
             }

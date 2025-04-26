@@ -118,7 +118,9 @@ function handleRequest(requestId, status) {
     });
 }
 </script>
-<script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+
+<script src="<?php echo URLROOT?>public\js\doctor\js\navbar.js"></script>
+
 
 
 <style>

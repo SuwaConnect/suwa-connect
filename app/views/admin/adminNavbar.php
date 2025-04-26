@@ -53,11 +53,11 @@
             </li>
             <li class="nav-item">
                 <a href="<?php echo URLROOT;?>logincontroller/logout" class="nav-link">
-                    <i class="material-icons-round">logout</i> <span>log-out</span>
+                    <i class="material-icons-round">logout</i> <span>Log out</span>
                 </a>
-            </li>
+            </li> 
         </ul>
         <div class="sidebar-footer">
-            <button class="btn-user">Log in as user</button>
+        <button class="btn-user"onclick="window.location.href='<?php echo URLROOT; ?>homecontroller/patientSignIn';">Log in as user</button>
         </div>
     </div>

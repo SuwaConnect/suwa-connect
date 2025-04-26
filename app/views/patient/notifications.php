@@ -43,7 +43,8 @@
 
         
         <script src="assets/js/appoimt.js"></script>
-        <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+        <script src="<?php echo URLROOT?>public\js\doctor\js\navbar.js"></script>
+
 
         <script>
                 document.addEventListener('DOMContentLoaded', function() {

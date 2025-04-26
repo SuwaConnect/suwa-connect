@@ -54,7 +54,5 @@
             </li>
             
         </ul>
-        <div class="sidebar-footer">
-            <button class="btn-user" href="dashboard"></button>
-        </div>
+        
     </div>

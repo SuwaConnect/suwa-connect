@@ -497,7 +497,6 @@
         }
     }
 
-});
 
 // Make sure these are global so inline onclick can access them
 function seeMoreinfo(recordId) {

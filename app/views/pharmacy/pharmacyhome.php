@@ -9,8 +9,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
     <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacyhome.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacydashboard.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/dashboard.css">
 
     <title>Pharmacies Home - Suwa-Connect</title>
 </head>

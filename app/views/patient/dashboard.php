@@ -339,6 +339,6 @@
         </div> -->
     </div>
     </div>
-    <script src="<?php echo URLROOT?>public/js/doctor/js/navbar.js" ></script>
-    </body>
+    <script src="<?php echo URLROOT?>public\js\doctor\js\navbar.js"></script>
+ </body>
 </html>

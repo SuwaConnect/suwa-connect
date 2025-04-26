@@ -303,7 +303,8 @@ body{
             </div>
         </div>
     </div>
-    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+    <script src="<?php echo URLROOT?>public\js\doctor\js\navbar.js"></script>
+
     <script>
 
         const record_id = "<?php echo $data['record_id'];?>";

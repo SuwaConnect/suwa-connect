@@ -72,7 +72,8 @@
 
 
 
-    <script src="<?php echo URLROOT?>assets/js/navbartwo.js"></script>
+    <script src="<?php echo URLROOT?>public\js\doctor\js\navbar.js"></script>
+
    
     <script>
     document.getElementById('dateSearchForm').addEventListener('submit', function(e) {

@@ -89,7 +89,8 @@
                 </div>
         </div>
 </div>
-<script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+<script src="<?php echo URLROOT?>public\js\doctor\js\navbar.js"></script>
+
 <script src="<?php echo URLROOT?>assets/js/appoi.js"></script>
 <script>
     // Add this before including your appoi.js file
