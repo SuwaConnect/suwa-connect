@@ -1,244 +1,243 @@
 
-        :root {
-            --primary-color: #2563eb;
-            --secondary-color: #4f46e5;
-            --accent-color: #3b82f6;
-            --text-color: #1e293b;
-            --light-text: #64748b;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --error-color: #ef4444;
-            --success-color: #22c55e;
-            --border-color: #e2e8f0;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #4f46e5;
+    --accent-color: #3b82f6;
+    --text-color: #1e293b;
+    --light-text: #64748b;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --error-color: #ef4444;
+    --success-color: #22c55e;
+    --border-color: #e2e8f0;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-        body {
-            background-color: #e6f2ff;
-            color: var(--text-color);
-            min-height: 100vh;
-           
-        }
-
-
-        .main-content {
-  
-            background-color: #e6f2ff;
-            color:#2e2e2e;
-            padding: 20px;
-            margin-left: 250px;
-            padding: 20px;
-            width: calc(100% - 250px); 
-            overflow-y: auto; 
-            flex-grow: 1;
-            transition: margin-left 0.3s ease, width 0.3s ease; 
-          }
-
-        .sideBar.collapsed + .main-content{
-
-            margin-left:80px;
-            width: calc(100% - 80px);
-            overflow-y: auto;
-        }
-
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-            font-weight: 600;
-        }
-
-        .section-title {
-            font-size: 1.25rem;
-            margin: 20px 0 10px;
-            color: var(--secondary-color);
-            font-weight: 500;
-            border-bottom: 2px solid var(--accent-color);
-            padding-bottom: 5px;
-            display: inline-block;
-        }
-
-        .profile-container {
-            display: block;
-            /* grid-template-columns: 1fr 3fr;
-            gap: 30px; */
-        }
-
-        .profile-sidebar {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            padding: 20px;
-            text-align: center;
-            height: fit-content;
-        }
-
-        .profile-image-container {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-        }
-
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--accent-color);
-            box-shadow: var(--shadow);
-        }
-
-        .doctor-name {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .upload-options {
-            margin-top: 15px;
-        }
-
-        .btn {
-            background-color: #0052cc;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 8px 16px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            margin: 5px;
-        }
-
-        .btn:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: var(--light-text);
-        }
-
-        .file-input {
-            display: none;
-        }
-
-        .profile-details {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        input[readonly] {
-            background-color: #f5f5f5;
-            cursor: not-allowed;
-            border: 1px solid #ddd;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: var(--shadow);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group.full-width {
-            grid-column: span 2;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-            color: var(--light-text);
-            font-weight: 500;
-            text-transform: capitalize;
-        }
-
-        input, textarea {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            font-size: 1rem;
-            transition: border 0.3s ease;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .address-inputs {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .submit-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .update-btn {
-            background-color: #0052cc;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 12px 24px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .update-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        #appointment-charge{
-            width: 50%;
-        }
-
-        @media (max-width: 768px) {
-            .profile-container {
-                grid-template-columns: 1fr;
-            }
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-            .form-group.full-width {
-                grid-column: span 1;
-            }
-            .address-inputs {
-                grid-template-columns: 1fr;
-            }
-        }
+body {
+    background-color: #e6f2ff;
+    color: var(--text-color);
+    min-height: 100vh;
    
+}
+
+
+.main-content {
+
+    background-color: #e6f2ff;
+    color:#2e2e2e;
+    padding: 20px;
+    margin-left: 250px;
+    padding: 20px;
+    width: calc(100% - 250px); 
+    overflow-y: auto; 
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; 
+  }
+
+.sideBar.collapsed + .main-content{
+
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    margin: 20px 0 10px;
+    color: var(--secondary-color);
+    font-weight: 500;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.profile-container {
+    display: block;
+    /* grid-template-columns: 1fr 3fr;
+    gap: 30px; */
+}
+
+.profile-sidebar {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    text-align: center;
+    height: fit-content;
+}
+
+.profile-image-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent-color);
+    box-shadow: var(--shadow);
+}
+
+.doctor-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.upload-options {
+    margin-top: 15px;
+}
+
+.btn {
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    margin: 5px;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--light-text);
+}
+
+.file-input {
+    display: none;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+input[readonly] {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    border: 1px solid #ddd;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    color: var(--light-text);
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.address-inputs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.submit-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.update-btn {
+    background-color: #0052cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.update-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+#appointment-charge{
+    width: 50%;
+}
+
+@media (max-width: 768px) {
+    .profile-container {
+        grid-template-columns: 1fr;
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+    .address-inputs {
+        grid-template-columns: 1fr;
+    }
+}

@@ -118,20 +118,4 @@ public function revokeAccess($doctor_id, $patient_id) {
     }
 
 }
-
-public function createLabAppointment($lab_id, $patient_id, $test_name,$appointment_date, $appointment_time) {
-    // Create a lab appointment for a specific patient
-    $this->db->query('INSERT INTO lab_appointments_requests (lab_id, patient_id,test_name, appointment_date, appointment_time) VALUES (:lab_id, :patient_id, :test_name,:appointment_date, :appointment_time)');
-    $this->db->bind(':lab_id', $lab_id);
-    $this->db->bind(':patient_id', $patient_id);
-    $this->db->bind(':test_name', $test_name); // Assuming a default test type for now
-    $this->db->bind(':appointment_date', $appointment_date);
-    $this->db->bind(':appointment_time', $appointment_time);
-    
-    if($this->db->execute()) {
-        return true;
-    } else {
-        return false;
-    }
-}
 }

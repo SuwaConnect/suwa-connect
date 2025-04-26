@@ -6,7 +6,6 @@ class patientController extends Controller {
     private $appointmentModel;
     private $visitRecordModel;
     private $pharmacyModel;
-    private $labModel;
 
     public function __construct() {
         $this->patientModel = $this->model('patientModel');
@@ -14,9 +13,11 @@ class patientController extends Controller {
         $this->appointmentModel = $this->model('appointmentModel');
         $this->visitRecordModel = $this->model('VisitRecordModel');
         $this->pharmacyModel = $this->model('pharmacyModel');
-        $this->labModel = $this->model('m_lab');
 
         if(!isset($_SESSION['user_id'])) {
+            header('Location: ' . URLROOT . 'homeController/index');
+            exit();
+        }
     }
 
     public function confirmRequest() {
@@ -32,11 +33,9 @@ class patientController extends Controller {
             try{
                 $patientId = $this->appointmentModel->getPatientIdByUserId($_SESSION['user_id'])->patient_id;
                 $appointments = $this->appointmentModel->getScheduledAppointmentsForPatient($patientId);
-                $labAppointments = $this->appointmentModel->getScheduledLabAppointmentsForPatient($patientId);
 
                 $data = [
-                    'appointments' => $appointments,
-                    'lab_appointments' => $labAppointments
+                    'appointments' => $appointments
                 ];
                 //var_dump($data['appointments']);
                 $this->view('patient/appointment-updated', $data);
@@ -104,20 +103,6 @@ class patientController extends Controller {
 
     public function searchDoctorToMakeAppointment(){
         $this->view('patient/searchDoctor');
-    }
-
-    public function searchLabToMakeAppointment(){
-        $data=  $this->labModel->getAllLabs();
-        
-        $this->view('patient/searchLabs', $data);
-    }
-
-    public function makeLabAppointment($lab_id){
-        $data = [
-            'lab' => $this->labModel->getLabByLabId($lab_id),
-            'patient' => $this->patientModel->getPatientByUserId($_SESSION['user_id']),
-        ];
-        $this->view('patient/makeLabAppointment', $data);
     }
     
 
@@ -421,60 +406,4 @@ public function revokeAccess(){
     echo json_encode($response);
     exit; // Stop execution after sending response
 }
-
-public function searchLabs(){
-    try{if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $json = file_get_contents('php://input');
-        $data = json_decode($json, true);
-        $searchTerm = $data['searchQuery'];
-        $labs = $this->labModel->searchLabs($searchTerm);
-        $data = [
-            'labs' => $labs
-        ];
-        
-        echo json_encode($data);
-        exit;
-    }
-        
-    } catch (Exception $e) {
-        // Handle exception (e.g., log the error, show an error message)
-        echo "Error: " . $e->getMessage();
-    }
-}
-
-
-
-public function createLabAppointment() {
-    header('Content-Type: application/json');
-    try {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $json = file_get_contents('php://input');
-            $data = json_decode($json, true);
-            $lab_id = filter_var($data['lab_id'], FILTER_VALIDATE_INT);
-            $patient = $this->patientModel->getPatientByUserId($_SESSION['user_id']);
-            $patient_id = $patient->patient_id;
-            $test_name = htmlspecialchars($data['testName']);
-            
-            // Format date and time if necessary
-            $appointment_date = date('Y-m-d', strtotime($data['date']));
-            $appointment_time = date('H:i:s', strtotime($data['time']));
-           
-             if ($this->patientModel->createLabAppointment($lab_id, $patient_id, $test_name, $appointment_date, $appointment_time)) {
-                echo json_encode(['success' => true]);
-                
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Failed to create appointment']);
-            }
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Invalid request method']);
-        }
-    } catch (Exception $e) {
-        echo json_encode(['success' => false, 'message' => 'Exception: ' . $e->getMessage()]);
-    }
-}
-
-
-
-
-
 }
