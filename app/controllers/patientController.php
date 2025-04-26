@@ -18,7 +18,7 @@ class patientController extends Controller {
 
         if(!isset($_SESSION['user_id'])) {
     }
-
+    }
     public function confirmRequest() {
         $this->view('patient/confirmRequest');
     }
