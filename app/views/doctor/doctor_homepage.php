@@ -95,7 +95,7 @@
         
 
         <div class="appointments">
-            <div class="title">appointments</div>
+            <div class="title">today's sessions</div>
             <?php if(isset($data['appointments'])): ?>
                 <?php foreach($data['appointments'] as $appointment):?>
                     <div class="name"><?php echo $appointment->first_name.' '.$appointment->last_name;?></div>

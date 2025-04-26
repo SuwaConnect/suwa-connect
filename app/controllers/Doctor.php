@@ -20,7 +20,6 @@ class Doctor extends Controller
              'today_appointments' => $this->doctorModel->getCountOfTodayappointments($_SESSION['user_id']),
              'total_patients' => $this->doctorModel->getTotalPatientsForDoctor($_SESSION['user_id']),
              'patients_consulted' => $this->doctorModel->getCountOfPatientsConsulted($_SESSION['user_id']),
-            // 'consultations' => $this->doctorModel->getConsultations($_SESSION['user_id']),
         ];
 
         $this->view('doctor/doctor_homepage',$data);
