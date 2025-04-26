@@ -35,7 +35,17 @@ class pharmacyController extends Controller {
     }
     
     public function pharmacyProfile(){
-        $this->view('pharmacy/pharmacyprofile');
+        try{
+        $pharmacy = $this->pharmacyModel->getPharmacyByUserId($_SESSION['user_id']);
+        $data=[
+            'pharmacy' => $pharmacy
+        ];
+        //var_dump($pharmacy);
+        $this->view('pharmacy/pharmacy-profile-updated',$data);
+        }
+        catch(Exception $e){
+            echo "An error occurred: " . $e->getMessage();
+        }
     }
 
     public function pharmacyPromotions(){
@@ -245,5 +255,41 @@ public function updateOrderStatus($order_id = null) {
     }
     
     exit();
+}
+
+public function updateProfileInfo(){
+    try{
+       if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $pharmacy_id = $this->pharmacyModel->getPharmacyByUserId($_SESSION['user_id'])->pharmacy_id;
+        $dataForApprovedPharmacyTable = [
+            'pharmacy_name' => trim($_POST['pharmacyname']),
+            'contact_person' => trim($_POST['owner_name']),
+            // 'email' => filter_var($_POST['email'], FILTER_VALIDATE_EMAIL),
+            'contact1' => trim($_POST['contact1']),
+            'contact2' => trim($_POST['contact2']),
+            // 'specialization' => trim($_POST['specialization']),
+            'license' => trim($_POST['licenseNo']),
+            // 'bio' => trim($_POST['bio']),
+            'street' => trim($_POST['street']),
+            'city' => trim($_POST['city']),
+            'state' => trim($_POST['state']),
+            'start_time'=> trim($_POST['start_time']),
+            'end_time'=> trim($_POST['end_time'])
+
+        ];
+        
+
+      //$this->doctorModel->updateProfileInfo($doctor_id,$dataForApprovedDoctorTable); 
+     // $this->updateProfile();
+
+        
+        
+    } }catch(Exception $e){
+        // Handle the exception here (e.g., log it, show an error message, etc.)
+        echo 'Error: ' . $e->getMessage();
+    }
+
+
+
 }
 }

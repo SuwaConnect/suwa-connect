@@ -83,4 +83,16 @@ public function updateDoctorProfilePicture($newFileName,$id,){
         return false;
     }
 }
+
+public function updatePharmacyProfilePicture($newFileName,$id,){
+    $this->db->query('UPDATE approved_pharmacy SET profile_picture_name = :profile_picture WHERE user_id = :id');
+    $this->db->bind(':profile_picture', $newFileName);
+    $this->db->bind(':id', $id);
+
+    if($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
 }

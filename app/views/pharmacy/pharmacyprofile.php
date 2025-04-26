@@ -43,10 +43,10 @@
                     <input type="text" id="pharmacyName" name="pharmacy-name">
                 </div>
                 
-                <div class="info-group">
+                <!-- <div class="info-group">
                     <label for="licenseNumber">License Number</label>
                     <input type="text" id="licenseNumber" name="licensenumber">
-                </div>
+                </div> -->
                 
                 <div class="info-group">
                     <label for="email">Email Address</label>
@@ -131,12 +131,11 @@
                 </div>
             </div>
             
-            <div class="verification-section">
+            <!-- <div class="verification-section">
                 <h2 class="section-title">Verification Status</h2>
                 <div class="verification-status">
                     <div>Status:</div>
                     <span class="status-verified">✅ Verified</span>
-                    <!-- Alternatively: <span class="status-pending">⏳ Pending Verification</span> -->
                 </div>
                 
                 <div class="upload-section">
@@ -156,10 +155,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             
             <div class="buttons">
-                <button class="btn btn-outline">Cancel</button>
+                <!-- <button class="btn btn-outline">Cancel</button> -->
                 <button class="btn btn-primary">Save Changes</button>
             </div>
         </div>
@@ -167,62 +166,62 @@
 
     <script>
         // Toggle specialty selection
-        document.querySelectorAll('.specialty-item').forEach(item => {
-            item.addEventListener('click', function() {
-                this.classList.toggle('selected');
-            });
-        });
+        // document.querySelectorAll('.specialty-item').forEach(item => {
+        //     item.addEventListener('click', function() {
+        //         this.classList.toggle('selected');
+        //     });
+        // });
 
-        // Handle file upload for profile image
-        document.querySelector('.change-image').addEventListener('click', function() {
-            document.getElementById('profileImage').click();
-        });
+        // // Handle file upload for profile image
+        // document.querySelector('.change-image').addEventListener('click', function() {
+        //     document.getElementById('profileImage').click();
+        // });
 
-        document.getElementById('profileImage').addEventListener('change', function(e) {
-            if (e.target.files && e.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    document.querySelector('.image-preview').src = event.target.result;
-                }
-                reader.readAsDataURL(e.target.files[0]);
-            }
-        });
+        // document.getElementById('profileImage').addEventListener('change', function(e) {
+        //     if (e.target.files && e.target.files[0]) {
+        //         const reader = new FileReader();
+        //         reader.onload = function(event) {
+        //             document.querySelector('.image-preview').src = event.target.result;
+        //         }
+        //         reader.readAsDataURL(e.target.files[0]);
+        //     }
+        // });
 
-        // Document upload functionality
-        document.getElementById('uploadDocuments').addEventListener('click', function() {
-            // Create a file input element
-            const fileInput = document.createElement('input');
-            fileInput.type = 'file';
-            fileInput.accept = '.pdf,.doc,.docx,.jpg,.png';
+        // // Document upload functionality
+        // document.getElementById('uploadDocuments').addEventListener('click', function() {
+        //     // Create a file input element
+        //     const fileInput = document.createElement('input');
+        //     fileInput.type = 'file';
+        //     fileInput.accept = '.pdf,.doc,.docx,.jpg,.png';
             
-            fileInput.addEventListener('change', function(e) {
-                if (e.target.files && e.target.files[0]) {
-                    const fileName = e.target.files[0].name;
+        //     fileInput.addEventListener('change', function(e) {
+        //         if (e.target.files && e.target.files[0]) {
+        //             const fileName = e.target.files[0].name;
                     
-                    // Create a new file item
-                    const fileItem = document.createElement('div');
-                    fileItem.className = 'file-item';
-                    fileItem.innerHTML = `<i>📄</i> ${fileName} <span class="remove">✕</span>`;
+        //             // Create a new file item
+        //             const fileItem = document.createElement('div');
+        //             fileItem.className = 'file-item';
+        //             fileItem.innerHTML = `<i>📄</i> ${fileName} <span class="remove">✕</span>`;
                     
-                    // Add remove functionality
-                    fileItem.querySelector('.remove').addEventListener('click', function() {
-                        fileItem.remove();
-                    });
+        //             // Add remove functionality
+        //             fileItem.querySelector('.remove').addEventListener('click', function() {
+        //                 fileItem.remove();
+        //             });
                     
-                    // Add to the list
-                    document.querySelector('.uploaded-files').appendChild(fileItem);
-                }
-            });
+        //             // Add to the list
+        //             document.querySelector('.uploaded-files').appendChild(fileItem);
+        //         }
+        //     });
             
-            fileInput.click();
-        });
+        //     fileInput.click();
+        // });
 
-        // Handle remove buttons for existing files
-        document.querySelectorAll('.file-item .remove').forEach(btn => {
-            btn.addEventListener('click', function() {
-                this.parentElement.remove();
-            });
-        });
+        // // Handle remove buttons for existing files
+        // document.querySelectorAll('.file-item .remove').forEach(btn => {
+        //     btn.addEventListener('click', function() {
+        //         this.parentElement.remove();
+        //     });
+        // });
     </script>
 </body>
 </html>

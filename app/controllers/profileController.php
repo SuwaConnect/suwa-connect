@@ -43,6 +43,10 @@ class profileController extends Controller{
                         }elseif($role=='laboratory'){
                             $this->profileModel->updateLaboratoryProfilePicture($newFileName, $_SESSION['user_id']);
                             echo 'success';
+                        }elseif($role == 'pharmacy'){
+                            $this->profileModel->updatePharmacyProfilePicture($newFileName, $_SESSION['user_id']);
+                            //echo 'success';
+                            header('Location: '.URLROOT.'pharmacyController/pharmacyprofile');
                         }
                     
                         else {

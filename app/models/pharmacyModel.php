@@ -168,7 +168,34 @@ public function updateOrderStatus($order_id, $status){
     } else {
         return false;
     }
-                
+}
+
+public function getPharmacyByUserId($user_id){
+    $this->db->query('SELECT * FROM approved_pharmacy WHERE user_id = :user_id' );
+    $this->db->bind(':user_id',$user_id);
+    return $this->db->single();
 
 }
+
+public function updatePharmacyProfile($data, $pharmacy_id){
+    $this->db->query('UPDATE approved_pharmacy SET pharmacy_name = :pharmacy_name, contact_person = :contact_person, pharmacy_reg_number = :pharmacy_reg_number, contact_no = :contact_no , contact_no2 = :contact_no2, street = :street, city');
+    $this->db->bind(':pharmacy_name', $data['pharmacy_name']);
+    $this->db->bind(':contact_person', $data['contact_person']);
+    $this->db->bind(':pharmacy_reg_number', $data['']);
+    $this->db->bind(':contact_no', $data['contact1']);
+    $this->db->bind(':contact_no2', $data['contact2']);
+    $this->db->bind(':street', $data['street']);
+    $this->db->bind(':city', $data['city']);
+    $this->db->bind(':state', $data['state']);
+    $this->db->bind(':start_time', $data['start_time']);
+    $this->db->bind(':end_time', $data['end_time']);
+
+    if($this->db->execute()){
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
 }
