@@ -95,16 +95,24 @@
         
 
         <div class="appointments">
-            <div class="title">today's sessions</div>
-            <?php if(isset($data['appointments'])): ?>
-                <?php foreach($data['appointments'] as $appointment):?>
-                    <div class="name"><?php echo $appointment->first_name.' '.$appointment->last_name;?></div>
-                    <div class="time"><?php echo $appointment->slot_time?></div>
-                <?php endforeach;?>
-                <?php else: ?>
-                <div class="name">No appointments</div>
-                <?php endif; ?>
-        </div>
+    <div class="title">today's sessions</div>
+    <?php if(isset($data['todays sessions'])): ?>
+        <?php $count = 1; // initialize counter ?>
+        <?php foreach($data['todays sessions'] as $appointment): ?>
+            <div class="name">
+                <?php echo 'Session '.$count.': ' ?>
+            </div>
+            <div class="time"><?php 
+            $start = date('G.i', strtotime($appointment->start_time));
+            $end = date('G.i', strtotime($appointment->end_time));
+            echo $start.'  -  '. $end?></div>
+            <?php $count++; // increment counter ?>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="name">No appointments</div>
+    <?php endif; ?>
+</div>
+
 
         <div  class="consultations">
             <div class="title">consultations</div>

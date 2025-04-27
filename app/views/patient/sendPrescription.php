@@ -13,9 +13,9 @@
         body {
             font-family: Arial, sans-serif;
             line-height: 1.6;
-            max-width: 800px;
+            /* max-width: 800px; */
             margin: 0 auto;
-            padding: 20px;
+            /* padding: 20px; */
             color: #333;
         }
 
@@ -43,12 +43,28 @@
             width: calc(100% - 80px);
             overflow-y: auto;
             }
+
+            .main-content {
+    background-color: #e6f2ff;
+    color:#2e2e2e;
+    padding: 20px;
+    margin-left: 250px; /* To make space for the sidebar */
+    padding: 20px;
+    width: calc(100% - 250px); /* Take the remaining width */
+    overflow-y: auto; /* Enable scrolling if content overflows vertically */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+    display: flex;
+    justify-content: center;
+}
    
         .container {
             background-color: #f9f9f9;
             border-radius: 8px;
-            padding: 20px;
+            padding: 40px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            
         }
         
         h1 {
@@ -138,11 +154,25 @@
             color: #777;
             font-style: italic;
         }
+
+        #popup {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background:rgb(63, 111, 255);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+}
     </style>
 </head>
 <body>
     <?php include 'navbar-patient.php'?>
-    
+    <div class="main-content">
     <div class="container">
         <h1>Send Prescription to Pharmacy</h1>
         
@@ -179,6 +209,8 @@
         
         <button class="submit-btn" onclick="submitPrescription()">Send to Pharmacy</button>
     </div>
+    </div>
+    <div id="popup">Order placed successfully!</div>
     
 
     <script>
@@ -223,7 +255,14 @@
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Prescription sent to pharmacy successfully!');
+            const popup = document.getElementById('popup');
+  popup.style.display = 'block';
+
+  // Hide after 2 seconds and redirect
+  setTimeout(() => {
+    popup.style.display = 'none';
+    window.location.href = '<?php echo URLROOT?>patientController/dashboard'; // your PHP redirection
+  }, 3000);
         } else {
             alert('Error: ' + data.message);
         }
@@ -232,7 +271,11 @@
         console.error('Error sending prescription:', error);
         alert('There was an error sending your prescription. Please try again.');
     });
+
+   
 }
     </script>
+        <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+
 </body>
 </html>

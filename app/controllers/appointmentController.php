@@ -59,10 +59,9 @@ public function __construct(){
                     // 'status' => 'pending'
                 ];
 
-                
-                //$this->appointmentModel->createAppointment($data);
+                // $this->appointmentModel->createAppointment($data);
                 if($this->appointmentModel->createAppointment($data)) {
-                        echo 'Appointment booked successfully';
+                        header('Location: ' . URLROOT . 'patientcontroller/appointments');
                 } else {
                         echo 'Something went wrong';
                 }

@@ -20,6 +20,7 @@ class Doctor extends Controller
              'today_appointments' => $this->doctorModel->getCountOfTodayappointments($_SESSION['user_id']),
              'total_patients' => $this->doctorModel->getTotalPatientsForDoctor($_SESSION['user_id']),
              'patients_consulted' => $this->doctorModel->getCountOfPatientsConsulted($_SESSION['user_id']),
+             'todays sessions' => $this->doctorModel->getTodaysSessions($_SESSION['user_id']),
         ];
 
         $this->view('doctor/doctor_homepage',$data);
@@ -285,6 +286,42 @@ class Doctor extends Controller
    
 
     
+    }
+
+
+    public function getDoctorDetails($doctor_id) {
+        try {
+            // Set Content-Type header for JSON response
+            header('Content-Type: application/json');
+            
+            // Validate that doctor_id is a valid integer
+            if (!is_numeric($doctor_id) || $doctor_id <= 0) {
+                http_response_code(400); // Bad Request
+                echo json_encode(['error' => 'Invalid doctor ID']);
+                return;
+            }
+            
+            // Get the doctor details from the model
+            $doctor = $this->doctorModel->getDoctorByIdFromApprovedDoctors($doctor_id);
+            
+            // Check if doctor was found
+            if (!$doctor) {
+                http_response_code(404); // Not Found
+                echo json_encode(['error' => 'Doctor not found']);
+                return;
+            }
+            
+            // Return doctor data as JSON
+            echo json_encode($doctor);
+            
+        } catch (Exception $e) {
+            // Log the error (if you have a logging system)
+            // error_log('Error in getDoctorDetails: ' . $e->getMessage());
+            
+            // Send proper error response
+            http_response_code(500); // Internal Server Error
+            echo json_encode(['error' => 'An error occurred while fetching doctor details']);
+        }
     }
 
    

@@ -326,6 +326,8 @@ body{
                 }
             });
 
+            
+
             function performSearch() {
                 const searchQuery = searchInput.value.trim();
                 if (searchQuery === '') return;
@@ -385,19 +387,20 @@ body{
                     // }
                     
                     // Set the image source - use placeholder if no image
-                    const imageUrl = pharmacy.image_url && pharmacy.image_url.trim() !== '' 
-                        ? pharmacy.image_url 
-                        : '/api/placeholder/400/320';
+                    // const imageUrl = pharmacy.image_url && pharmacy.image_url.trim() !== '' 
+                        // ? pharmacy.image_url 
+                        // : '/api/placeholder/400/320';
+                        const imageUrl = '<?php echo URLROOT;?>public/uploads/profile_pictures/pharmacy/' + pharmacy.profile_picture_name;
                     
                     // Build the HTML for the pharmacy card
                     pharmacyCard.innerHTML = `
                         <img src="${imageUrl}" alt="${pharmacy.pharmacy_name}" class="pharmacy-image">
                         <div class="pharmacy-details">
                             <h3 class="pharmacy-name">${pharmacy.pharmacy_name}</h3>
-                            <p class="pharmacy-address"></p>
+                            <p class="pharmacy-address">${pharmacy.street},${pharmacy.city},${pharmacy.state}</p>
                             <div class="pharmacy-info">
-                                <span class="operating-hours">Open: </span>
-                                <span class="phone-number"></span>
+                                <span class="operating-hours" id="open-time">Open:${pharmacy.start_time} </span>
+                                <span class="phone-number">${pharmacy.contact_no}</span>
                             </div>
                             
                             <a href="<?php echo URLROOT;?>patientController/sendPrescription/${record_id}/${pharmacy.pharmacy_id}" class="view-details">Select pharmacy</a>
@@ -407,6 +410,9 @@ body{
                     // Add the card to the pharmacy list
                     pharmacyList.appendChild(pharmacyCard);
                 });
+
+                const t = new Date('1970-01-01T' + document.getElementById('open-time').textContent.replace('Open:', '').trim());
+            document.getElementById('open-time').textContent = 'Open: ' + t.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             }
         });
     </script>

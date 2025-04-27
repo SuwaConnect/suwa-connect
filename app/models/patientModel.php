@@ -134,4 +134,27 @@ public function createLabAppointment($lab_id, $patient_id, $test_name,$appointme
         return false;
     }
 }
+
+public function updatePatientProfile($data){
+    // Update patient profile information
+    $this->db->query('UPDATE patients SET first_name = :first_name, last_name = :last_name, contact_no = :contact_no,  address = :address,height= :height,blood_type =:blood_type , chronic_conditions= :chronic_conditions ,allergies = :allergies ,past_surgeries = :past_surgeries, additional_health_notes= :additional_health_notes WHERE patient_id = :patient_id');
+    $this->db->bind(':first_name', $data['first_name']);
+    $this->db->bind(':last_name', $data['last_name']);
+    $this->db->bind(':contact_no', $data['contact_no']);
+    $this->db->bind(':address', $data['address']);
+    $this->db->bind(':height', $data['height']);
+    $this->db->bind(':blood_type', $data['blood_type']);
+    $this->db->bind(':chronic_conditions', $data['chronic_conditions']);
+    $this->db->bind(':allergies', $data['allergies']);
+    $this->db->bind(':past_surgeries', $data['past_surgeries']);
+    $this->db->bind(':additional_health_notes', $data['additional_health_notes']);
+    $this->db->bind(':patient_id', $data['patient_id']);
+    
+    if($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 }
