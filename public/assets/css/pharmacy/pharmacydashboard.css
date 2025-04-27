@@ -35,8 +35,7 @@ body {
 /* Main Content Styles */
 .content {
     flex: 1;
-    margin-left: var(--sidebar-width);
-    padding: 20px;
+   
 }
 
 .page {

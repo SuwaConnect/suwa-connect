@@ -1,9 +1,12 @@
-document.getElementById("toggleSideBar").addEventListener("click", function () {
-    document.querySelector(".sideBar").classList.toggle("collapsed");
+// Wait for the DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded, initializing navigation scripts');
     
+    // Set active navigation item
+    setActiveNavItem();
     
-    const toggleIcon = document.querySelector('.toggle-btn i');
-    toggleIcon.textContent = toggleIcon.textContent === 'chevron_left' ? 'chevron_right' : 'chevron_left';
+    // Setup sidebar toggle (with error handling)
+    setupSidebarToggle();
 });
 
 // Function to set the active navigation item

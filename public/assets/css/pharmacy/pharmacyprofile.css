@@ -12,14 +12,15 @@ body {
 
 .container {
     max-width: 1200px;
-    margin: 0 auto;
+    margin-left: 20px;
     padding: 20px;
 }
 
 .header {
-    display: flex;
     align-items: center;
     margin-bottom: 20px;
+    margin-left: 250px;
+    padding:20px;
 }
 
 .logo {
@@ -77,6 +78,7 @@ body {
     padding: 25px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     margin-bottom: 20px;
+    margin-left:270px;
 }
 
 .section-title {

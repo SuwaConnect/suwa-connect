@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/pharmacyhome.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacydashboard.css">
+    <!-- <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacydashboard.css"> -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>public/assets/css/pharmacy/pharmacyorders.css">
     <style>
         /* Modal styles */
@@ -77,9 +77,7 @@
     <div class="main-content">
         <!-- Page Header -->
         <div class="page-header">
-            <button class="back-button">
-                <span>←</span>
-            </button>
+            
             <div class="header-text">
                 <h1>Prescription Orders</h1>
                 <p>Manage incoming orders from patients through Suwa Connect.</p>

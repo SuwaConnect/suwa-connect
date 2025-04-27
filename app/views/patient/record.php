@@ -17,10 +17,13 @@
     <div class="containerf">
         <div class="container">
             <div class="main-content">
-                <h1>Welcome back <?php echo $data['patient']->first_name?>! </h1>
-                <h4>Here's an overview of your past health records...</h2>
+                <h1>Welcome Back <?php echo $data['patient']->first_name?>! </h1>
+                <h2> Summary of your Recent Health Records</h2>
 
-                
+                <p id="current-date"></p>
+
+                <h4> Overview of your health metrics from the latest appointment.</h4><br>
+
                 <div class="boxes">
                     <div class="box">
                         <div class="box-header">
@@ -58,7 +61,8 @@
                         <img src="<?php echo URLROOT?>public/assets/images/Health Records/HRgraph.png" alt="Graph" class="graph-icon">
                     </div>
                 </div>
-                <div class="blue-background"></div>
+                </div>
+                <!-- <div class="blue-background"></div> -->
             </div>
         </div>
         
