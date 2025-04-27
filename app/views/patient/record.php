@@ -18,10 +18,9 @@
         <div class="container">
             <div class="main-content">
                 <h1>Welcome back <?php echo $data['patient']->first_name?>! </h1>
-                <h2>Here's an overview of your past health records...</h2>
+                <h4>Here's an overview of your past health records...</h2>
 
-                <p id="current-date"></p>
-
+                
                 <div class="boxes">
                     <div class="box">
                         <div class="box-header">
@@ -91,10 +90,10 @@
         <div class="side-box">
             <div class="bmi-calculator">
                 <h3>BMI Calculator</h3>
-                <select class="dropdown">
+                <!-- <select class="dropdown">
                     <option value="last-week">Last Week</option>
                     <option value="last-month">Last Month</option>
-                </select>
+                </select> -->
             </div>
             <div class="boxes-wrapper">
                 <div class="smallboxset">
@@ -102,7 +101,7 @@
                         <div class="text-container">
                             <div class="height-container">
                                 <p class="label">Height</p>
-                                <p class="value">170cm</p>
+                                <p class="value"><?php echo $data['patient']->height?>CM</p>
                             </div>
                         </div>
                     </div>
@@ -120,13 +119,20 @@
                     <div class="bmititle">
                         <h3>Body Mass Index</h3>
                         <div class="bmi-info">
-                            <div class="bmi-value"><?php echo end($data['vitalSigns'])->weight?></div>
-                            <button class="status">You are Healthy</button>
+                            <div class="bmi-value">
+                                <?php 
+                                $weight = end($data['vitalSigns'])->weight;
+                                $height = $data['patient']->height / 100; 
+                                $bmi = $weight / ($height * $height);
+                            
+                            
+                            echo floor($bmi)?></div>
+                            <button class="status"><?if($bmi>27.5){echo 'You are unhealthy';} else {echo 'You are healthy';}?></button>
                         </div>
                         <div class="slider-container">
                             <div class="slider">
                                 <div class="slider-track">
-                                    <div class="slider-thumb" style="left: 80%;"></div>
+                                    <!-- <div class="slider-thumb" style="left: 50%;"></div> -->
                                 </div>
                             </div>
                             <div class="slider-label">
@@ -145,7 +151,7 @@
     </div>
 
     <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js" ></script>
-    <script src="<?php echo URLROOT?>public/assets/js/record.js"></script>
+    <!-- <script src="public/assets/js/record.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
 document.addEventListener('DOMContentLoaded', function() {

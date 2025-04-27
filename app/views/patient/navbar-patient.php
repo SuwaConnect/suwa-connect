@@ -27,11 +27,11 @@
                     <i class="material-icons-round">file_copy</i> <span>Health Records</span>
                 </a>
             </li>
-            <li class="nav-item ">
-                <a href="<?php echo URLROOT?>patientcontroller/report" class="nav-link">
+            <!-- <li class="nav-item ">
+                <a href="patientcontroller/report" class="nav-link">
                     <i class="material-icons-round">monitor</i> <span>Reports</span>
                 </a>
-            </li>
+            </li> -->
             <li class="nav-item">
                 <a href="<?php echo URLROOT?>notificationsController/index" class="nav-link">
                     <i class="material-icons-round">notifications</i> <span>Notifications</span>

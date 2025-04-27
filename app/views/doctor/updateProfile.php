@@ -51,12 +51,12 @@
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="firstname">First Name</label>
-                            <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" readonly value="<?php echo $data['doctor']->firstName ?? 'Doctor Name'; ?>">
+                            <input type="text" id="firstname" name="firstname" placeholder="Enter your first name"  value="<?php echo $data['doctor']->firstName ?? 'Doctor Name'; ?>">
                         </div>
                         
                         <div class="form-group">
                             <label for="lastname">Last Name</label>
-                            <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" readonly value="<?php echo $data['doctor']->lastName ?? 'Doctor Name'; ?>">
+                            <input type="text" id="lastname" name="lastname" placeholder="Enter your last name"  value="<?php echo $data['doctor']->lastName ?? 'Doctor Name'; ?>">
                         </div>
                         
                         <div class="form-group">
