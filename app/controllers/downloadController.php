@@ -21,11 +21,7 @@ class DownloadController extends Controller {
         echo "Download as: " . htmlspecialchars($file_name) . "<br>";
         echo "File exists: " . (file_exists($file_path) ? 'Yes' : 'No') . "<br>";
         
-        // Basic security check - prevent directory traversal attacks
-        // if (strpos($file_path, '..') !== false) {
-        //     die('Invalid file path');
-        // }
-
+       
         // Verify the file exists
         if (!file_exists($file_path)) {
             die('File not found: ' . htmlspecialchars($file_path));

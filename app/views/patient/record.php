@@ -17,7 +17,7 @@
     <div class="containerf">
         <div class="container">
             <div class="main-content">
-                <h1>Welcome back <?php echo $data['patient']->first_name?>! </h1>
+                <h1 style="color: #073aa8;">Welcome back <?php echo $data['patient']->first_name.' '.$data['patient']->last_name?>! </h1>
                 <h4>Here's an overview of your past health records...</h2>
 
                 
@@ -28,7 +28,14 @@
                             <h3>Blood Sugar</h3>
                         </div>
                         <div class="box-data">
-                            <span class="value"><?php echo end($data['vitalSigns'])->blood_sugar?></span>
+                            <span class="value"><?php 
+                                                    if (!empty($data['vitalSigns']) && end($data['vitalSigns'])->blood_sugar !== null) {
+                                                        echo end($data['vitalSigns'])->blood_sugar;
+                                                    } else {
+                                                        echo "not checked";
+                                                    }
+                                                ?>
+                            </span>
                             <span class="unit">mg/dL</span>
                         </div>
                         <img src="<?php echo URLROOT?>public/assets/images/Health Records/BSgraph.png" alt="Graph" class="graph-icon">
@@ -40,7 +47,14 @@
                             <h3>Blood Pressure</h3>
                         </div>
                         <div class="box-data">
-                            <span class="value"><?php echo end($data['vitalSigns'])->systolic .'/'. end($data['vitalSigns'])->diastolic?></span>
+                            <span class="value"><?php 
+    if (!empty($data['vitalSigns']) && end($data['vitalSigns'])->systolic !== null && end($data['vitalSigns'])->diastolic !== null) {
+        echo end($data['vitalSigns'])->systolic . '/' . end($data['vitalSigns'])->diastolic;
+    } else {
+        echo "not checked";
+    }
+?>
+</span>
                             <span class="unit">mmHg</span>
                         </div>
                         <img src="<?php echo URLROOT?>public/assets/images/Health Records/BPgraph.png" alt="Graph" class="graph-icon">
@@ -52,7 +66,13 @@
                             <h3>Cholesterol</h3>
                         </div>
                         <div class="box-data">
-                            <span class="value"><?php echo end($data['vitalSigns'])->cholesterol?></span>
+                            <span class="value"><?php 
+    if (!empty($data['vitalSigns']) && end($data['vitalSigns'])->cholesterol !== null) {
+        echo end($data['vitalSigns'])->cholesterol;
+    } else {
+        echo "not checked";
+    }
+?></span>
                             <span class="unit">mg/dL</span>
                         </div>
                         <img src="<?php echo URLROOT?>public/assets/images/Health Records/HRgraph.png" alt="Graph" class="graph-icon">
@@ -101,7 +121,10 @@
                         <div class="text-container">
                             <div class="height-container">
                                 <p class="label">Height</p>
-                                <p class="value"><?php echo $data['patient']->height?>CM</p>
+                                <p class="value"><?php 
+    echo (!empty($data['patient']->height)) ? $data['patient']->height : "not checked";
+?>
+CM</p>
                             </div>
                         </div>
                     </div>
@@ -109,7 +132,10 @@
                         <div class="text-container">
                             <div class="height-container">
                                 <p class="label">Weight</p>
-                                <p class="value"><?php echo end($data['vitalSigns'])->weight?>KG</p>
+                                <p class="value"><?php 
+    echo (!empty($data['patient']->weight)) ? $data['patient']->weight : "not checked";
+?>
+KG</p>
                             </div>
                         </div>
                     </div>
@@ -120,14 +146,25 @@
                         <h3>Body Mass Index</h3>
                         <div class="bmi-info">
                             <div class="bmi-value">
-                                <?php 
-                                $weight = end($data['vitalSigns'])->weight;
-                                $height = $data['patient']->height / 100; 
-                                $bmi = $weight / ($height * $height);
-                            
-                            
-                            echo floor($bmi)?></div>
-                            <button class="status"><?if($bmi>27.5){echo 'You are unhealthy';} else {echo 'You are healthy';}?></button>
+                            <?php $bmi =null;
+    if (!empty($data['vitalSigns']) && !empty($data['patient']->height)) {
+        
+        $weight = end($data['vitalSigns'])->weight;
+        $height = $data['patient']->height / 100; 
+        $bmi = $weight / ($height * $height);
+        echo floor($bmi);
+    } else {
+        echo "not checked";
+    }
+?>
+</div>
+                            <button class="status"><?php 
+                    if (!is_null($bmi)) {
+                        echo ($bmi > 27.5) ? 'You are unhealthy' : 'You are healthy';
+                    } else {
+                        echo 'BMI not available';
+                    }
+                ?></button>
                         </div>
                         <div class="slider-container">
                             <div class="slider">

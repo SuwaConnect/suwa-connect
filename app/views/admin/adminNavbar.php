@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item active">
-                <a href="<?php echo URLROOT;?>admincontroller/pendingdoctors" class="nav-link">
+                <a href="<?php echo URLROOT;?>adminController/pendingUsers" class="nav-link">
                     <i class="material-icons-round">group</i> <span>User Management</span>
                 </a>
             </li>

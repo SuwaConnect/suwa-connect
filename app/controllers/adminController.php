@@ -56,10 +56,17 @@ class adminController extends Controller
 
    
 
-    public function pendingdoctors(){
+    public function pendingUsers(){
 
-        $data = $this->adminModel->getPendingDoctors();
-        $this->view('admin/pendingdoctor', $data);
+        $doctors = $this->adminModel->getPendingDoctors();
+        $labs = $this->labModel->getPendingLabs();
+        $pharmacies = $this->pharmacyModel->getPendingPharmacies();
+        $data = [
+            'doctors' => $doctors,
+            'labs' => $labs,
+            'pharmacies' => $pharmacies
+        ];
+        $this->view('admin/pendingUsers', $data);
     }
 
     public function approveDoctor() {
