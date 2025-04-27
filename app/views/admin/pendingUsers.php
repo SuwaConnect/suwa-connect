@@ -30,7 +30,7 @@
             }
             
             .tab-button.active {
-                background: #4CAF50;
+                background: rgb(14, 74, 255);
                 color: white;
                 border-bottom: none;
             }
@@ -67,7 +67,7 @@
             
             #approve-btn {
                 padding: 6px 12px;
-                background-color: #4CAF50;
+                background-color:rgb(14, 74, 255);
                 color: white;
                 border: none;
                 border-radius: 4px;
