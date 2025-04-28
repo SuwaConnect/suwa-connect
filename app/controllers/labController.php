@@ -30,8 +30,6 @@ public function labSignIn(){
 
 
 public function labNotifications(){
-    // $labModel = $this->model('m_lab');
-    // $lab_id = $_SESSION['lab_id'];
     $labModel = $this->model('m_lab');
      $lab_id = $labModel->getLabByUserId($_SESSION['user_id'])->lab_id; // Get the lab ID from the session
 
@@ -215,44 +213,6 @@ public function labsignup2() {
     // Render the view for lab registration step 2
     $this->view('labs/labsignup2', $data);
 }
-
-// public function authenticate() {
-//     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-//         $email = trim($_POST['email']);
-//         $password = trim($_POST['password']);
-
-//         if (empty($email) || empty($password)) {
-//             $data = [
-//                 'title' => 'Lab/Pharmacy Login',
-//                 'email' => $email,
-//                 'password' => $password,
-//                 'error' => 'Please enter both email and password'
-//             ];
-//             $this->view('user/lablogin', $data);
-//             return;
-//         }
-
-//         $user = $this->m_lab->verifyCredentials($email, $password);
-
-//         if ($user) {
-//             $_SESSION['lab_id'] = $user->lab_id;
-//             $_SESSION['user_name'] = $user->name;
-//             $_SESSION['user_email'] = $user->email;
-
-//             redirect('labController/labHomePage');
-//         } else {
-//             $data = [
-//                 'title' => 'Lab/Pharmacy Login',
-//                 'email' => $email,
-//                 'password' => $password,
-//                 'error' => 'Invalid email or password'
-//             ];
-//             $this->view('user/lablogin', $data);
-//         }
-//     } else {
-//         $this->login();
-//     }
-// }
 
 public function login() {
     $data = [

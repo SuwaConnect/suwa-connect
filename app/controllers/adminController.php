@@ -23,15 +23,47 @@ class adminController extends Controller
     }
 
     public function home(){
-        $this->view('admin/adminhome');
+        $modelAdmin = $this->model('m_admin');
+        $userCount = $modelAdmin->getTotalUsers();
+        $activeUserCount = $modelAdmin->getTotalActiveUsers();
+        $latestSignups = $modelAdmin->getLatestSignups();
+        $totalAppointments = $modelAdmin->getTotalAppointments();
+        $userGrowth = $modelAdmin->getUserGrowth();
+        $latestNotifications = $modelAdmin->getLatestNotifications();
+        $this->view('admin/adminhome',['userCount' => $userCount,
+            'activeUserCount' => $activeUserCount,
+            'latestSignups' => $latestSignups,
+            'totalAppointments' => $totalAppointments,
+            'userGrowth' => $userGrowth,
+            'latestNotifications' => $latestNotifications
+        ]);
     }
 
     public function appointments(){
-        $this->view('admin/adminappointments');
+        $appointmentModel = $this->model('m_admin');
+        $totalAppointments = $appointmentModel->getTotalAppointments();
+        $upcomingAppointments = $appointmentModel->getUpcomingAppointments();
+        $completedAppointments = $appointmentModel->getCompletedAppointments();
+        $canceledAppointments = $appointmentModel->getCanceledAppointments();
+        $appointments = $appointmentModel->getAppointments();
+
+        $this->view('admin/adminappointments',[
+            'totalAppointments' => $totalAppointments,
+            'upcomingAppointments' => $upcomingAppointments,
+            'completedAppointments' => $completedAppointments,
+            'canceledAppointments' => $canceledAppointments,
+            'appointments' => $appointments
+        ]);
     }
 
-    public function notifications(){
-        $this->view('admin/adminnotifications');
+    public function notifications() {
+        $modelAdmin = $this->model('m_admin');
+        $notifications = $modelAdmin->getNotifications();
+
+        // Pass notifications to the view
+        $this->view('admin/adminnotifications', [
+            'notifications' => $notifications
+        ]);
     }
 
     public function revenue(){
@@ -282,7 +314,6 @@ public function rejectLab(){
         echo json_encode(['success' => false, 'error' => 'Invalid request method']);
     }
 }
-
 
 
 public function getAllUsers() {

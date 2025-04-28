@@ -16,7 +16,7 @@
                     <i class="material-icons-round">home</i> <span>Home</span>
                 </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a href="<?php echo URLROOT;?>adminController/pendingUsers" class="nav-link">
                     <i class="material-icons-round">group</i> <span>User Approval</span>
                 </a>
@@ -32,23 +32,11 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo URLROOT;?>admincontroller/reports" class="nav-link">
-                    <i class="material-icons-round">trending_up</i> <span>Reports</span>
-                </a>
+                
             </li>
             <li class="nav-item">
                 <a href="<?php echo URLROOT;?>admincontroller/notifications" class="nav-link">
                     <i class="material-icons-round">notifications</i> <span>Notifications</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?php echo URLROOT;?>admincontroller/settings" class="nav-link">
-                    <i class="material-icons-round">settings</i> <span>Settings</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="<?php echo URLROOT;?>admincontroller/support" class="nav-link">
-                    <i class="material-icons-round">contact_support</i> <span>Support</span>
                 </a>
             </li>
             <li class="nav-item">

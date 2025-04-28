@@ -30,80 +30,58 @@
             <!-- Notifications Card -->
             <div class="card large-card">
                 <h3>Notifications & Alerts</h3>
-                <p class ="description"></p>
+                <?php if (!empty($data['latestNotifications'])): ?>
+    <?php foreach ($data['latestNotifications'] as $notification): ?>
+        <p class="description">
+            <?php echo htmlspecialchars($notification->message); ?>
+        </p>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p>No new notifications</p>
+<?php endif; ?>
                 <p></p>
             </div>
             
             <div class="card">
                 <h3>Total Users</h3>
                 <p class ="description">Number of registered users</p>
-                <p>23</p>
+                <p><?= $data['userCount'] ?? '0' ?></p>
             </div>
 
             <!-- Total Active Users Card -->
             <div class="card">
                 <h3>Active Users</h3>
-                <p class ="description">Number of users who logged in within the last 24hrs</p>
-                <p>2</p>
+                <p class ="description">Number of users who are active in the system</p>
+                <p><?= $data['activeUserCount'] ?? '0' ?></p>
             </div>
 
             <!-- New Sign Ups Card -->
             <div class="card">
                 <h3>New Signups</h3>
                 <p class ="description">Last 7 Days</p>
-                <p>9</p>
+                <p><?= $data['latestSignups'] ?? '0' ?></p>
             </div>
 
             <!-- Appointment Card -->
             <div class="card large-card">
                 <h3>Total Appointments Booked</h3>
                 <p class ="description">Count of appointments scheduled via the platform</p>
-                <p>9</p>
-            </div>
-
-            <!-- Revenue Card -->
-            <div class="card">
-                <h3>Total Revenue</h3>
-                <p class ="description">Revenue generated</p>
-                <p>9</p>
-            </div>
-
-             <!-- Revenue Card -->
-             <div class="card">
-                <h3>Total Revenue Month</h3>
-                <p class ="description">Revenue generatedfor  the current month </p>
-                <p>9</p>
+                <p><?= $data['totalAppointments'] ?? '0' ?></p>
             </div>
 
             <!-- User Growth Card -->
             <div class="card large-card">
                 <h3>User Growth</h3>
                 <p class ="description"></p>
-                <p>9</p>
+                <p><?= $data['userGrowth'] ?? '0' ?></p>
             </div>
-
-             <!-- Revenue Analysis Card -->
-             <div class="card">
-                <h3>Revenue Analysis</h3>
-                <p class ="description">Breakdown by Services </p>
-                <p>9</p>
-            </div>
-
-            <!-- User Growth Card -->
-            <div class="card large-card">
-                <h3>User Growth</h3>
-                <p class ="description"></p>
-                <p>9</p>
-            </div>
-        </div>
         
-
+</div>
     <!-- Footer Section -->
     <footer>
         <p>&copy; 2024 Suwa Connect. All rights reserved.</p>
         <a href="#"></a>
     </footer> 
-            
     </div>
 
     

@@ -23,7 +23,21 @@
     font-size: 0.85rem;
     font-weight: 500;
 }
+.button-primary {
+    background-color: #007bff; /* Blue color */
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
 
+.button-primary:hover {
+    background-color: #0056b3; /* Darker blue */
+    transform: translateY(-2px); /* Slight hover lift effect */
+}
 .active-status {
     background-color: #e6f7ee;
     color: #00a650;
@@ -92,7 +106,7 @@
           <div class="search-container">
                 <div class="search-box">
                     <input type="text" placeholder="Search by name, email, or user type..." id="searchInput">
-                    <button onclick="searchUsers(document.getElementById('searchInput').value)">Search</button>
+                    <button class ='button-primary'onclick="searchUsers(document.getElementById('searchInput').value)">Search</button>
                 </div>
                 
             </div>    
