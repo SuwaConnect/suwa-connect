@@ -72,7 +72,7 @@
         <div class="buttons">
             <button type="button" id="addReport" class="action-btn add-btn">Add Another Report</button>
             <button type="submit" class="action-btn submit-btn">Submit Reports</button>
-            <button type="button" class="action-btn cancel-btn" onclick="window.location.href='<?php echo URLROOT; ?>visitRecordController/prescription/<?php echo $data['patientId']?>/<?php echo $data['health_record_id']; ?>'">Skip to prescriptions</button>
+            <button type="button" class="action-btn submit-btn" onclick="window.location.href='<?php echo URLROOT; ?>visitRecordController/prescription/<?php echo $data['patientId']?>/<?php echo $data['health_record_id']; ?>'">Skip to prescriptions</button>
         </div>
     </form>
     </div>

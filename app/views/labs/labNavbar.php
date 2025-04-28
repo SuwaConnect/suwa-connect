@@ -66,14 +66,6 @@
                 </a>
             </li>
 
-            <!-- <div class="profile-section">
-            <a href="profile.php" class="profile-icon" id="logoutButton">
-                <img src="assets/images/navbar/user.png" alt="Profile Picture">
-            </a>
-            <div class="profile-text">
-                <p>Welcome Back,<br> <span class="user-name">Sahan</span></p>
-            </div>
-            </div>
-        </ul> -->
+            
         
     </div>

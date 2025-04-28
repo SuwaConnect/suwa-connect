@@ -115,6 +115,10 @@ class Doctor extends Controller
         $this->view('doctor/patientProfile');
     }
 
+    // public function viewPatientHistory($patient_id){
+    //     $this->view('doctor/viewpatientHistory');
+    // }
+
     public function updateProfile(){
         try {
             $doctor_id = $this->doctorModel->getDoctorIdByUserId($_SESSION['user_id']);

@@ -64,66 +64,58 @@
                     </div>
                 </div>
 
-                <div class="quick-actions">
-                    <div class="search-bar">
-                        <input type="text" placeholder="Search orders by patient name or prescription ID">
-                        <button><i class="fas fa-search"></i></button>
-                    </div>
-                    <div class="action-buttons">
-                        <button class="btn primary"><i class="fas fa-calendar-day"></i> View Today's Orders</button>
-                        <button class="btn secondary"><i class="fas fa-file-export"></i> Export Order History</button>
-                    </div>
-                </div>
+                
 
                 <div class="recent-orders">
                     <h2>Recent Orders</h2>
                     <table class="orders-table">
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Patient Name</th>
-                                <th>Doctor Name</th>
-                                <th>Prescription Summary</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>RX0012</td>
-                                <td>Dinithi Silva</td>
-                                <td>Dr. Nimal Fernando</td>
-                                <td>Amoxil 500mg x 14 days</td>
-                                <td><span class="status pending">Pending</span></td>
-                                <td>
-                                    <button class="btn-sm view"><i class="fas fa-eye"></i></button>
-                                    <button class="btn-sm confirm"><i class="fas fa-check"></i></button>
-                                    <button class="btn-sm decline"><i class="fas fa-times"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>RX0011</td>
-                                <td>Kumar Perera</td>
-                                <td>Dr. Samanthi Dias</td>
-                                <td>Metformin 500mg x 30 days</td>
-                                <td><span class="status confirmed">Confirmed</span></td>
-                                <td>
-                                    <button class="btn-sm view"><i class="fas fa-eye"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>RX0010</td>
-                                <td>Anura Bandara</td>
-                                <td>Dr. Nimal Fernando</td>
-                                <td>Atorvastatin 20mg x 30 days</td>
-                                <td><span class="status completed">Completed</span></td>
-                                <td>
-                                    <button class="btn-sm view"><i class="fas fa-eye"></i></button>
-                                </td>
-                            </tr>
-                        </tbody>
+                    <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Patient Name</th>
+                <th>Delivery method</th>
+               
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if(empty($data)): ?>
+                <tr>
+                    <td colspan="6" class="text-center">No orders found</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach($data['unprocessed_orders'] as $order): ?>
+                    <tr data-order-id="<?php echo $order->order_id; ?>"
+                        data-patient-id="<?php echo $order->patient_id; ?>"
+                        data-record-id="<?php echo $order->record_id; ?>">
+                        <td><?php echo $order->order_id; ?></td>
+                        <td><?php echo $order->first_name.' '.$order->last_name; ?></td>
+                        <td><?php echo $order->delivery_method; ?></td>
+                        <td>
+                            <span class="status <?php echo $order->order_status; ?>">
+                                <?php echo $order->order_status; ?>
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn-sm view" onclick="viewPrescription('<?php echo $order->record_id; ?>', '<?php echo $order->order_id; ?>')">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                            
+                            
+                                <button class="btn-sm process" onclick="markAsProcessed('<?php echo $order->order_id; ?>')">
+                                    <i class="fas fa-check"></i> Process
+                                </button>
+                            
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
                     </table>
                 </div>
+
+                
             </section>
 
     <footer class="footer">
@@ -132,6 +124,94 @@
     </div>
 
     <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+    <script>
+
+                  /**
+ * Simple function to view a prescription
+ * @param {string} recordId - The ID of the medical record
+ * @param {string} orderId - The ID of the order
+ */
+function viewPrescription(recordId, orderId) {
+  alert("Loading prescription for Order #" + orderId);
+  
+  fetch("<?php echo URLROOT?>/pharmacyController/getPrescriptionDetails/" + orderId)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      // Create a simple message with prescription details
+      var message = "Prescription Details for Order #" + orderId + "\n\n";
+      
+      // Add patient information if available
+      if (data.patient_details) {
+        message += "Patient: " + data.patient_details.first_name + " " + data.patient_details.last_name + "\n\n";
+      }
+      
+      message += "Medications:\n";
+      
+      // Add each medication to the message
+      for (var i = 0; i < data.medicines.length; i++) {
+        var med = data.medicines[i];
+        message += "- " + med.name + "\n";
+      }
+      
+      // Show the prescription details
+      alert(message);
+    })
+    .catch(function(error) {
+      console.error("Error loading prescription:", error);
+      alert("Could not load the prescription. Please try again.");
+    });
+}
+
+/**
+ * Simple function to mark an order as processed
+ * @param {string} orderId - The ID of the order to process
+ */
+function markAsProcessed(orderId) {
+  var confirmed = confirm("Are you sure you want to mark Order #" + orderId + " as processed?");
+  
+  if (confirmed) {
+    var data = new FormData();
+    data.append("order_id", orderId);
+    
+    fetch("<?php echo URLROOT;?>pharmacyController/markOrderAsProcessed", {
+      method: "POST",
+      body: data
+    })
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(result) {
+      if (result.success) {
+        alert("Order #" + orderId + " has been processed successfully!");
+        
+        var orderRow = document.querySelector("tr[data-order-id='" + orderId + "']");
+        if (orderRow) {
+          var statusCell = orderRow.querySelector("td:nth-child(4) .status");
+          if (statusCell) {
+            statusCell.textContent = "Processed";
+            statusCell.className = "status completed";
+          }
+          
+          var processButton = orderRow.querySelector(".process");
+          if (processButton) {
+            processButton.remove();
+          }
+        }
+      } else {
+        alert("Could not process the order. Please try again.");
+      }
+    })
+    .catch(function(error) {
+      console.error("Error processing order:", error);
+      alert("Could not process the order. Please try again.");
+    });
+  }
+}
+
+
+    </script>
 
 </body>
 </html>

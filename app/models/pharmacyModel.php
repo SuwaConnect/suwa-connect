@@ -99,6 +99,16 @@ class pharmacyModel {
         return $this->db->resultSet();
     }
 
+    public function markOrderAsProcessed($order_id){
+        $this->db->query('UPDATE orders SET delivered = "processed" WHERE order_id = :order_id');
+        $this->db->bind(':order_id', $order_id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function createOrder($patientId, $pharmacyId, $specialInstructions, $deliveryMethod, $recordId){
         $this->db->query('INSERT INTO orders (patient_id, pharmacy_id, special_instructions, delivery_method, record_id) VALUES (:patient_id, :pharmacy_id, :special_instructions, :delivery_method, :record_id)');
         $this->db->bind(':patient_id', $patientId);
@@ -122,7 +132,8 @@ public function getPendingOrders($pharmacy_id) {
                      FROM orders o
                      JOIN patients p ON o.patient_id = p.patient_id
                      WHERE o.pharmacy_id = :pharmacy_id 
-                     AND o.order_status = "pending"');
+                     AND o.order_status = "pending"
+                     AND o.delivered = "not_processed"');
     
     $this->db->bind(':pharmacy_id', $pharmacy_id);
     $orders = $this->db->resultSet();
@@ -136,6 +147,20 @@ public function getPendingOrders($pharmacy_id) {
     }
     
     return $orders;
+}
+
+public function getNotprocessedOrdersForPharmacy($pharmacy_id){
+
+    $this->db->query('SELECT o.*, p.*
+                     FROM orders o
+                     JOIN patients p ON o.patient_id = p.patient_id
+                     WHERE o.pharmacy_id = :pharmacy_id 
+                     AND o.order_status = "confirmed"
+                     AND o.delivered = "not_processed"');
+    $this->db->bind(':pharmacy_id', $pharmacy_id);
+    $orders = $this->db->resultSet();
+    return $orders;
+
 }
 
 public function getHealthRecordIdFromOrder($order_id){
