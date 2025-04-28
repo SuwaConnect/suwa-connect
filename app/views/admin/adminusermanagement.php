@@ -15,68 +15,68 @@
 
 
     <title>Suwa-Connect</title>
+    <style>
+        /* User Status Styles */
+.status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.active-status {
+    background-color: #e6f7ee;
+    color: #00a650;
+}
+
+.inactive-status {
+    background-color: #fff1f0;
+    color: #f5222d;
+}
+
+/* Action Button Styles */
+.action-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
+
+.view-btn {
+    background-color: #e6f7ff;
+    color: #1890ff;
+}
+
+.edit-btn {
+    background-color: #fff7e6;
+    color: #fa8c16;
+}
+
+.activate-btn {
+    background-color: #e6f7ee;
+    color: #00a650;
+}
+
+.deactivate-btn {
+    background-color: #fff1f0;
+    color: #f5222d;
+}
+
+/* Card value style */
+.card-value {
+    display: block;
+    font-size: 1.8rem;
+    margin-top: 10px;
+    font-weight: 700;
+}
+    </style>
 </head>
 
 <body>
   
-
-<div class="sidebar">
-        <div class="logo">
-            <img src="./Images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
-            <h2>සුව CONNECT</h2>
-
-            <button class="toggle-btn" id="toggleSidebar"> 
-                <i class="material-icons-round">chevron_left</i>
-            </button>
-        </div>
-        <ul class="nav-menu">
-            <li class="nav-item">
-                <a href="home.html" class="nav-link">
-                    <i class="material-icons-round">home</i> <span>Home</span>
-                </a>
-            </li>
-            <li class="nav-item active">
-                <a href="userManagement.html" class="nav-link">
-                    <i class="material-icons-round">group</i> <span>User Management</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="appointments.html" class="nav-link">
-                    <i class="material-icons-round">medical_services</i> <span>Appointments</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="revenue.html" class="nav-link">
-                    <i class="material-icons-round">paid</i> <span>Revenue</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="reports.html" class="nav-link">
-                    <i class="material-icons-round">trending_up</i> <span>Reports</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="notifications.html" class="nav-link">
-                    <i class="material-icons-round">notifications</i> <span>Notifications</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="settings.html" class="nav-link">
-                    <i class="material-icons-round">settings</i> <span>Settings</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="support.html" class="nav-link">
-                    <i class="material-icons-round">contact_support</i> <span>Support</span>
-                </a>
-            </li>
-        </ul>
-        <div class="sidebar-footer">
-        <button class="btn-user"onclick="window.location.href='<?php echo URLROOT; ?>homecontroller/patientSignIn';">Log in as user</button>
-       
-        </div>
-    </div> 
-
+<?php include 'adminNavbar.php'?>
     <div class="main-content">
         <!-- Header Section -->
         <div>
@@ -91,21 +91,14 @@
           <!-- Search and Filters -->
           <div class="search-container">
                 <div class="search-box">
-                    <input type="text" placeholder="Search by name, email, or user type...">
-                    <i class="material-icons-round">search</i>
+                    <input type="text" placeholder="Search by name, email, or user type..." id="searchInput">
+                    <button onclick="searchUsers(document.getElementById('searchInput').value)">Search</button>
                 </div>
-                <select class="filter-dropdown">
-                <option value="all">All Users</option>
-                    <option value="patient">Patient</option>
-                    <option value="doctor">Doctor</option>
-                    <option value="lab">Laboratory</option>
-                    <option value="pharmacy">Pharmacy</option>
-                    <option value="admin">Admin</option>
-                </select>
+                
             </div>    
 
             <div>
-                <button id = "addNewUserBtn" class="add-user-btn">Add New User</button>
+               
                 
                 <!-- Modal Form for Adding New User -->                
                 <div id="addUserModal" class="modal">
@@ -143,9 +136,7 @@
                 
                 </div>
                 
-                    <button class="export-options">Export as Excel</button>
-                    <button class="export-options">Export as CSV</button>
-                    <button class="export-options">Export as PDF</button>
+                   
                 
             </div>
             
@@ -169,9 +160,9 @@
             <div class="card">
                 <h3>Banned Users</h3>
             </div>
-            <div class="card">
+            <!-- <div class="card">
                 <h3>Deactivated Users</h3>
-            </div>
+            </div> -->
 
             <div class="card">
                 <h3>User Summary</h3>
@@ -185,19 +176,21 @@
         </section>
 
         <!-- User Table/List View -->
-        <table class="user-table">
+        <table class="user-table" id="userTable">
             <thead>
                 <tr>
                     <th>User Name</th>
                     <th>Email Address</th>
                     <th>User Type</th>
                     <th>Status</th>
-                    <th>Sign-Up Date</th>
-                    <th>Last Login</th>
                     <th>Actions</th>
                 </tr>
-            </thead>
-            <tbody>
+            </thead class="tBody">
+            <tbody id ="userTableBody">
+                <!-- User data will be populated here dynamically using JavaScript -->
+                <tr>
+                    <td colspan="5" class="no-data">No users found.</td>
+                </tr>
 
             
             </tbody>
@@ -207,26 +200,7 @@
         
 
 
-        <!-- Bulk Actions Section -->
-        <div class="bulk-actions">
-            <button>Select All</button>
-            <button>Deactivate Selected</button>
-            <button>Ban Selected</button>
-            <button>Send Notification</button>
-        </div>
-
-        <!-- Notifications Section -->
-        <section class="notifications-section">
-            <h3>Notifications</h3>
-            <div class="notification-item">
-                <p>Dr. Maya's account was reactivated on Sep 10, 2024.</p>
-            </div>
-            <div class="report-item">
-                <p>5 reports submitted in the last 7 days.</p>
-            </div>
-        </section>
-
-    <!-- Footer Section -->
+        
     <footer>
         <p>&copy; 2024 Suwa Connect. All rights reserved.</p>
         <a href="#"></a>
@@ -234,79 +208,162 @@
 
     </div>
 
-    <!-- View User Modal -->
-<div id="viewUserModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>User Details</h2>
-            <span class="close-btn-view"><i class="material-icons-round">cancel</i></span>
-        </div>
-        <div class="modal-body">
-            <div class="user-details">
-                <p><strong>Name:</strong> </p>
-                <p><strong>Email:</strong> </p>
-                <p><strong>User Type:</strong> </p>
-                <p><strong>Status:</strong> </p>
-                <p><strong>Sign-up Date:</strong> </p>
-                <p><strong>Last Login:</strong> </p>
-            </div>
-           
-        </div>
-    </div>
-</div>
-
-<!-- Edit User Modal -->
-<div id="editUserModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Edit User</h2>
-            <span class="close-btn-edit"><i class="material-icons-round">cancel</i></span>
-        </div>
-        <div class="modal-body">
-           
-            <form action="userManagement.php" method="POST" class="edit-form">
-                <input type="hidden" name="user_id" value="">
-                
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" value="" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" value="" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="user_type">User Type</label>
-                    <select id="user_type" name="user_type" required>
-                        <option value="patient" >Patient</option>
-                        <option value="doctor" <?php echo ($_SESSION['edit_user']['user_type'] == 'doctor') ? 'selected' : ''; ?>>Doctor</option>
-                        <option value="lab" <?php echo ($_SESSION['edit_user']['user_type'] == 'lab') ? 'selected' : ''; ?>>Laboratory</option>
-                        <option value="pharmacy" <?php echo ($_SESSION['edit_user']['user_type'] == 'pharmacy') ? 'selected' : ''; ?>>Pharmacy</option>
-                        <option value="admin" <?php echo ($_SESSION['edit_user']['user_type'] == 'admin') ? 'selected' : ''; ?>>Admin</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select id="status" name="status" required>
-                        <option value="active" <?php echo ($_SESSION['edit_user']['status'] == 'active') ? 'selected' : ''; ?>>Active</option>
-                        <option value="inactive" <?php echo ($_SESSION['edit_user']['status'] == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
-                    </select>
-                </div>
-
-                <button type="submit" name="update" class="update-btn">Update User</button>
-            </form>
-            
-        </div>
-    </div>
-</div>
-
-    
-
     <script src="<?php echo URLROOT?>public/assets/js/navbar.js"></script>
-    <script src="./js/userManagement.js"></script>
+   
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    loadAllUsers();
+});
+
+// Function to load all users
+function loadAllUsers() {
+    fetch('<?php echo URLROOT?>/adminController/getAllUsers')
+        .then(response => {
+            if (!response.ok) {
+                return response.text().then(text => {
+                    console.error('Server returned an error:', text);
+                    throw new Error('Server response was not OK');
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            populateUserTable(data);
+            updateSummaryCards(data);
+        })
+        .catch(error => console.error('Error loading users:', error));
+}
+
+// Function to populate the user table
+function populateUserTable(users) {
+    const tableBody = document.getElementById('userTableBody');
+    tableBody.innerHTML = '';
+    
+    users.forEach(user => {
+        const row = document.createElement('tr');
+        
+        // Status button class based on user status
+        const statusClass = user.status === 'active' ? 'active-status' : 'inactive-status';
+        const actionBtnText = user.status === 'active' ? 'Deactivate' : 'Activate';
+        const actionBtnClass = user.status === 'active' ? 'deactivate-btn' : 'activate-btn';
+        
+        row.innerHTML = `
+            <td>${user.user_name}</td>
+            <td>${user.email}</td>
+            <td>${user.role}</td>
+            <td><span class="status ${statusClass}">${user.status}</span></td>
+            <td>
+                
+                <button class="action-btn ${actionBtnClass}" data-id="${user.user_id}" data-status="${user.status}">
+                    ${actionBtnText}
+                </button>
+            </td>
+        `;
+        
+        tableBody.appendChild(row);
+    });
+    
+    // Add event listeners to buttons
+    addButtonEventListeners();
+}
+
+// Function to add event listeners to action buttons
+function addButtonEventListeners() {
+    // Add event listeners for activation/deactivation buttons
+    document.querySelectorAll('.activate-btn, .deactivate-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const userId = this.getAttribute('data-id');
+            const currentStatus = this.getAttribute('data-status');
+            const newStatus = currentStatus === 'active' ? 'banned' : 'active';
+            
+            toggleUserStatus(userId, newStatus);
+        });
+    });
+    
+    // You can add more event listeners for view and edit buttons as needed
+}
+
+// Function to toggle user status (activate/deactivate)
+function toggleUserStatus(userId, newStatus) {
+    fetch(`<?php echo URLROOT?>adminController/updateUserStatus`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userId: userId,
+            status: newStatus
+        })
+    })
+    .then(response => response.text()) // Get raw text instead of JSON
+    .then(text => {
+        console.log('Raw server response:', text);
+        
+        // Try to parse as JSON
+        try {
+            const data = JSON.parse(text);
+            if (data.success) {
+                loadAllUsers();
+            } else {
+                alert('Failed: ' + data.message);
+            }
+        } catch (e) {
+            console.error('Not valid JSON:', e);
+            alert('Server returned invalid response');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+// Function to search users
+function searchUsers(query) {
+    if (query.trim() === '') {
+        loadAllUsers();
+        return;
+    }
+    
+    fetch(`<?php echo URLROOT?>adminController/searchUsers?query=${encodeURIComponent(query)}`)
+        .then(response => response.json())
+        .then(data => {
+            populateUserTable(data);
+        })
+        .catch(error => console.error('Error searching users:', error));
+}
+
+// Function to update summary cards
+function updateSummaryCards(users) {
+    // Count totals
+    const totalUsers = users.length;
+    const activeUsers = users.filter(user => user.status === 'Active').length;
+    const bannedUsers = users.filter(user => user.status === 'Banned').length;
+    const deactivatedUsers = users.filter(user => user.status === 'Inactive').length;
+    
+    // Calculate new users in last 7 days
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+    
+    const newUsers = users.filter(user => {
+        const createdDate = new Date(user.created_at);
+        return createdDate >= oneWeekAgo;
+    }).length;
+    
+    // Update the card values
+    document.querySelector('.summary-cards .card:nth-child(1) h3').innerHTML = 
+        `Total Users <span class="card-value">${totalUsers}</span>`;
+    
+    document.querySelector('.summary-cards .card:nth-child(2) h3').innerHTML = 
+        `Active Users <span class="card-value">${activeUsers}</span>`;
+    
+    document.querySelector('.summary-cards .card:nth-child(3) h3').innerHTML = 
+        `New Users (Last 7 Days) <span class="card-value">${newUsers}</span>`;
+    
+    document.querySelector('.summary-cards .card:nth-child(4) h3').innerHTML = 
+        `Banned Users <span class="card-value">${bannedUsers}</span>`;
+    
+    document.querySelector('.summary-cards .card:nth-child(5) h3').innerHTML = 
+        `Deactivated Users <span class="card-value">${deactivatedUsers}</span>`;
+}
+    </script>
 
     </body>
 </html> 

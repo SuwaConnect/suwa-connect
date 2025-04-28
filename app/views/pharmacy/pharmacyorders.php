@@ -85,13 +85,13 @@
         </div>
 
         <!-- Search Bar -->
-        <div class="search-bar">
+        <!-- <div class="search-bar">
             <input type="text" class="search-input" placeholder="Search by patient name, doctor name, or order ID...">
             <span class="search-icon">🔍</span>
-        </div>
+        </div> -->
 
         <!-- Action Buttons -->
-        <div class="action-buttons">
+        <!-- <div class="action-buttons">
             <button class="btn btn-primary">
                 <span>➕</span>
                 <span>Create New Order</span>
@@ -100,7 +100,7 @@
                 <span>📥</span>
                 <span>Export Orders</span>
             </button>
-        </div>
+        </div> -->
 
         <!-- Stats Cards -->
         <div class="stats-container">

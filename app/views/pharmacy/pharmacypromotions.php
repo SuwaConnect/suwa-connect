@@ -14,10 +14,9 @@
 <>
 
 <body>
-    <?php include 'pharmacyNavbar.php';?>
-    
 
-<!-- <div class="container"> -->
+
+<?php include 'pharmacynavbar.php'?>
 <div class="main-content">
 
         

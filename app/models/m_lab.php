@@ -29,6 +29,16 @@ class m_lab {
         return $this->db->single();
     }
 
+    public function rejectLab($lab_id){
+        $this->db->query('UPDATE pending_labs SET status="rejected" WHERE id=:id');
+        $this->db->bind(':id',$lab_id);
+        if($this->db->execute()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public function insertApprovedLab($data){
         $this->db->query('INSERT INTO registered_labs(user_id,name, contact_person,  contact_number, lab_reg_number, lab_certificate) 
                VALUES (:user_id,:name, :contact_person,  :contact_number, :lab_reg_number, :lab_certificate)');

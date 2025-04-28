@@ -14,8 +14,7 @@
     
 </head>
 <body>
-<?php include 'pharmacyNavBar.php'?>
-
+<?php include 'pharmacyNavbar.php'?>
     <div class="main-content">
     <!-- <div class="container"> -->
         <!-- Sidebar code remains same as pharmacypromotions.php -->

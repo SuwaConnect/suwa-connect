@@ -256,17 +256,17 @@
         <!-- Patient Header with Basic Info -->
         <div class="patient-header">
             <div class="patient-image">
-                <img src="<?php echo URLROOT;?>public/images/doctor/images/profile.png" alt="Patient Photo">
+                <img src="<?php echo URLROOT;?>public/uploads/profile_pictures/patient/<?php echo $data['patient']->profile_picture_name?>" alt="Patient Photo">
             </div>
             <div class="patient-info">
                 <h2><?php echo $data['patient']->first_name.' '.$data['patient']->last_name;?></h2>
-                <div class="age">Age: <?php echo $data['patient']->age ?? '25';?></div>
+                <div class="age">Age: <?php echo $data['patient']->age ?? 'Not reported';?></div>
                 
                 <!-- Additional Patient Details -->
                 <div class="patient-details">
                     <div class="detail-item">
                         <h4>Blood Type</h4>
-                        <p><?php echo $data['patient']->blood_type ?? 'O+'; ?></p>
+                        <p><?php echo $data['patient']->blood_type ?? 'None reported'; ?></p>
                     </div>
                     <div class="detail-item">
                         <h4>Allergies</h4>
@@ -274,27 +274,16 @@
                     </div>
                     <div class="detail-item">
                         <h4>Chronic Illnesses</h4>
-                        <p><?php echo $data['patient']->chronic_illnesses ?? 'None reported'; ?></p>
+                        <p><?php echo $data['patient']->chronic_conditions ?? 'None reported'; ?></p>
                     </div>
                     <div class="detail-item">
-                        <h4>Health Habits</h4>
-                        <p><?php echo $data['patient']->health_habits ?? 'Regular exercise, non-smoker'; ?></p>
+                        <h4>past surgeries</h4>
+                        <p><?php echo $data['patient']->past_surgeries ?? 'None reported'; ?></p>
                     </div>
                 </div>
                 
                 <!-- Current Medications Section -->
-                <div class="medications">
-                    <h3>Current Medications</h3>
-                    <ul>
-                        <?php if(!empty($data['medications'])): ?>
-                            <?php foreach($data['medications'] as $med): ?>
-                                <li><?php echo $med->name; ?> - <?php echo $med->dosage; ?> (<?php echo $med->frequency; ?>)</li>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <li>No current medications</li>
-                        <?php endif; ?>
-                    </ul>
-                </div>
+                
             </div>
         </div>
 

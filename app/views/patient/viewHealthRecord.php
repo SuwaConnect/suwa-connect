@@ -29,7 +29,7 @@
         </div>
         <div class="patient-details">
           <p>consulted by: </p>
-          <h1><?php echo 'Dr'.$data['doctor']->firstName.' '.$data['doctor']->lastName ?></h1>
+          <h1><?php echo 'Dr. '.$data['doctor']->firstName.' '.$data['doctor']->lastName ?></h1>
           <p>
                 <?php echo $data['doctor']->specialization ;?> 
             </p>
@@ -38,9 +38,7 @@
         </div>
       </div>
       <div class="record-actions">
-        <!-- <button class="action-btn primary-btn">Edit Record</button>
-        <button class="action-btn secondary-btn">Print Record</button>
-        <button class="action-btn danger-btn">Share Record</button> -->
+  
       </div>
     </div>
     
@@ -73,12 +71,7 @@
             <!-- <div class="vital-trend trend-neutral">&#8212;</div> -->
           </div>
           
-          <div class="vital-card">
-            <div class="vital-title">Heart Rate</div>
-            <div class="vital-value">72 <span class="vital-unit">bpm</span></div>
-            <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <!-- <div class="vital-trend trend-down">&#9660; 5</div> -->
-          </div>
+         
           
           <div class="vital-card">
             <div class="vital-title">Temperature</div>
@@ -87,12 +80,7 @@
             <!-- <div class="vital-trend trend-neutral">&#8212;</div> -->
           </div>
           
-          <!-- <div class="vital-card">
-            <div class="vital-title">Oxygen Saturation</div>
-            <div class="vital-value">98 <span class="vital-unit">%</span></div>
-            <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <div class="vital-trend trend-up">&#9650; 2</div>
-          </div> -->
+        
           
           <div class="vital-card">
             <div class="vital-title">Blood Sugar (Fasting)</div>
@@ -115,12 +103,7 @@
             <!-- <div class="vital-trend trend-down">&#9660; 3</div> -->
           </div>
           
-          <div class="vital-card">
-            <div class="vital-title">BMI</div>
-            <div class="vital-value">24.8 <span class="vital-unit"></span></div>
-            <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <!-- <div class="vital-trend trend-down">&#9660; 0.4</div> -->
-          </div>
+         
         </div>
       </div>
     </div>

@@ -58,7 +58,7 @@ public function pharmacyStillnotApproved($email){
 }
 
 public function getApprovedUserByEmail($email) {
-    $this->db->query('SELECT * FROM users WHERE email = :email');
+    $this->db->query('SELECT * FROM users WHERE email = :email AND status = "active"');
     $this->db->bind(':email', $email);
     return $this->db->single();
 }

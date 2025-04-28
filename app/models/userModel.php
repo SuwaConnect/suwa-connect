@@ -108,4 +108,46 @@ public function updatePatientProfilePicture($newFileName,$id,){
     }
 }
 
+// public function searchUser($searchTerm){
+//     $this->db->query("SELECT * FROM users WHERE 
+//                      user_name LIKE :term OR 
+//                      email LIKE :term OR 
+//                      role LIKE :term");
+//     $this->db->bind(':term', '%' . $searchTerm . '%');
+//     $users = $this->db->resultSet();
+//     return $users;
+
+// }
+
+
+public function getAllUsers() {
+    $this->db->query("SELECT * FROM users ORDER BY created_at DESC");
+    return $this->db->resultSet();
+}
+
+// Search users by name, email, or user type
+public function searchUsers($query) {
+    $this->db->query("SELECT * FROM users WHERE 
+                     user_name LIKE :query OR 
+                     email LIKE :query OR 
+                     role LIKE :query
+                     ORDER BY created_at DESC");
+    
+    $this->db->bind(':query', '%' . $query . '%');
+    return $this->db->resultSet();
+}
+
+// Update user status (activate/deactivate)
+public function updateUserStatus($userId, $status) {
+    $this->db->query("UPDATE users SET status = :status WHERE user_id = :userId");
+    $this->db->bind(':status', $status);
+    $this->db->bind(':userId', $userId);
+    
+    
+    if($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
 }

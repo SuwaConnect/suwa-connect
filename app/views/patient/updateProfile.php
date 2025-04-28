@@ -342,17 +342,17 @@
                         
                         <div class="form-group">
                             <label for="chronic-conditions">Chronic Conditions</label>
-                            <textarea id="chronic-conditions" name="chronic_conditions" placeholder="List any chronic conditions you have..." ><?php echo $data['chronic_conditions'] ?? 'patient Name'; ?></textarea>
+                            <textarea id="chronic-conditions" name="chronic_conditions" placeholder="List any chronic conditions you have..." ><?php echo $data['chronic_conditions'] ?? 'None reported'; ?></textarea>
                         </div>
                         
                         <div class="form-group">
                             <label for="allergies">Allergies</label>
-                            <textarea id="allergies" name="allergies" placeholder="List any allergies you have..."><?php echo $data['allergies'] ?? 'patient Name'; ?></textarea>
+                            <textarea id="allergies" name="allergies" placeholder="List any allergies you have..."><?php echo $data['allergies'] ?? 'None reported'; ?></textarea>
                         </div>
                         
                         <div class="form-group">
                             <label for="past-surgeries">Past Surgeries</label>
-                            <textarea id="past-surgeries" name="past_surgeries" placeholder="List any past surgeries with dates if possible..."><?php echo $data['surgeries'] ?? 'patient Name'; ?></textarea>
+                            <textarea id="past-surgeries" name="past_surgeries" placeholder="List any past surgeries with dates if possible..."><?php echo $data['past_surgeries'] ?? 'None reported'; ?></textarea>
                         </div>
                         
                         <!-- <h3 class="section-title">Health Habits</h3> -->

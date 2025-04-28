@@ -19,7 +19,9 @@
   <div class="main-content">
     <div class="header">
       <div class="patient-info">
-        <div class="patient-avatar">JD</div>
+        <div class="patient-avatar">
+          <img src="<?php echo URLROOT?>public/uploads/profile_pictures/patient/<?php echo $data['healthRecord']->profile_picture_name?>" alt="profile picture">
+        </div>
         <div class="patient-details">
           <h1><?php echo $data['healthRecord']->patient_name ?></h1>
           <p>
@@ -68,35 +70,23 @@
             echo ($data['vitalSigns']->systolic . " / " . $data['vitalSigns']->diastolic);} ?>
             <span class="vital-unit">mmHg</span></div>
             <div class="vital-date"><?php
-$date = new DateTime($data['healthRecord']->created_at);
-echo $date->format('jS F, Y H:i');
-?></div>
-            <!-- <div class="vital-trend trend-neutral">&#8212;</div> -->
+                                    $date = new DateTime($data['healthRecord']->created_at);
+                                    echo $date->format('jS F, Y H:i');
+                                    ?>
+            </div>
           </div>
           
-          <!-- <div class="vital-card">
-            <div class="vital-title">Heart Rate</div>
-            <div class="vital-value">72 <span class="vital-unit">bpm</span></div>
-            <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <div class="vital-trend trend-down">&#9660; 5</div>
-          </div> -->
           
           <div class="vital-card">
             <div class="vital-title">Temperature</div>
-            <div class="vital-value"><?php echo $data['vitalSigns']->temperature ?> <span class="vital-unit">°F</span></div>
-            <div class="vital-date"><?php
-$date = new DateTime($data['healthRecord']->created_at);
-echo $date->format('jS F, Y H:i');
-?></div>
-            <!-- <div class="vital-trend trend-neutral">&#8212;</div> -->
+                  <div class="vital-value">
+                    <?php echo $data['vitalSigns']->temperature ?> <span class="vital-unit">°F</span></div>
+                          <div class="vital-date"><?php
+                          $date = new DateTime($data['healthRecord']->created_at);
+                           echo $date->format('jS F, Y H:i');?>
+                  </div>
           </div>
           
-          <!-- <div class="vital-card">
-            <div class="vital-title">Oxygen Saturation</div>
-            <div class="vital-value">98 <span class="vital-unit">%</span></div>
-            <div class="vital-date">Apr 5, 2025 - 10:30 AM</div>
-            <div class="vital-trend trend-up">&#9650; 2</div>
-          </div> -->
           
           <div class="vital-card">
             <div class="vital-title">Blood Sugar (Fasting)</div>
@@ -120,7 +110,7 @@ echo $date->format('jS F, Y H:i');
           
           <div class="vital-card">
             <div class="vital-title">Weight</div>
-            <div class="vital-value"><?php echo $data['vitalSigns']->weight ?> <span class="vital-unit">lbs</span></div>
+            <div class="vital-value"><?php echo $data['vitalSigns']->weight ?> <span class="vital-unit">Kgs</span></div>
             <div class="vital-date"><?php
 $date = new DateTime($data['healthRecord']->created_at);
 echo $date->format('jS F, Y H:i');
@@ -128,15 +118,7 @@ echo $date->format('jS F, Y H:i');
             <div class="vital-trend trend-down">&#9660; 3</div>
           </div>
           
-          <div class="vital-card">
-            <div class="vital-title">BMI</div>
-            <div class="vital-value">24.8 <span class="vital-unit"></span></div>
-            <div class="vital-date"><?php
-$date = new DateTime($data['healthRecord']->created_at);
-echo $date->format('jS F, Y H:i');
-?></div>
-            <div class="vital-trend trend-down">&#9660; 0.4</div>
-          </div>
+          
         </div>
       </div>
     </div>

@@ -43,8 +43,10 @@ foreach ($notifications as $notification):
 
     </div>  
         
-        <script src="<?php echo URLROOT;?>public/assets/js/navbartwo.js"></script>
+        <!-- <script src="<?php echo URLROOT;?>public/assets/js/navbartwo.js"></script> -->
         <script src="<?php echo URLROOT;?>public/assets/js/appoimt.js"></script>
+        <script src="<?php echo URLROOT ?>public/assets/js/doctor/navbar.js"></script>
+
     </body>
 
     </html>
