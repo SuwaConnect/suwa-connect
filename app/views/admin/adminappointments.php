@@ -23,39 +23,25 @@
         <header class="header">
             <h1>Appointments Management</h1>
             <p>Monitor and manage all appointments scheduled between patients and healthcare providers.</p>
-            
-            <!-- Search and Filters -->
-            <div class="search-container">
-                <div class="search-box">
-                    <input type="text" placeholder="Search by patient name, doctor name, appointment date, or status...">
-                    <i class="material-icons-round">search</i>
-                </div>
-                
-            </div>  
-                
         </header>
 
         <!-- Appointments Overview Section -->
         <section class="overview">
             <div class="overview-card">
                 <h3>Total Appointments</h3>
-                <p>8,950 Total Appointments</p>
+                <p><?= $data['totalAppointments'] ?? '0' ?></p>
             </div>
             <div class="overview-card">
                 <h3>Upcoming Appointments</h3>
-                <p>1,200 Upcoming Appointments</p>
+                <p><?= $data['upcomingAppointments'] ?? '0' ?></p>
             </div>
             <div class="overview-card">
                 <h3>Completed Appointments</h3>
-                <p>7,300 Completed Appointments</p>
+                <p><?= $data['completedAppointments'] ?? '0' ?></p>
             </div>
             <div class="overview-card">
                 <h3>Canceled Appointments</h3>
-                <p>450 Canceled Appointments</p>
-            </div>
-            <div class="overview-card">
-                <h3>No-Show Appointments</h3>
-                <p>100 No-Show Appointments</p>
+                <p><?= $data['cancelledAppointments'] ?? '0' ?></p>
             </div>
         </section>
 
@@ -69,33 +55,32 @@
                     <tr>
                         <th>Patient Name</th>
                         <th>Doctor Name</th>
-                        <th>Appointment Date & Time</th>
+                        <th>Appointment Date</th>
                         <th>Status</th>
                         <th>Type of Consultation</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="appointmentsBody">
+                    <?php if (!empty($data['appointments'])): ?>
+                        <?php foreach ($data['appointments'] as $appointment): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($appointment->patient_name); ?></td>
+                                <td><?php echo htmlspecialchars($appointment->doctor_name); ?></td>
+                                <td><?php echo htmlspecialchars($appointment->appointment_date); ?></td>
+                                <td><?php echo htmlspecialchars($appointment->status); ?></td>
+                                <td><?php echo htmlspecialchars($appointment->reason); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="6">No appointments found.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
 
             
         </section>
-
-        <!-- Statistics & Trends Section -->
-        <!-- <section class="statistics">
-            <h2>Appointment Statistics</h2>
-            <div class="stats-chart">
-                <canvas id="appointmentsTrendsChart"></canvas>
-            </div>
-            <div class="stats-list">
-                <h3>Most Booked Doctors</h3>
-                <ul>
-                    <li>Dr. Anil Perera - 150 Appointments in Last 30 Days</li>
-                    <li>Dr. Samara - 130 Appointments in Last 30 Days</li>
-                </ul>
-            </div>
-        </section> -->
 
         <!-- Footer Section -->
         <footer>
