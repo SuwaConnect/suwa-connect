@@ -12,13 +12,13 @@
         </div>
         <ul class="nav-menu">
             <li class="nav-item ">
-                <a href="<?php echo URLROOT;?>admincontroller/home" class="nav-link">
+                <a href="<?php echo URLROOT;?>adminController/home" class="nav-link">
                     <i class="material-icons-round">home</i> <span>Home</span>
                 </a>
             </li>
             <li class="nav-item active">
                 <a href="<?php echo URLROOT;?>adminController/pendingUsers" class="nav-link">
-                    <i class="material-icons-round">group</i> <span>User Management</span>
+                    <i class="material-icons-round">group</i> <span>User Approval</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -27,8 +27,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="<?php echo URLROOT;?>admincontroller/revenue" class="nav-link">
-                    <i class="material-icons-round">paid</i> <span>Revenue</span>
+                <a href="<?php echo URLROOT;?>admincontroller/usermanagement" class="nav-link">
+                <i class="material-icons-round">group</i> <span>User management</span>
                 </a>
             </li>
             <li class="nav-item">

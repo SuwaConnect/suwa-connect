@@ -9,13 +9,17 @@ class adminController extends Controller
    
 
     public function __construct(){
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+        // if (session_status() === PHP_SESSION_NONE) {
+        //     session_start();
+        // }
         $this->adminModel = $this->model('m_doctor');
         $this->userModel = $this->model('userModel');
         $this->pharmacyModel = $this->model('pharmacyModel');
         $this->labModel = $this->model('m_lab');
+    }
+
+    public function index(){
+        $this->view('admin/adminhome');
     }
 
     public function home(){
@@ -134,10 +138,10 @@ class adminController extends Controller
         }
     }
 
-    public function pendingpharmacy(){
-        $data = $this->pharmacyModel->getPendingPharmacies();
-        $this->view('admin/pendingpharmacy', $data);
-    }
+    // public function pendingpharmacy(){
+    //     $data = $this->pharmacyModel->getPendingPharmacies();
+    //     $this->view('admin/pendingpharmacy', $data);
+    // }
 
     public function approvePharmacy() {
         header('Content-Type: application/json');
@@ -193,9 +197,10 @@ class adminController extends Controller
     }
 
     public function rejectPharmacy(){
+        header('Content-Type: application/json');
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $pharmacy_id = $_POST['pharmacy_id'];
-            if($this->adminModel->rejectPharmacy($pharmacy_id)){
+            if($this->pharmacyModel->rejectPharmacy($pharmacy_id)){
                 echo json_encode(['success' => true]);
             } else {
                 echo json_encode(['success' => false, 'error' => 'Failed to reject pharmacy']);
@@ -206,10 +211,10 @@ class adminController extends Controller
     }
 
 
-public function pendingLabs(){
-    $data = $this->labModel->getPendingLabs();
-    $this->view('admin/pendingLab', $data);
-}
+// public function pendingLabs(){
+//     $data = $this->labModel->getPendingLabs();
+//     $this->view('admin/pendingLab', $data);
+// }
 
 public function approveLab(){
     header('Content-Type: application/json');
@@ -265,9 +270,10 @@ public function approveLab(){
 }
 
 public function rejectLab(){
+    header('Content-Type: application/json');
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $lab_id = $_POST['lab_id'];
-        if($this->adminModel->rejectPharmacy($lab_id)){
+        if($this->labModel->rejectLab($lab_id)){
             echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'error' => 'Failed to reject pharmacy']);
@@ -276,4 +282,148 @@ public function rejectLab(){
         echo json_encode(['success' => false, 'error' => 'Invalid request method']);
     }
 }
+
+// public function searchUser() {
+//     try {
+//         header('Content-Type: application/json');
+//         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//             // Get search term
+//             $searchTerm = isset($_POST['query']) ? $_POST['query'] : '';
+            
+//             // Query the database for users matching the search term
+//             $users = $this->adminModel->searchUser($searchTerm);
+            
+//             // Return the users as JSON
+//             header('Content-Type: application/json');
+//             echo json_encode($users);
+            
+//         } else {
+//             throw new Exception('Invalid request method');
+//         }
+//     } catch (Exception $e) {
+//         // Return error response
+//         header('Content-Type: application/json');
+//         echo json_encode([]);
+//         // Log the error
+//         error_log('Search error: ' . $e->getMessage());
+//     }
+// }
+
+
+// public function searchUser() {
+//     // Set the content type to JSON before doing anything else
+//     header('Content-Type: application/json');
+    
+//     try {
+//         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//             // Get search term - check both POST and request body
+//             $searchTerm = '';
+            
+//             if (isset($_POST['query'])) {
+//                 $searchTerm = $_POST['query'];
+//             } else {
+//                 // Try to get data from request body (for fetch API)
+//                 $inputData = json_decode(file_get_contents('php://input'), true);
+//                 if (isset($inputData['query'])) {
+//                     $searchTerm = $inputData['query'];
+//                 }
+//             }
+            
+//             // Query the database for users matching the search term
+//             // This is a placeholder - implement your actual database query
+//             $users = $this->adminModel->searchUser($searchTerm);
+            
+//             // Return the users as JSON
+            
+//             echo $users;
+//             //return $users;
+            
+//         } else {
+//             // Return empty array for invalid method
+//             echo json_encode([]);
+//             exit;
+//         }
+//     } catch (Exception $e) {
+//         // Log the error to a file instead of displaying it
+//         error_log('Search error: ' . $e->getMessage());
+        
+//         // Return empty array with error status
+//         echo json_encode([
+//             'error' => true,
+//             'message' => 'An error occurred while searching'
+//         ]);
+//         exit;
+//     }
+// }
+
+
+public function getAllUsers() {
+   
+    try{
+    $users = $this->userModel->getAllUsers();
+    
+    header('Content-Type: application/json');
+    echo json_encode($users);}
+    catch(Exception $e){
+        echo json_encode(['error' => true, 'message' => 'An error occurred while fetching users']);
+    }
+}
+
+// Search users
+public function searchUsers() {
+    $query = $_GET['query'] ?? '';
+    
+    // $userModel = $this->model('User');
+    $users = $this->userModel->searchUsers($query);
+    
+    header('Content-Type: application/json');
+    echo json_encode($users);
+}
+
+// Update user status (activate/deactivate)
+public function updateUserStatus() {
+    // Get raw POST data
+    try {
+        ini_set('display_errors', 0); // Set to 0 to not output errors directly
+    error_reporting(E_ALL);
+    
+    // Log errors to file instead
+    ini_set('log_errors', 1);
+    ini_set('error_log', 'php_errors.log');
+        $rawData = file_get_contents('php://input');
+    
+    // Log for debugging
+    file_put_contents('debug.log', "Raw data: " . $rawData . "\n", FILE_APPEND);
+    
+    // Decode JSON data
+    $data = json_decode($rawData, true);
+    
+    // Log decoded data
+    file_put_contents('debug.log', "Decoded data: " . print_r($data, true) . "\n", FILE_APPEND);
+    
+    if (!isset($data['userId']) || !isset($data['status'])) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => false, 'message' => 'Missing required parameters']);
+        return;
+    }
+    
+    $userId = $data['userId'];
+    $status = $data['status'];
+    
+    // Initialize or use existing model
+    
+    $success = $this->userModel->updateUserStatus($userId, $status);
+    
+    header('Content-Type: application/json');
+    echo json_encode(['success' => $success, 'message' => $success ? 'Status updated successfully' : 'Failed to update status']);
+        
+    } catch (Exception $e) {
+        // Handle error if needed
+        echo json_encode(['success' => false, 'message' => 'Failed to read input data']);
+        return;
+    }
+    
+}
+
+
 } 

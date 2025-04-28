@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT;?>public/css/doctor/searchDoctor.css"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
     <!-- Add this popup CSS style section to your head tag or add it to your CSS file -->
     <style>

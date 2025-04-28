@@ -46,12 +46,14 @@
 
             <div class="item" id="oldPatients">
                 <h3>Total patients</h3>
+                
                 <p class="count"><?php if (isset($data['total_patients'])):{
                         echo $data['total_patients'];
                     }else:{
                         echo 0;
                     };
                     endif?></p>
+                   
             </div>
 
             <div class="item" id="newPatients">
@@ -95,7 +97,7 @@
         
 
         <div class="appointments">
-    <div class="title">today's sessions</div>
+    <div class="title">Today's sessions</div>
     <?php if(isset($data['todays sessions'])): ?>
         <?php $count = 1; // initialize counter ?>
         <?php foreach($data['todays sessions'] as $appointment): ?>
@@ -115,7 +117,7 @@
 
 
         <div  class="consultations">
-            <div class="title">consultations</div>
+            <div class="title">Upcoming</div>
 
            
                 

@@ -32,10 +32,12 @@ class profileController extends Controller{
                         $this->profileModel->updateProfilePicture($newFileName, $_SESSION['user_id']);
                         if($role == 'doctor'){
                             $this->profileModel->updateDoctorProfilePicture($newFileName, $_SESSION['user_id']);
-                            echo 'success';
+                            // echo 'success';
+                            header('Location: '.URLROOT.'doctor/updateprofile');
                         }else if($role == 'patient'){
                             $this->profileModel->updatePatientProfilePicture($newFileName, $_SESSION['user_id']);
-                            echo 'success';
+                            // echo 'success';
+                            header('Location: '.URLROOT.'patient/updateprofile');
                         
                         } else if($role == 'admin'){
                             $this->profileModel->updateAdminProfilePicture($newFileName, $_SESSION['user_id']);

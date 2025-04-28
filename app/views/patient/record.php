@@ -17,7 +17,7 @@
     <div class="containerf">
         <div class="container">
             <div class="main-content">
-                <h1 style="color: #073aa8;">Welcome back <?php echo $data['patient']->first_name.' '.$data['patient']->last_name?>! </h1>
+                <h1 style="color: #073aa8; font-size:35px;">Welcome back <?php echo $data['patient']->first_name.' '.$data['patient']->last_name?>! </h1>
                 <h4>Here's an overview of your past health records...</h2>
 
                 
@@ -133,7 +133,8 @@ CM</p>
                             <div class="height-container">
                                 <p class="label">Weight</p>
                                 <p class="value"><?php 
-    echo (!empty($data['patient']->weight)) ? $data['patient']->weight : "not checked";
+    $lastrecord = end($data['vitalSigns']);
+    echo (!empty($lastrecord->weight)) ? $lastrecord->weight : "not checked";
 ?>
 KG</p>
                             </div>

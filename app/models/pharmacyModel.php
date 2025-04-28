@@ -74,6 +74,16 @@ class pharmacyModel {
         return $this->db->execute();
     }
 
+    public function rejectPharmacy($pharmacy_id){
+        $this->db->query('UPDATE pending_pharmacy SET status = "rejected" WHERE pharmacy_id = :id');
+        $this->db->bind(':id', $pharmacy_id);
+        if($this->db->execute()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function searchPharmacy($searchTerm){
         $this->db->query('SELECT * FROM approved_pharmacy WHERE pharmacy_name LIKE :searchTerm OR contact_person LIKE :searchTerm  ');
         $this->db->bind(':searchTerm', '%' . $searchTerm . '%');

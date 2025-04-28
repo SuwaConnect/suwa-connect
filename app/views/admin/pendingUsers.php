@@ -161,7 +161,7 @@
                                     <td><?php echo htmlspecialchars($pharmacy->pharmacy_reg_number); ?></td>
                                     <td><?php echo htmlspecialchars($pharmacy->contact_no); ?></td>
                                     <td>
-                                        <a href="<?php echo URLROOT.'uploads/'.$pharmacy->licenseCopyName;?>" target="_blank">
+                                        <a href="<?php echo URLROOT.'uploads/medical_licenses/pharmacy/'.$pharmacy->pharmacy_license_copy;?>" target="_blank">
                                             View License
                                         </a>
                                     </td>
@@ -182,7 +182,7 @@
             <div id="labs" class="tab-content">
                 <div class="table">
                     <h3>Pending Lab Approvals</h3>
-                    <?php if (!empty($labData)): ?>
+                    <?php if (!empty($data['labs'])): ?>
                         <table>
                             <tr>
                                 <th>Name</th>
@@ -192,20 +192,20 @@
                                 <th>License</th>
                                 <th>Actions</th>
                             </tr>
-                            <?php foreach ($labData as $lab): ?>
+                            <?php foreach ($data['labs'] as $lab): ?>
                                 <tr>
                                     <td><?php echo htmlspecialchars($lab->name); ?></td>
                                     <td><?php echo htmlspecialchars($lab->email); ?></td>
-                                    <td><?php echo htmlspecialchars($lab->license_no); ?></td>
-                                    <td><?php echo htmlspecialchars($lab->contact_no); ?></td>
+                                    <td><?php echo htmlspecialchars($lab->lab_reg_number); ?></td>
+                                    <td><?php echo htmlspecialchars($lab->contact_number); ?></td>
                                     <td>
-                                        <a href="<?php echo URLROOT.'uploads/'.$lab->licenseCopyName;?>" target="_blank">
+                                        <a href="<?php echo URLROOT.'uploads/medical_licenses/lab_license/'.$lab->lab_certificate;?>" target="_blank">
                                             View License
                                         </a>
                                     </td>
                                     <td>
-                                        <button id="approve-btn" onclick="approveLab(<?php echo $lab->lab_id; ?>)">Approve</button>
-                                        <button id="reject-btn" onclick="rejectLab(<?php echo $lab->lab_id; ?>)">Reject</button>
+                                        <button id="approve-btn" onclick="approveLab(<?php echo $lab->id; ?>)">Approve</button>
+                                        <button id="reject-btn" onclick="rejectLab(<?php echo $lab->id; ?>)">Reject</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
