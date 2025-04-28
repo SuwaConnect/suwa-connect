@@ -23,9 +23,7 @@ class patientController extends Controller {
         $this->view('patient/confirmRequest');
     }
 
-    public function report() {
-        $this->view('patient/report');
-    }
+    
 
     public function appointments() {
 
@@ -102,6 +100,26 @@ class patientController extends Controller {
         $this->view('patient/bookAppointment');
     }
 
+    public function updateProfile() {
+        $patient = $this->patientModel->getPatientByUserId($_SESSION['user_id']);
+
+        $data=[
+            'first_name' => $patient->first_name,
+            'last_name' => $patient->last_name,
+            'contact_no' => $patient->contact_no,
+            'address' => $patient->address,
+            'email' => $patient->email,
+            'height' => $patient->height,
+            'blood_type' => $patient->blood_type,
+            'chronic_conditions' => $patient->chronic_conditions,
+            'allergies' => $patient->allergies,
+            'past_surgeries' => $patient->past_surgeries,
+            'additional_health_notes' => $patient->additional_health_notes
+
+        ];
+        $this->view('patient/updateProfile',$data);
+    }
+
     public function searchDoctorToMakeAppointment(){
         $this->view('patient/searchDoctor');
     }
@@ -128,16 +146,16 @@ public function patientRegister() {
         $errors = [];
         
         // Sanitize and validate inputs
-        $firstName = trim($_POST['first_name']);
-        $lastName = trim($_POST['last_name']);
-        $nic = trim($_POST['nic']);
-        $gender = trim($_POST['gender']);
+        $firstName = $_POST['first_name'];
+        $lastName = $_POST['last_name'];
+        $nic = $_POST['nic'];
+        $gender = $_POST['gender'];
         $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-        $contactNo = trim($_POST['contact_no']);
-        $dateOfBirth = trim($_POST['dob']);
-        $address = trim($_POST['address']);
-        $password = trim($_POST['password']);
-        $confirmPassword = trim($_POST['confirm_password']);
+        $contactNo = $_POST['contact_no'];
+        $dateOfBirth = $_POST['dob'];
+        $address = $_POST['address'];
+        $password = $_POST['password'];
+        $confirmPassword = $_POST['confirm_password'];
 
         // Validate required fields
         if(empty($firstName)) $errors['first_name'] = 'First name is required';
@@ -473,8 +491,47 @@ public function createLabAppointment() {
     }
 }
 
+public function updateProfileInfo(){
+    try{
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $firstName = $_POST['firstname'];
+        $lastName = $_POST['lastname'];
+        $contactNo = $_POST['contact_no'];
+        $address = $_POST['address'];
+        $height = $_POST['height'];
+        $blood_type = $_POST['blood_type'];
+        $chronic_conditions = $_POST['chronic_conditions'];
+        $allergies = $_POST['allergies'];
+        $past_surgeries = $_POST['past_surgeries'];
+        $additionalhealth_notes = $_POST['health_notes'];
+
+        $patient_id = $this->patientModel->getPatientByUserId($_SESSION['user_id'])->patient_id;
+        
+        $data=[
+            'patient_id' => $patient_id,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'contact_no' => $contactNo,
+            'address' => $address,
+            'height' => $height,
+            'blood_type' => $blood_type,
+            'chronic_conditions' => $chronic_conditions,
+            'allergies' => $allergies,
+            'past_surgeries' => $past_surgeries,
+            'additionalhealth_notes' => $additionalhealth_notes
+
+        ];
+        if($this->patientModel->updatePatientProfile($data)){
+            header('Location: ' . URLROOT . 'patientController/updateProfile');
+        } 
+    
+}}catch (Exception $e) {
+    // Handle exception (e.g., log the error, show an error message)
+    echo "Error: " . $e->getMessage();
+}
 
 
 
+}
 
 }

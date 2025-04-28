@@ -17,12 +17,8 @@
     <div class="containerf">
         <div class="container">
             <div class="main-content">
-                <h1>Welcome Back <?php echo $data['patient']->first_name?>! </h1>
-                <h2> Summary of your Recent Health Records</h2>
-
-                <p id="current-date"></p>
-
-                <h4> Overview of your health metrics from the latest appointment.</h4><br>
+                <h1 style="color: #073aa8; font-size:35px;">Welcome back <?php echo $data['patient']->first_name.' '.$data['patient']->last_name?>! </h1>
+                <h4>Here's an overview of your past health records...</h2>
 
                 <div class="boxes">
                     <div class="box">
@@ -31,7 +27,14 @@
                             <h3>Blood Sugar</h3>
                         </div>
                         <div class="box-data">
-                            <span class="value"><?php echo end($data['vitalSigns'])->blood_sugar?></span>
+                            <span class="value"><?php 
+                                                    if (!empty($data['vitalSigns']) && end($data['vitalSigns'])->blood_sugar !== null) {
+                                                        echo end($data['vitalSigns'])->blood_sugar;
+                                                    } else {
+                                                        echo "not checked";
+                                                    }
+                                                ?>
+                            </span>
                             <span class="unit">mg/dL</span>
                         </div>
                         <img src="<?php echo URLROOT?>public/assets/images/Health Records/BSgraph.png" alt="Graph" class="graph-icon">
@@ -43,7 +46,14 @@
                             <h3>Blood Pressure</h3>
                         </div>
                         <div class="box-data">
-                            <span class="value"><?php echo end($data['vitalSigns'])->systolic .'/'. end($data['vitalSigns'])->diastolic?></span>
+                            <span class="value"><?php 
+    if (!empty($data['vitalSigns']) && end($data['vitalSigns'])->systolic !== null && end($data['vitalSigns'])->diastolic !== null) {
+        echo end($data['vitalSigns'])->systolic . '/' . end($data['vitalSigns'])->diastolic;
+    } else {
+        echo "not checked";
+    }
+?>
+</span>
                             <span class="unit">mmHg</span>
                         </div>
                         <img src="<?php echo URLROOT?>public/assets/images/Health Records/BPgraph.png" alt="Graph" class="graph-icon">
@@ -55,7 +65,13 @@
                             <h3>Cholesterol</h3>
                         </div>
                         <div class="box-data">
-                            <span class="value"><?php echo end($data['vitalSigns'])->cholesterol?></span>
+                            <span class="value"><?php 
+    if (!empty($data['vitalSigns']) && end($data['vitalSigns'])->cholesterol !== null) {
+        echo end($data['vitalSigns'])->cholesterol;
+    } else {
+        echo "not checked";
+    }
+?></span>
                             <span class="unit">mg/dL</span>
                         </div>
                         <img src="<?php echo URLROOT?>public/assets/images/Health Records/HRgraph.png" alt="Graph" class="graph-icon">
@@ -94,10 +110,10 @@
         <div class="side-box">
             <div class="bmi-calculator">
                 <h3>BMI Calculator</h3>
-                <select class="dropdown">
+                <!-- <select class="dropdown">
                     <option value="last-week">Last Week</option>
                     <option value="last-month">Last Month</option>
-                </select>
+                </select> -->
             </div>
             <div class="boxes-wrapper">
                 <div class="smallboxset">
@@ -105,7 +121,10 @@
                         <div class="text-container">
                             <div class="height-container">
                                 <p class="label">Height</p>
-                                <p class="value">170cm</p>
+                                <p class="value"><?php 
+    echo (!empty($data['patient']->height)) ? $data['patient']->height : "not checked";
+?>
+CM</p>
                             </div>
                         </div>
                     </div>
@@ -113,7 +132,11 @@
                         <div class="text-container">
                             <div class="height-container">
                                 <p class="label">Weight</p>
-                                <p class="value"><?php echo end($data['vitalSigns'])->weight?>KG</p>
+                                <p class="value"><?php 
+    $lastrecord = end($data['vitalSigns']);
+    echo (!empty($lastrecord->weight)) ? $lastrecord->weight : "not checked";
+?>
+KG</p>
                             </div>
                         </div>
                     </div>
@@ -123,13 +146,31 @@
                     <div class="bmititle">
                         <h3>Body Mass Index</h3>
                         <div class="bmi-info">
-                            <div class="bmi-value"><?php echo end($data['vitalSigns'])->weight?></div>
-                            <button class="status">You are Healthy</button>
+                            <div class="bmi-value">
+                            <?php $bmi =null;
+    if (!empty($data['vitalSigns']) && !empty($data['patient']->height)) {
+        
+        $weight = end($data['vitalSigns'])->weight;
+        $height = $data['patient']->height / 100; 
+        $bmi = $weight / ($height * $height);
+        echo floor($bmi);
+    } else {
+        echo "not checked";
+    }
+?>
+</div>
+                            <button class="status"><?php 
+                    if (!is_null($bmi)) {
+                        echo ($bmi > 27.5) ? 'You are unhealthy' : 'You are healthy';
+                    } else {
+                        echo 'BMI not available';
+                    }
+                ?></button>
                         </div>
                         <div class="slider-container">
                             <div class="slider">
                                 <div class="slider-track">
-                                    <div class="slider-thumb" style="left: 80%;"></div>
+                                    <!-- <div class="slider-thumb" style="left: 50%;"></div> -->
                                 </div>
                             </div>
                             <div class="slider-label">
@@ -148,7 +189,7 @@
     </div>
 
     <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js" ></script>
-    <script src="<?php echo URLROOT?>public/assets/js/record.js"></script>
+    <!-- <script src="public/assets/js/record.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
 document.addEventListener('DOMContentLoaded', function() {

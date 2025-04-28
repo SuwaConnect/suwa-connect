@@ -13,7 +13,7 @@
 </head>
 <body>
    
-    <?php include 'navbarbhagya.php'; ?>
+    <?php include 'pharmacyNavbar.php'; ?>
 
     
     <div class="main-content">
@@ -29,7 +29,7 @@
                             echo URLROOT.'public/images/doctor/images/profile.png';
                         }?>" alt="Doctor profile">
                 </div>
-                <div class="doctor-name">Dr. <?php echo $data['doctor']->firstName.' '.$data['doctor']->lastName ?? 'Doctor Name'; ?></div>
+                <div class="doctor-name"><?php echo $data['pharmacy']->pharmacy_name; ?></div>
                 
                 <form action="<?php echo URLROOT?>profileController/changeProfilePicture" method="POST" enctype="multipart/form-data">
                     <div class="upload-options">
@@ -44,84 +44,69 @@
             
             <!-- Profile Details Section -->
             <div class="profile-details">
-                <form action="<?php echo URLROOT;?>doctor/updateProfileInfo" method="post">
+                <form action="<?php echo URLROOT;?>pharmacyController/updateProfileInfo" method="post">
                 <!-- Personal Information -->
                 <div class="card">
-                    <h2 class="section-title">Personal Information</h2>
+                    <h2 class="section-title">Pharmacy Information</h2>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="firstname">First Name</label>
-                            <input type="text" id="firstname" name="firstname" placeholder="Enter your first name"  value="<?php echo $data['doctor']->firstName ?? 'Doctor Name'; ?>">
+                            <label for="firstname">pharmacy Name</label>
+                            <input type="text" id="firstname" name="pharmacy_name" placeholder="Enter your first name" value="<?php echo $data['pharmacy']->pharmacy_name ?? 'Doctor Name'; ?>">
                         </div>
                         
                         <div class="form-group">
-                            <label for="lastname">Last Name</label>
-                            <input type="text" id="lastname" name="lastname" placeholder="Enter your last name"  value="<?php echo $data['doctor']->lastName ?? 'Doctor Name'; ?>">
+                            <label for="lastname">Owner Name</label>
+                            <input type="text" id="lastname" name="owner_name" placeholder="Enter your last name" value="<?php echo $data['pharmacy']->contact_person ?? 'Doctor Name'; ?>">
                         </div>
                         
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email" readonly value="<?php echo $data['doctor']->email ?? 'No email provided'; ?>">
-                        </div> 
-                        
-                        <div class="form-group">
-                            <label for="specialization">Specialization</label>
-                            <input type="text" id="specialization" name="specialization" placeholder="Enter your medical specialization" value="<?php echo $data['doctor']->specialization ?? 'No specialization given'; ?>">
-                        </div>
-                        
+                      
                         <div class="form-group">
                             <label for="contact1">Primary Contact Number</label>
-                            <input type="tel" id="contact1" name="contact1" placeholder="Enter your primary contact number" value="<?php echo $data['doctor']->contact_no ?? 'Doctor Name'; ?>">
+                            <input type="tel" id="contact1" name="contact1" placeholder="Enter your primary contact number" value="<?php echo $data['pharmacy']->contact_no ?? 'Doctor Name'; ?>">
                         </div>
                         
                         <div class="form-group">
                             <label for="contact2">Secondary Contact Number</label>
-                            <input type="tel" id="contact2" name="contact2" placeholder="Enter your secondary contact number (optional)" value="<?php echo $data['doctor']->contact_no2 ?? 'Not added'; ?>">
+                            <input type="tel" id="contact2" name="contact2" placeholder="Enter your secondary contact number (optional)" value="<?php echo $data['pharmacy']->contact_no2 ?? 'Not added'; ?>">
                         </div>
                         
                         <div class="form-group">
-                            <label for="license">Medical License No.</label>
-                            <input type="text" id="license" name="licenseNo" placeholder="Enter your medical license number" readonly value="<?php echo $data['doctor']->slmc_no ?? 'No medical license provided'; ?>">
+                            <label for="license">Pharmacy License No.</label>
+                            <input type="text" id="license" name="licenseNo" placeholder="Enter your medical license number" value="<?php echo $data['pharmacy']->pharmacy_reg_number ?? 'No medical license provided'; ?>" disabled>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Clinic Address -->
                 <div class="card">
-                    <h2 class="section-title">Clinic Address</h2>
+                    <h2 class="section-title">Pharmacy Address</h2>
                     <div class="form-group full-width">
                         <div class="address-inputs">
                             <div>
                                 <label for="street">Street</label>
-                                <input type="text" id="street" name="street" placeholder="Street address" value="<?php echo $data['doctor']->street ?? 'No address provided'; ?>">
+                                <input type="text" id="street" name="street" placeholder="Street address" value="<?php echo $data['pharmacy']->street ?? 'No address provided'; ?>">
                             </div>
                             <div>
                                 <label for="city">City</label>
-                                <input type="text" id="city" name="city" placeholder="City" value="<?php echo $data['doctor']->city ?? 'No city provided'; ?>">
+                                <input type="text" id="city" name="city" placeholder="City" value="<?php echo $data['pharmacy']->city ?? 'No city provided'; ?>">
                             </div>
                             <div>
                                 <label for="state">State/Province</label>
-                                <input type="text" id="state" name="state" placeholder="State or Province" value="<?php echo $data['doctor']->state ?? 'No state provided'; ?>">
+                                <input type="text" id="state" name="state" placeholder="State or Province" value="<?php echo $data['pharmacy']->state ?? 'No state provided'; ?>">
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Bio -->
-                <div class="card">
-                    <h2 class="section-title">Professional Bio</h2>
-                    <div class="form-group full-width">
-                        <textarea id="bio" name="bio" placeholder="Share your professional background and expertise here..." ><?php echo $data['doctor']->bio; ?></textarea>
-                    </div>
-                </div>
+              
 
                 <div class="card">
                     <div class="form-group">
-                    <h2 class="section-title">Appointment Details</h2>
-                    <label for="appointment-charge">Consultation Charges</label>
-                    <input type="text" id="appointment-charge" name="appointment_charges" placeholder="Enter your appointment charges" value="<?php echo $data['doctor']->appointment_charges ?? 'No appointment charge provided'; ?>">
-
-                   <a href="<?php echo URLROOT .'appointmentController/manageSessions';?>" class="update-btn">Edit Sessions</a>
+                    <h2 class="section-title">Operating hours</h2>
+                    <label for="appointment-charge">From</label>
+                    <input type="time" id="appointment-charge" name="start_time" placeholder="Enter opening time" value="<?php echo $data['pharmacy']->start_time ?? 'No time provided'; ?>">
+                    <label for="appointment-charge">To</label>
+                    <input type="time" id="appointment-charge" name="end_time" placeholder="Enter closing time" value="<?php echo $data['pharmacy']->end_time ?? 'No time provided'; ?>">
                     
                     </div>
                    
@@ -160,13 +145,13 @@
                 
                 <!-- Submit Button -->
                 <div class="submit-container">
-                    <button type="submit" class="update-btn">Change Password</button>
+                    <button type="submit" class="update-btn">change password</button>
                 </div>
                 </form>
             </div>
         </div>
-    </div>
-    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+
+        <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
     
     <script>
         document.getElementById("profileInput").addEventListener("change", function(event) {

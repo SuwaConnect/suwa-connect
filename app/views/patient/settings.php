@@ -38,7 +38,7 @@
         
             </div>
 
-            <div class="setting-card" >
+            <div class="setting-card" id="account-settings">
                 <div class="setting-title">Account Settings</div>
                 <div class="setting-item change-password">
                 <span>Change Password</span>
@@ -92,12 +92,14 @@
         });
 
         document.getElementById('manage-health-info').addEventListener('click', function() {
-        window.location.href = '<?php echo URLROOT?>patientcontroller/managehealthinfo';
+        window.location.href = '<?php echo URLROOT?>patientcontroller/updateProfile';
         });
 
         document.getElementById('manage-access').addEventListener('click', function() {
         window.location.href = '<?php echo URLROOT?>patientcontroller/manageaccess';
         });
+
+        
 
     </script>
 

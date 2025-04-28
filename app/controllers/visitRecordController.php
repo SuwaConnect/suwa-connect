@@ -396,7 +396,7 @@ public function viewpatientprofile($patientId){
         'patient' => $patient
     ];
     
-    $this->view('doctor/patientProfile', $data);
+    $this->view('doctor/patientProfile',$data);
 
 
 }

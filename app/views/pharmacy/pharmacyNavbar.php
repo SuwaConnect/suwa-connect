@@ -22,6 +22,7 @@
         <a href="<?php echo URLROOT?>pharmacycontroller/viewPendingOrders" class="nav-link">
             <i class="material-icons-round">medical_services</i> <span> Orders </span>
         </a>
+        </li>
 
     <li class="nav-item">
         <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyAddPromo" class="nav-link">
@@ -30,16 +31,18 @@
     </li>
 
     <li class="nav-item">
-        <a href="<?php echo URLROOT?>pharmacycontroller/pharmacyNotifications" class="nav-link">
+        <a href="<?php echo URLROOT?>pharmacycontroller/viewConfirmedOrders" class="nav-link">
+            <i class="material-icons-round">medical_services</i> <span> Confirmed Orders </span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a href="<?php echo URLROOT?>notificationsController/index" class="nav-link">
             <i class="material-icons-round">assignment</i> <span>Notifications </span>
         </a>
     </li>
 
-    <!-- <li class="nav-item">
-        <a href="pharmacycontroller/pharmacyAddPromo" class="nav-link">
-            <i class="material-icons-round">assignment</i> <span>Revenue </span>
-        </a>
-    </li> -->
+    
 
 
 

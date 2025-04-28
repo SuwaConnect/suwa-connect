@@ -138,6 +138,14 @@ public function getTotalPatientsForDoctor($user_id){
     return $row->count;
 }
 
+public function getTodaysSessions($user_id){
+    $doctor_id = $this->getDoctorIdByUserId($user_id);
+    $this->db->query('SELECT * FROM doctor_sessions WHERE doctor_id = :doctor_id AND session_date = DAYNAME(CURDATE()) ');
+    $this->db->bind(':doctor_id', $doctor_id);
+    $results = $this->db->resultSet();
+    return $results;
+}
+
 public function getAppointments($user_id){
     $doctor_id = $this->getDoctorIdByUserId($user_id);
     $this->db->query("SELECT a.*, p.first_name, p.last_name ,t.slot_time
@@ -191,5 +199,7 @@ public function updateProfileInfo($doctor_id,$data){
         return false;
     }
 }
+
+
 
 }
