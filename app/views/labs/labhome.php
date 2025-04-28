@@ -9,18 +9,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
-    <link rel="stylesheet" href="<?php echo URLROOT ?>public/assets/css/lab/navbar.css">
+    <link rel="stylesheet" href="public/assets/css/lab/navbar.css">
     <link rel="stylesheet" href="<?php echo URLROOT ?>public/assets/css/lab/dashboard.css">
 
     <title>Suwa-Connect</title>
 </head>
 
 <body>
-<?php include "labNavbar.php"; ?>
+<?php include "new-labnavBar.php";?>
 
-    <div class="page-wrapper">
+    <!-- <div class="page-wrapper">
         
-        <div class="content-area">
+        <div class="content-area"> -->
             <div class="main-content">
                 <header>
                     <h1>Welcome to Laboratory Dashboard <?php echo $_SESSION['user_name']; ?></h1>
@@ -114,11 +114,13 @@
                     <p>&copy; 2024 Suwa Connect. All rights reserved.</p>
                 </footer>
             </div>
-        </div>
+        <!-- </div> -->
 
-        <script src="<?php echo URLROOT ?>public/assets/js/doctor/navbar.js"></script>
-        <script src="<?php echo URLROOT ?>public/assets/js/lab/dashboard.js"></script>
-    </div>
+        <!-- <script src="public/assets/js/doctor/navbar.js"></script> -->
+        <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+
+        <script src="<?php echo URLROOT;?>public/assets/js/lab/dashboard.js"></script>
+    <!-- </div> -->
 </body>
 
 </html>

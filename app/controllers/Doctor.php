@@ -21,9 +21,13 @@ class Doctor extends Controller
              'total_patients' => $this->doctorModel->getTotalPatientsForDoctor($_SESSION['user_id']),
              'patients_consulted' => $this->doctorModel->getCountOfPatientsConsulted($_SESSION['user_id']),
              'todays sessions' => $this->doctorModel->getTodaysSessions($_SESSION['user_id']),
+             'appointmentDates' => $this->doctorModel->getAppointmentDates($_SESSION['user_id']),
+             'upcoming_appointments' => $this->doctorModel->getUpcomingAppointments($_SESSION['user_id']),
         ];
 
         $this->view('doctor/doctor_homepage',$data);
+        //var_dump($data['appointmentsDates']);
+        //var_dump($data['upcoming_appointments']);
         
     }
 

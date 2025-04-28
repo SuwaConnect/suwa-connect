@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
+
 <div class="sidebar">
         <div class="logo">
             <img src="<?php echo URLROOT;?>public/assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">

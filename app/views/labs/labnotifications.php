@@ -9,8 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
    
-    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/lab/navbar.css">
-    <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/lab/dashboard.css">
+    <!-- <link rel="stylesheet" href="public/assets/css/lab/navbar.css"> -->
+    <!-- <link rel="stylesheet" href="public/assets/css/lab/dashboard.css"> -->
     <link rel="stylesheet" href="<?php echo URLROOT?>public/assets/css/lab/notification.css">
 
     <title>Suwa-Connect</title>
@@ -18,7 +18,7 @@
 
 <body>
 
-<?php include "labNavbar.php";?>
+<?php include "new-labnavBar.php";?>
 
     <div class="main-content">  
     <div class="container">
@@ -113,7 +113,7 @@
     </footer> 
     </div>
     <script src="<?php echo URLROOT?>public/assets/js/doctor/navbar.js"></script>
-    <script src="<?php echo URLROOT?>public/assets/js/doctor/notifications.js"></script>
+    <script src="public/assets/js/doctor/notifications.js"></script>
 
 </body>
 

@@ -1,19 +1,42 @@
 /* General Layout */
 
-body {
+*{
     margin: 0;
-    padding-left: 250px; /* Adjust this to match the width of your vertical navbar */
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    
+}
+
+body{
+    display: flex;
+    /* height: 100vh; */
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 
-/* Main content adjustment when sidebar is expanded */
-.main-content.expanded {
-    margin-left: 250px; /* This matches the expanded sidebar width */
-}
 
-/* Main content adjustment when sidebar is collapsed */
+
 .main-content {
-    margin-left: 80px; /* This matches the collapsed sidebar width */
+    background-color: #e6f2ff;
+    color:#2e2e2e;
+    padding: 20px;
+    margin-left: 250px; /* To make space for the sidebar */
+    padding: 20px;
+    width: calc(100% - 250px); /* Take the remaining width */
+    overflow-y: auto; /* Enable scrolling if content overflows vertically */
+    flex-grow: 1;
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth transition for content resize */
+}
+
+.sideBar.collapsed + .main-content{
+
+    margin-left:80px;
+    width: calc(100% - 80px);
+    overflow-y: auto;
 }
 
 .page-wrapper {

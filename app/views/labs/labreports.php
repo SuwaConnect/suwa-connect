@@ -16,7 +16,8 @@
 </head>
 
 <body>
-<?php include "labNavbar.php";?>
+<?php include "new-labnavBar.php";?>
+<div class="main-content">
     <div class="container">
         <h1 class="page-title">Lab Reports</h1>
 
@@ -71,6 +72,7 @@
             <a href="#"></a>
         </footer>
     </div>
+    </div>
     
 
     <!-- JavaScript -->
@@ -85,7 +87,7 @@
             });
         }
     </script>
-    <script src="<?php echo URLROOT;?>public/assets/js/doctor/navbar.js"></script>
+    <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
     <script src="<?php echo URLROOT; ?>public/assets/js/lab/labReports.js"></script>
     </body>
     </html>
