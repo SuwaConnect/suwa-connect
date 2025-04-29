@@ -534,6 +534,11 @@ public function requests(){
             'tests' => $tests,
         ]);
     }
+    public function createform(){
+        $labModel = $this->model('m_lab');
+
+        $this->dashboard(); 
+    }
     
     
     

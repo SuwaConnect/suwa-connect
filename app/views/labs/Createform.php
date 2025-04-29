@@ -21,7 +21,7 @@
 <div class="create-report-container">
   <h2>Create Lab Test Report</h2>
 
-  <form id="reportForm" action="<?php echo URLROOT; ?>/reportcontroller/createReport" method="POST">
+  <form id="reportForm" action="<?php echo URLROOT; ?>/labController/createReport" method="POST">
   <fieldset>
     <legend>Test Details</legend>
 
@@ -65,6 +65,7 @@
       <input type="text" name="flag[]">
     </div>
   </fieldset>
+  <input type="hidden" name="test_id" value="<?= htmlspecialchars($data['test']->test_id) ?>">
 
   <button type="button" onclick="generateReport()">Generate Report</button>
 </form>
