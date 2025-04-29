@@ -8,6 +8,39 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <style>
+        .popup-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5); /* semi-transparent black */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Popup box */
+.popup-content {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+}
+
+.popup-content p {
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+#closePopup {
+    padding: 8px 20px;
+    font-size: 16px;
+}
+    </style>
 </head>
 <body>
     <?php include 'navbarbhagya.php'; ?>
@@ -122,6 +155,13 @@
         </table>
     </div>
     </div>
+
+    <div id="popupMessage" class="popup-message" style="display: none;">
+    <div class="popup-content">
+        <p id="popupText"></p>
+        <button id="closePopup" class="btn btn-primary">OK</button>
+    </div>
+</div>
     
     <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
 
@@ -135,6 +175,63 @@
             document.getElementById('addSessionForm').style.display = 'none';
             document.getElementById('sessionForm').reset();
         });
+
+        
+    document.getElementById('showAddForm').addEventListener('click', function() {
+        document.getElementById('addSessionForm').style.display = 'block';
+    });
+    
+    document.getElementById('cancelAdd').addEventListener('click', function() {
+        document.getElementById('addSessionForm').style.display = 'none';
+        document.getElementById('sessionForm').reset();
+    });
+
+    // Form submit with popup message
+    document.getElementById('sessionForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // stop normal submit
+
+        const form = this;
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            showPopup(data.message);
+            if (data.status === 'success') {
+                // After OK, reload the page
+                document.getElementById('closePopup').onclick = function() {
+                    hidePopup();
+                    window.location.reload();
+                };
+            } else {
+                document.getElementById('closePopup').onclick = function() {
+                    hidePopup();
+                };
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showPopup('Something went wrong. Please try again.');
+            document.getElementById('closePopup').onclick = function() {
+                hidePopup();
+            };
+        });
+    });
+
+    // Popup show/hide functions
+    function showPopup(message) {
+        document.getElementById('popupText').innerText = message;
+        document.getElementById('popupMessage').style.display = 'flex';
+    }
+
+    function hidePopup() {
+        document.getElementById('popupMessage').style.display = 'none';
+    }
+</script>
+
     </script>
 </body>
 </html>

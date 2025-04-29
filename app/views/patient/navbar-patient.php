@@ -27,11 +27,7 @@
                     <i class="material-icons-round">file_copy</i> <span>Health Records</span>
                 </a>
             </li>
-            <!-- <li class="nav-item ">
-                <a href="patientcontroller/report" class="nav-link">
-                    <i class="material-icons-round">monitor</i> <span>Reports</span>
-                </a>
-            </li> -->
+            
             <li class="nav-item">
                 <a href="<?php echo URLROOT?>notificationsController/index" class="nav-link">
                     <i class="material-icons-round">notifications</i> <span>Notifications</span>
@@ -42,11 +38,7 @@
                     <i class="material-icons-round">settings</i> <span>Settings</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="<?php echo URLROOT?>patientcontroller/support" class="nav-link">
-                    <i class="material-icons-round">contact_support</i> <span>Support</span>
-                </a>
-            </li>
+            
             <li class="nav-item" id="logout">
                 <a href="<?php echo URLROOT?>logincontroller/logout" class="nav-link">
                     <i class="material-icons-round">logout</i> <span>Logout</span>

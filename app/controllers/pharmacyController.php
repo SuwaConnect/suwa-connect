@@ -33,8 +33,10 @@ class pharmacyController extends Controller {
             'total_orders' => $this->pharmacyModel->getTotalOrders($pharmacy_id),
             'pending_orders' => $this->pharmacyModel->getAllPendingOrdersForPharmacy($pharmacy_id),
             'completed_orders' => $this->pharmacyModel->getAllCompletedOrdersForPharmacy($pharmacy_id),
-            'cancelled_orders' => $this->pharmacyModel->getAllCancelledOrdersForPharmacy($pharmacy_id),];
+            'cancelled_orders' => $this->pharmacyModel->getAllCancelledOrdersForPharmacy($pharmacy_id),
+            'unprocessed_orders' => $this->pharmacyModel->getNotprocessedOrdersForPharmacy($pharmacy_id),];
         $this->view('pharmacy/pharmacyhome', $data);
+        //var_dump($data['unprocessed_orders']);
     }
 
     public function pharmacyOrders() {
@@ -175,11 +177,7 @@ class pharmacyController extends Controller {
                 $data['error'] = 'No file selected.';
             }
     
-            // Get the other form data
-            //$name = isset($_POST['name']) ? $_POST['name'] : '';
-            //$contact_person = isset($_POST['contact_person']) ? $_POST['contact_person'] : '';
-            //$contact_number = isset($_POST['contact_number']) ? $_POST['contact_number'] : '';
-            //$lab_reg_number = isset($_POST['pharmacy_reg_number']) ? $_POST['pharmacy_reg_number'] : '';
+            
             $password = isset($_POST['password']) ? $_POST['password'] : '';
             $confirm_password = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
             $termsAccepted = isset($_POST['terms']) ? 1 : 0;
@@ -301,6 +299,27 @@ public function updateOrderStatus($order_id = null) {
     
     exit();
 }
+
+public function markOrderAsProcessed() {
+    header('Content-Type: application/json');
+
+    // Read POST first
+    $order_id = $_POST['order_id'] ?? null;
+
+    // Now validate
+    if (empty($order_id)) {
+        echo json_encode(['success' => false, 'message' => 'Order ID is missing']);
+        exit();
+    }
+    
+    $isProcessed = $this->pharmacyModel->markOrderAsProcessed($order_id);
+
+    // Return JSON response
+    echo json_encode(['success' => $isProcessed]);
+    exit();
+}
+
+
 
 public function updateProfileInfo(){
     try{

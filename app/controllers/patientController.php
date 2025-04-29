@@ -530,8 +530,19 @@ public function updateProfileInfo(){
     echo "Error: " . $e->getMessage();
 }
 
-
-
 }
+
+public function viewpatientHistory($patient_id){
+    $vitalSigns = $this->patientModel->getRecentVitalSigns($patient_id);
+    $data= [
+        'vitalSigns' => $vitalSigns,
+        'patient_id' => $patient_id
+    ];
+
+    //var_dump($data['vitalsigns']);
+    $this->view('doctor/viewpatientHistory',$data);
+}
+
+
 
 }

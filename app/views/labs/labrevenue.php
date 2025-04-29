@@ -18,7 +18,7 @@
 
 <body>
 
-<?php include "labNavbar.php";?>
+<?php include "new-labnavBar.php";?>
 
     <div class="main-content">
     <section class="billing-section">

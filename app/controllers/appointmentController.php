@@ -168,33 +168,7 @@ public function __construct(){
         }
     }
     
-    // public function markAppointmentAsCompleted() {
-    //     // Check if request is AJAX
-    //     if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || $_SERVER['HTTP_X_REQUESTED_WITH'] != 'XMLHttpRequest') {
-    //         echo json_encode(['success' => false, 'message' => 'Invalid request']);
-    //         return;
-    //     }
-        
-    //     try {
-    //         $appointmentId = $_POST['appointment_id'] ?? null;
-            
-    //         if (!$appointmentId) {
-    //             echo json_encode(['success' => false, 'message' => 'Appointment ID is required']);
-    //             return;
-    //         }
-            
-    //         $result = $this->appointmentModel->markAppointmentAsCompleted($appointmentId);
-            
-    //         if ($result) {
-    //             echo json_encode(['success' => true, 'message' => 'Appointment marked as completed']);
-    //         } else {
-    //             echo json_encode(['success' => false, 'message' => 'Failed to update appointment status']);
-    //         }
-            
-    //     } catch (Exception $e) {
-    //         echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-    //     }
-    // }
+    
 
     public function manageSessions() {
         //Get the doctor ID from the logged-in user
@@ -213,11 +187,11 @@ public function __construct(){
 
     public function addSession() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            header('Content-Type: application/json'); // Tell browser we are sending JSON
+    
             try {
-                //$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-                
                 $doctorId = $this->appointmentModel->getDoctorIdByUserId($_SESSION['user_id'])->doctor_id;
-                //var_dump($doctorId);
+    
                 $data = [
                     'doctor_id' => $doctorId,
                     'session_date' => $_POST['weekdays'],
@@ -225,8 +199,7 @@ public function __construct(){
                     'end_time' => $_POST['endTime'],
                     'max_patients' => $_POST['maxPatients']
                 ];
-                
-                
+    
                 // Check for existing sessions at this time
                 $overlappingSessions = $this->appointmentModel->checkOverlappingSessions(
                     $doctorId,
@@ -234,24 +207,36 @@ public function __construct(){
                     $data['start_time'],
                     $data['end_time']
                 );
-                
+    
                 if ($overlappingSessions) {
-                    echo 'Error: You already have a session scheduled during this time slot.';
+                    echo json_encode([
+                        'status' => 'error',
+                        'message' => 'You already have a session scheduled during this time slot.'
+                    ]);
                     return;
                 }
-                
+    
                 // If no overlapping sessions, proceed with adding
                 if ($this->appointmentModel->addSession($data)) {
-                    echo 'Session added successfully';
+                    echo json_encode([
+                        'status' => 'success',
+                        'message' => 'Session added successfully.'
+                    ]);
                 } else {
-                    echo 'Failed to add session';
+                    echo json_encode([
+                        'status' => 'error',
+                        'message' => 'Failed to add session.'
+                    ]);
                 }
             } catch (Exception $e) {
-                echo $e->getMessage();
+                echo json_encode([
+                    'status' => 'error',
+                    'message' => 'Something went wrong: ' . $e->getMessage()
+                ]);
             }
         }
-        //echo 'Session added successfully';
     }
+    
 
     public function deleteSession($sessionId) {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

@@ -9,7 +9,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
         
-        <link rel="stylesheet" href="<?php echo URLROOT;?>public/assets/css/navbartwo.css">
+        <!-- <link rel="stylesheet" href="public/assets/css/navbartwo.css"> -->
         <link rel="stylesheet" href="<?php echo URLROOT;?>public/assets/css/noti.css">
 
         <title>Suwa-Connect</title>
@@ -17,10 +17,10 @@
 
     <body> 
         
-    <?php include "labNavbar.php";?>
+    <?php include "new-labnavBar.php";?>
 
 
-    <div class="main-container">
+    <div class="main-content">
         <h1>Notifications</h1>
         <?php 
 $notificationsCount = 0; // Counter for the notifications
@@ -45,7 +45,7 @@ foreach ($notifications as $notification):
         
         <!-- <script src="<?php echo URLROOT;?>public/assets/js/navbartwo.js"></script> -->
         <script src="<?php echo URLROOT;?>public/assets/js/appoimt.js"></script>
-        <script src="<?php echo URLROOT ?>public/assets/js/doctor/navbar.js"></script>
+        <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
 
     </body>
 

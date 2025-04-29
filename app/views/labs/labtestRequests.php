@@ -10,8 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     
-    <link rel="stylesheet" href="<?php echo URLROOT;?>public/assets/css/lab/navbar.css">
-    <link rel="stylesheet" href="<?php echo URLROOT;?>public/assets/css/lab/dashboard.css">
+   
     <link rel="stylesheet" href="<?php echo URLROOT;?>public/assets/css/lab/userManagement.css">
 
 
@@ -20,7 +19,7 @@
 
 <body>
 
-<?php include "labNavbar.php";?>
+<?php include "new-labNavBar.php";?>
 
     <div class="main-content">
     
@@ -88,7 +87,10 @@
             <a href="#"></a>
         </footer> 
   </div>
+</div>
 
-  <script src="<?php echo URLROOT;?>public/assets/js/doctor/navbar.js"></script>
+  <!-- <script src="public/assets/js/doctor/navbar.js"></script> -->
+  <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
+
 </body>
 </html>

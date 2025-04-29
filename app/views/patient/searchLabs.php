@@ -304,13 +304,13 @@ body{
         <?php if (!empty($data)): ?>
             <?php foreach ($data as $lab): ?>
                 <div class="lab-card">
-                    <img src="" alt="<?php echo $lab->name; ?>" class="pharmacy-image">
+                    <img src="<?php echo URLROOT?>/public/uploads/profile_pictures/lab/OIP.jpg" alt="<?php echo $lab->name; ?>" class="pharmacy-image">
                     <div class="pharmacy-details">
                         <h3 class="pharmacy-name"><?php echo $lab->name; ?></h3>
-                        <p class="pharmacy-address"><?php echo $lab->name; ?></p>
+                        <p class="pharmacy-address">Boralasgamuwa, Colombo</p>
                         <div class="pharmacy-info">
-                            <span class="operating-hours">Open: <?php echo $lab->name; ?></span>
-                            <span class="phone-number"><?php echo $lab->name; ?></span>
+                            <span class="operating-hours">Open: 8.oo - 5.00</span>
+                            <span class="phone-number">011-4567856</span>
                         </div>
                         <a href="<?php echo URLROOT; ?>patientController/makeLabAppointment/<?php echo $lab->lab_id; ?>" class="view-details">Select lab</a>
                     </div>
@@ -394,29 +394,19 @@ body{
                     const labCard = document.createElement('div');
                     labCard.className = 'pharmacy-card';
                     
-                    // Create services badges if services exist
-                    // let servicesBadges = '';
-                    // if (pharmacy.services) {
-                    //     const servicesArray = pharmacy.services.split(',');
-                    //     servicesArray.forEach(service => {
-                    //         servicesBadges += `<span class="badge">${service.trim()}</span>`;
-                    //     });
-                    // }
                     
                     // Set the image source - use placeholder if no image
-                    const imageUrl = lab.image_url && lab.image_url.trim() !== '' 
-                        ? lab.image_url 
-                        : '/api/placeholder/400/320';
+                    const imageUrl = "<?php echo URLROOT?>/public/uploads/profile_pictures/lab/OIP.jpg";
                     
                     // Build the HTML for the pharmacy card
                     labCard.innerHTML = `
                         <img src="${imageUrl}" alt="${lab.name}" class="pharmacy-image">
                         <div class="pharmacy-details">
                             <h3 class="pharmacy-name">${lab.name}</h3>
-                            <p class="pharmacy-address"></p>
+                            <p class="pharmacy-address">boralasgamuwa , colombo</p>
                             <div class="pharmacy-info">
-                                <span class="operating-hours">Open: </span>
-                                <span class="phone-number"></span>
+                                <span class="operating-hours">Open:8.00 - 5.00 </span>
+                                <span class="phone-number">077-7865789</span>
                             </div>
                             
                             <a href="<?php echo URLROOT;?>patientController/makeLabAppointment/${lab.lab_id}" class="view-details">Select lab</a>

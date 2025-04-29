@@ -146,6 +146,44 @@ public function getTodaysSessions($user_id){
     return $results;
 }
 
+public function getAppointmentDates($user_id) {
+    $doctor_id = $this->getDoctorIdByUserId($user_id);
+    
+    // Get unique dates only (using DATE() and DISTINCT)
+    $this->db->query('SELECT DISTINCT DATE(appointment_date) as app_date 
+                     FROM appointments 
+                     WHERE doctor_id = :doctor_id
+                     AND status= "SCHEDULED"');
+    
+    $this->db->bind(':doctor_id', $doctor_id);
+    
+    // Return all results as an array
+    $results = $this->db->resultSet();
+    
+    // Convert to simple array of date strings
+    $dates = [];
+    foreach($results as $row) {
+        $dates[] = $row->app_date;
+    }
+    
+    return $dates;
+}
+
+public function getUpcomingAppointments($user_id){
+    $doctor_id = $this->getDoctorIdByUserId($user_id);
+    $this->db->query("SELECT a.appointment_id,a.appointment_date, p.first_name, p.last_name,p.contact_no ,p.dob
+                      FROM appointments a
+                      JOIN patients p ON a.patient_id = p.patient_id
+                      WHERE a.doctor_id = :user_id 
+                      AND a.status = 'SCHEDULED' 
+                      AND a.appointment_date = CURDATE() 
+                      ORDER BY a.created_at ASC
+                      LIMIT 4");
+    $this->db->bind(':user_id', $doctor_id);
+    $results = $this->db->resultSet();
+    return $results;
+}
+
 public function getAppointments($user_id){
     $doctor_id = $this->getDoctorIdByUserId($user_id);
     $this->db->query("SELECT a.*, p.first_name, p.last_name ,t.slot_time
@@ -199,6 +237,8 @@ public function updateProfileInfo($doctor_id,$data){
         return false;
     }
 }
+
+
 
 
 

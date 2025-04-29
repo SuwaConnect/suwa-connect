@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="<?php echo URLROOT; ?>public/css/doctor/navbarcssbhagya.css">
+
 <div class="sidebar">
         <div class="logo">
             <img src="<?php echo URLROOT;?>public/assets/images/Suwa-Connect Logo.png" alt="Suwa-Connect Logo">
@@ -64,14 +66,6 @@
                 </a>
             </li>
 
-            <!-- <div class="profile-section">
-            <a href="profile.php" class="profile-icon" id="logoutButton">
-                <img src="assets/images/navbar/user.png" alt="Profile Picture">
-            </a>
-            <div class="profile-text">
-                <p>Welcome Back,<br> <span class="user-name">Sahan</span></p>
-            </div>
-            </div>
-        </ul> -->
+            
         
     </div>

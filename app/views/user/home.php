@@ -22,12 +22,11 @@
         <div class="nav-links">
             <a href="#" class="active">Home</a>
             <a href="#features">Features</a>
-            <a href ="<?php echo URLROOT;?>doctor/doctorLogIn">Doctors & Professionals</a>
-            <a href ="<?php echo URLROOT;?>labcontroller/labsignin">Labs</a>
-            <a href ="<?php echo URLROOT;?>pharmacycontroller/pharmacysignin">Pharmacies</a>
+            <a href ="<?php echo URLROOT;?>homecontroller/doctor_landing">Doctors & Professionals </a>
+            <a href ="<?php echo URLROOT;?>homecontroller/organization_landing">Labs & Pharmacies</a> 
             <a href="#faqs">FAQs</a>
             <button id="signinbutton" class="btn-primary" onclick="window.location.href='<?php echo URLROOT; ?>homecontroller/patientSignIn';">Sign In</button>
-            <button id="signupbutton" class="btn-secondary" onclick="window.location.href='<?php echo URLROOT; ?>homecontroller/patientSignUp';">Sign Up</button>
+            <button id="signupbutton" class="btn-secondary" onclick="window.location.href='<?php echo URLROOT?>homecontroller/selectActor';">Sign Up</button>
         </div>
     </nav>
 

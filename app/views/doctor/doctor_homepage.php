@@ -99,16 +99,19 @@
         <div class="appointments">
     <div class="title">Today's sessions</div>
     <?php if(isset($data['todays sessions'])): ?>
-        <?php $count = 1; // initialize counter ?>
+        <?php $count = 1; ?>
         <?php foreach($data['todays sessions'] as $appointment): ?>
             <div class="name">
-                <?php echo 'Session '.$count.': ' ?>
+                <?php echo 'Session '.$count.': '; ?>
             </div>
-            <div class="time"><?php 
-            $start = date('G.i', strtotime($appointment->start_time));
-            $end = date('G.i', strtotime($appointment->end_time));
-            echo $start.'  -  '. $end?></div>
-            <?php $count++; // increment counter ?>
+            <div class="time">
+                <?php 
+                $start = date('g:i A', strtotime($appointment->start_time));
+                $end = date('g:i A', strtotime($appointment->end_time));
+                echo $start.'  -  '. $end;
+                ?>
+            </div>
+            <?php $count++; ?>
         <?php endforeach; ?>
     <?php else: ?>
         <div class="name">No appointments</div>
@@ -116,23 +119,33 @@
 </div>
 
 
-        <div  class="consultations">
-            <div class="title">Upcoming</div>
 
-           
+<div class="consultations">
+    <div class="title">Upcoming appointments</div>
+    
+    <?php if(!empty($data['upcoming_appointments'])): ?>
+        <?php foreach($data['upcoming_appointments'] as $appointment): ?>
+            <div class="appointment-item">
+                <div class="name"><?php echo $appointment->first_name . ' ' . $appointment->last_name; ?></div>
+                <div class="dob"><?php
+    $dob = $appointment->dob;
+    $dobDate = new DateTime($dob); // Create a DateTime object from DOB
+    $today = new DateTime();        // Current date
+    $age = $today->diff($dobDate)->y; // Calculate the difference in years
+    echo $age . ' years';
+    ?><div class="gender">
+    
+</div></div>
                 
-                    <div class="name"></div>
-                    <div class="time"></div>
-                
-                <!-- <div class="name">No consultations for today.</div> -->
-               
+                <div class="contact"><?php echo $appointment->contact_no?></div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="no-appointments">No upcoming appointments today</div>
+    <?php endif; ?>
+</div>
 
-            <!-- <div class="name">john</div>
-            <div class="time">8.00 AM</div> -->
-
-        </div>
-
-        <div  class="upcoming">
+        <!-- <div  class="upcoming">
             <div class="title">upcoming events</div>
 
             <div class="name">doctor's meet</div>
@@ -146,14 +159,86 @@
 
            
            
-        </div>
+        </div> -->
 
       </div>
     </div>
 
     <script src="<?php echo URLROOT;?>public/js/doctor/js/navbar.js"></script>
-    <script src="<?php echo URLROOT;?>public/js/doctor/js/calender.js"></script>
+    <!-- <script src="public/js/doctor/js/calender.js"></script> -->
+ <script>
 
+    var appointmentDates = <?php echo json_encode($data['appointmentDates']); ?>; // PHP array to JS
+
+    const daysContainer = document.getElementById('days');
+const monthYear = document.getElementById('monthYear');
+const prevMonthBtn = document.getElementById('prevMonth');
+const nextMonthBtn = document.getElementById('nextMonth');
+
+//var appointmentDates = ["2025-04-28", "2025-04-30", "2025-05-02"]; // Example appointments
+
+let currentMonth = new Date().getMonth(); // 0-indexed
+let currentYear = new Date().getFullYear();
+
+// Correct renderCalendar
+function renderCalendar(month, year) {
+    daysContainer.innerHTML = ''; // Clear previous days
+
+    const firstDay = new Date(year, month, 1).getDay(); // Day index of 1st of the month
+    const daysInMonth = new Date(year, month + 1, 0).getDate(); // Number of days in month
+
+    // Update Month and Year title correctly
+    monthYear.textContent = `${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year}`;
+
+    // Blank cells for first row
+    for (let i = 0; i < firstDay; i++) {
+        const blankDiv = document.createElement('div');
+        blankDiv.classList.add('day');
+        daysContainer.appendChild(blankDiv);
+    }
+
+    // Create day cells
+    for (let day = 1; day <= daysInMonth; day++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.classList.add('day');
+        dayDiv.textContent = day;
+
+        // Format current date string to compare
+        let dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+        // If appointment exists for this date, mark red
+        if (appointmentDates.includes(dateStr)) {
+            dayDiv.style.backgroundColor = 'red';
+            dayDiv.style.color = 'white';
+        }
+
+        daysContainer.appendChild(dayDiv);
+    }
+}
+
+// Previous Month button
+prevMonthBtn.addEventListener('click', () => {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    renderCalendar(currentMonth, currentYear);
+});
+
+// Next Month button
+nextMonthBtn.addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    renderCalendar(currentMonth, currentYear);
+});
+
+// Initial render
+renderCalendar(currentMonth, currentYear);
+ </script>
 </body>
 
 
