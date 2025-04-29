@@ -75,7 +75,7 @@
     Download
 </button>
 <?php } else { ?>
-    <button class="view-btn">Notify</button>
+    <!-- <button class="view-btn">Notify</button> -->
 <?php } ?>
 
 </td>
@@ -136,58 +136,6 @@
 
         <button type="submit">Create Invoice</button>
     </form>
-</section>
-
-
-
-
-
-  <section class="notifications">
-    <h2>Notifications</h2>
-    <ul>
-      <li><strong>Overdue:</strong> Invoice INV002 for Jane Smith is overdue by 3 days.</li>
-      <li><strong>Reminder Sent:</strong> Invoice INV003 for Peter Parker.</li>
-    </ul>
-  </section>
-
-  <section class="reports">
-    <h2>Generate Reports</h2>
-    <form>
-      <label for="report-type">Report Type:</label>
-      <select id="report-type">
-        <option value="daily-revenue">Daily Revenue</option>
-        <option value="pending-payments">Pending Payments</option>
-        <option value="service-revenue">Service-wise Revenue</option>
-      </select>
-
-      <label for="date-range">Date Range:</label>
-      <input type="date" id="start-date"> to <input type="date" id="end-date">
-
-      <button type="submit" class="generate-report-btn">Generate Report</button>
-    </form>
-  </section>
-
-  <section class="refunds-discounts">
-    <h2>Refunds & Discounts</h2>
-    <form>
-      <label for="invoice-number-refund">Invoice Number:</label>
-      <input type="text" id="invoice-number-refund" placeholder="Enter Invoice Number" />
-
-      <label for="refund-amount">Refund Amount:</label>
-      <input type="number" id="refund-amount" placeholder="Enter Refund Amount" />
-
-      <label for="reason">Reason:</label>
-      <textarea id="reason" placeholder="Enter Reason for Refund"></textarea>
-
-      <button type="submit" class="process-refund-btn">Process Refund</button>
-    </form>
-  </section>
-
-  <section class="faqs">
-    <h2>FAQs</h2>
-    <p><strong>How do I mark an invoice as paid?</strong> Navigate to the invoice list, select the invoice, and click 'Mark as Paid'.</p>
-    <p><strong>Can I edit an invoice after it's generated?</strong> Yes, you can edit invoices within 24 hours of creation.</p>
-  </section>
 </section>
 
     
