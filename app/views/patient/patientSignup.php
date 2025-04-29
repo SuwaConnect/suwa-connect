@@ -51,6 +51,15 @@
             </div>
 
             <div class="input-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" 
+                    value="<?php echo isset($_POST['dob']) ? htmlspecialchars($_POST['dob']) : ''; ?>">
+                <?php if(isset($data['errors']['dob'])): ?>
+                    <span class="error"><?php echo $data['errors']['dob']; ?></span>
+                <?php endif; ?>
+            </div>
+
+            <div class="input-group">
                 <label>Gender</label>
                 <div class="radio-group">
                     <label class="radio-label">
@@ -68,6 +77,7 @@
                     <span class="error"><?php echo $data['errors']['gender']; ?></span>
                 <?php endif; ?>
             </div>
+
         </div>
 
         <div class="form-column">
@@ -100,14 +110,14 @@
                 <?php endif; ?>
             </div>
 
-            <div class="input-group">
+            <!-- <div class="input-group">
                 <label for="dob">Date of Birth</label>
                 <input type="date" id="dob" name="dob" 
                     value="<?php echo isset($_POST['dob']) ? htmlspecialchars($_POST['dob']) : ''; ?>">
                 <?php if(isset($data['errors']['dob'])): ?>
                     <span class="error"><?php echo $data['errors']['dob']; ?></span>
                 <?php endif; ?>
-            </div>
+            </div> -->
 
             <h3>Account Information</h3>
             
