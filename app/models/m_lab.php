@@ -432,18 +432,19 @@ public function getRefundsDiscounts($lab_id) {
 
 
 public function getLabInvoices($lab_id) {
-    $this->db->query("SELECT 
-                          lab_invoices.invoice_id, 
-                          patients.first_name AS patient_name, 
-                          lab_invoices.created_at AS invoice_date, 
-                          lab_invoices.total_amount, 
-                          lab_invoices.status
-                      FROM lab_invoices
-                      JOIN patients ON lab_invoices.patient_id = patients.patient_id
-                      WHERE lab_invoices.lab_id = :lab_id");
+    $this->db->query("SELECT  
+                      lab_invoices.invoice_id,  
+                      patients.first_name AS patient_name,  
+                      lab_invoices.created_at AS invoice_date,  
+                      lab_invoices.total_amount,  
+                      lab_invoices.status 
+                  FROM lab_invoices 
+                  LEFT JOIN patients ON lab_invoices.patient_id = patients.patient_id 
+                  WHERE lab_invoices.lab_id = :lab_id");
 
     $this->db->bind(':lab_id', $lab_id);
-    return $this->db->resultSet(); // Returns an array of objects
+    // $this->db->execute();
+    return $this->db->resultSet();
 }
 
 

@@ -376,7 +376,7 @@ public function requests(){
     }
 
     public function labRevenue(){
-
+try{
         $labModel = $this->model('m_lab');
         $lab_id = $labModel->getLabByUserId($_SESSION['user_id'])->lab_id; // Get the lab ID from the session
     
@@ -388,16 +388,18 @@ public function requests(){
 
 
         $getLabInvoices = $labModel->getLabInvoices($lab_id);
-        // Passing the data to the view
-
-
         $this->view('labs/labRevenue',[
             'totalRevenueToday' => $totalRevenueToday,
             'pendingPayments' => $pendingPayments,
             'totalInvoices' => $totalInvoices,
             'refundsDiscounts' => $refundsDiscounts,
             'getLabInvoices' => $getLabInvoices,
-        ]);
+        ]);}
+        catch (Exception $e) {
+            // Handle the exception (e.g., log it, show an error message, etc.)
+            echo 'Error: ' . $e->getMessage();
+        }
+       
     }
 
     public function viewinvoice() {
@@ -425,15 +427,14 @@ public function requests(){
         // Check if all form fields are set
         if (isset($_POST['invoice_id']) && isset($_POST['payment_method']) && isset($_POST['payment_amount'])) {
             // Get the form data
+            $labModel = $this->model('m_lab');
             $invoice_id = $_POST['invoice_id'];  // Correct variable name
             $paymentMethod = $_POST['payment_method'];
             $amount = $_POST['payment_amount'];
     
             // Get lab_id from session (ensure the session is started)
-            $lab_id = $_SESSION['lab_id']; // Make sure lab_id is set in the session.
-    
-            // Initialize the lab model
-            $labModel = $this->model('m_lab');
+            $lab_id = $labModel->getLabByUserId($_SESSION['user_id'])->lab_id; // Make sure lab_id is set in the session.
+            
     
             // Step 1: Find the invoice using the invoice_id
             $invoice = $labModel->getInvoiceById($invoice_id);  // Use correct method
