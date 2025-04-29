@@ -61,7 +61,7 @@
                         
                         <div class="form-group">
                             <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" placeholder="Enter your email" readonly value="<?php echo $data['doctor']->email ?? 'No email provided'; ?>">
+                            <input type="email" id="email" name="email" placeholder="Enter your email" readonly value="<?php echo $data['user']->email ?? 'No email provided'; ?>">
                         </div> 
                         
                         <div class="form-group">

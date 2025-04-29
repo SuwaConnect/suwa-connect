@@ -18,7 +18,7 @@
 <body> 
     <?php include "adminNavbar.php";?>
 
-    <div class="main-container">
+    <div class="main-content">
         <h1>Admin Notifications</h1>
         
         <?php 

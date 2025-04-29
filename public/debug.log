@@ -1,0 +1,28 @@
+Raw data: {"userId":"108","status":"banned"}
+Decoded data: Array
+(
+    [userId] => 108
+    [status] => banned
+)
+
+Raw data: {"userId":"108","status":"active"}
+Decoded data: Array
+(
+    [userId] => 108
+    [status] => active
+)
+
+Raw data: {"userId":"98","status":"banned"}
+Decoded data: Array
+(
+    [userId] => 98
+    [status] => banned
+)
+
+Raw data: {"userId":"98","status":"active"}
+Decoded data: Array
+(
+    [userId] => 98
+    [status] => active
+)
+
